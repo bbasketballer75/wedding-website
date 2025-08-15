@@ -1,10 +1,13 @@
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Allura, Cormorant_Garamond, Inter } from 'next/font/google';
 import Script from 'next/script';
+import React from 'react';
 import { AudioProvider } from '../components/AmbientSoundSystem';
 import { EnhancedErrorBoundary } from '../components/EnhancedErrorBoundary';
 import { ToastProvider } from '../components/MagicalToastSystem';
+import WeddingAnalytics from '../components/performance/WeddingAnalytics';
 import ServiceWorkerRegistration from '../components/ServiceWorkerRegistration';
 import '../styles/core/modern-2025-design.css';
 import './globals.css';
@@ -154,12 +157,36 @@ export default function RootLayout({
           Skip to navigation
         </a>
         <ServiceWorkerRegistration />
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX', {
+              page_title: document.title,
+              page_location: window.location.href,
+              send_page_view: true
+            });
+          `}
+        </Script>
+
+        {/* Wedding-specific Analytics */}
         <Script src="/analytics.js" strategy="afterInteractive" />
         <Script src="/utils/performanceMonitor.js" strategy="afterInteractive" />
+
+        {/* Vercel Analytics & Speed Insights */}
+        <Analytics />
         <SpeedInsights />
         <AudioProvider>
           <ToastProvider>
             <EnhancedErrorBoundary componentName="RootLayout" sessionStart={Date.now()}>
+              <WeddingAnalytics />
               {children}
             </EnhancedErrorBoundary>
           </ToastProvider>

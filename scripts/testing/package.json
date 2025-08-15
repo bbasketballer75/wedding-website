@@ -1,0 +1,10 @@
+{
+  "name": "mobile-test",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test:mobile": "node scripts/testing/mobile-responsiveness-test.mjs",
+    "test:mobile:local": "node scripts/testing/mobile-responsiveness-test.mjs http://localhost:3000",
+    "test:mobile:prod": "node scripts/testing/mobile-responsiveness-test.mjs https://www.theporadas.com"
+  }
+}
