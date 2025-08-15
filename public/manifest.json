@@ -1,0 +1,39 @@
+{
+  "name": "Austin & Jordyn's Wedding Website",
+  "short_name": "The Poradas",
+  "description": "Austin & Jordyn's wedding celebration. Share memories, photos, and guest messages!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#9caf88",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["lifestyle", "photo", "social"],
+  "screenshots": [
+    {
+      "src": "/images/landing-bg.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/rings/PoradaProposal-255.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/images/rings/PoradaProposal-286.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

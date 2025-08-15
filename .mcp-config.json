@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "wedding-photos": {
+      "command": "npx",
+      "args": ["tsx", "./mcp-servers/wedding-photos-server.ts"],
+      "cwd": ".",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "wedding-content": {
+      "command": "npx",
+      "args": ["tsx", "./mcp-servers/wedding-content-server.ts"],
+      "cwd": ".",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  }
+}

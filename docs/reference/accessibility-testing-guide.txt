@@ -1,0 +1,95 @@
+COMPREHENSIVE ACCESSIBILITY TESTING GUIDE
+=========================================
+
+1. KEYBOARD NAVIGATION TESTING
+==============================
+□ Test Tab navigation through all interactive elements
+□ Test Shift+Tab (reverse navigation)
+□ Test Enter/Space activation of buttons and links
+□ Test Arrow keys in menus and carousels
+□ Test Escape key to close modals/dropdowns
+□ Verify focus indicators are visible and clear
+□ Test skip links (should appear on first Tab)
+
+Commands to test:
+- Tab: Move forward through interactive elements
+- Shift+Tab: Move backward through interactive elements
+- Enter: Activate buttons and links
+- Space: Activate buttons and checkboxes
+- Arrow Keys: Navigate within components
+- Escape: Close modals, dropdowns, menus
+
+2. SCREEN READER TESTING
+========================
+Windows (NVDA - Free):
+□ Download from nvaccess.org
+□ Press Ctrl+Alt+N to start
+□ Navigate with Tab and Arrow keys
+□ Listen for proper announcements
+
+macOS (VoiceOver - Built-in):
+□ Press Cmd+F5 to start
+□ Use VO+Arrow keys to navigate
+□ Use VO+Space to activate elements
+
+Key things to verify:
+□ Page landmarks are announced (main, nav, footer)
+□ Headings are properly structured (h1 → h2 → h3)
+□ Form labels are clearly announced
+□ Images have descriptive alt text
+□ Error messages are announced
+□ Status updates are announced
+
+3. VISUAL ACCESSIBILITY TESTING
+===============================
+□ Test with Windows High Contrast mode
+□ Test with browser zoom up to 200%
+□ Verify text is readable at all sizes
+□ Check color contrast meets WCAG AA standards
+□ Test focus indicators are visible
+□ Verify content reflows properly when zoomed
+
+4. MOBILE ACCESSIBILITY TESTING
+===============================
+□ Test touch targets are at least 44px
+□ Test with TalkBack (Android) or VoiceOver (iOS)
+□ Verify pinch-to-zoom is enabled
+□ Test landscape and portrait orientations
+□ Check that content doesn't get cut off
+□ Test with one-handed operation
+
+5. COGNITIVE ACCESSIBILITY
+==========================
+□ Test with motion reduced (prefers-reduced-motion)
+□ Verify clear error messages
+□ Check for consistent navigation
+□ Ensure sufficient time for interactions
+□ Test with JavaScript disabled
+
+TESTING CHECKLIST
+==================
+□ All images have appropriate alt text
+□ All form inputs have associated labels
+□ All interactive elements are keyboard accessible
+□ Focus indicators are clearly visible
+□ Color is not the only way to convey information
+□ Text has sufficient contrast (4.5:1 minimum)
+□ Page has proper heading structure
+□ Skip links are present and functional
+□ Error messages are clear and helpful
+□ Content is understandable and predictable
+
+AUTOMATED TESTING TOOLS
+========================
+□ Lighthouse accessibility audit
+□ axe DevTools browser extension
+□ WAVE Web Accessibility Evaluator
+□ Colour Contrast Analyser
+□ Custom accessibility audit script
+
+MANUAL TESTING SCHEDULE
+========================
+□ Weekly: Keyboard navigation spot checks
+□ Monthly: Full screen reader testing
+□ Quarterly: Complete accessibility audit
+□ Before releases: Full manual testing cycle

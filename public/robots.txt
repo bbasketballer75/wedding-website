@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://theporadas.com/sitemap.xml
+
+# Block admin areas
+Disallow: /admin
+Disallow: /api/admin
+
+# Allow search engines to index everything else
+Allow: /guestbook
+Allow: /album
+Allow: /wedding-party
+Allow: /maps

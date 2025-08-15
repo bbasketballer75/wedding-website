@@ -1,0 +1,189 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Firebase debug logs
+firebase-debug.log*
+firestore-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# Google Cloud service account keys
+gcp-service-account.json
+**/gcp-service-account.json
+gcs-key.json
+**/gcs-key.json
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+*storybook.log
+storybook-static
+
+# Local Vercel folder
+.vercel
+
+# VSCode Anthropic config
+.vscode/anthropic-config.json
+
+# Copilot and Anthropic context/config files
+.copilot_context.txt
+.vscode/.copilot_context.txt
+
+# Sentry Config File
+.env.sentry-build-plugin
+
+# Service account keys and credentials (SECURITY)
+backend/config/*-key.json
+backend/config/gcp-service-account.json
+backend/config/service-account*.json
+*.pem
+*.p12
+**/credentials.json
+**/service-account*.json
+
+.vercel
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel/
+
+# Coverage
+coverage/
+
+# Cache
+.cache/
+.tmp/
+
+# Build artifacts (auto-added by git-cleanup.ps1)
+node_modules/
+.next/
+out/
+backend/node_modules/
+backend/coverage/
+.vercel/
+*.log
+.env.local
+.env.*.local
+connection-monitor.log*
+
+# Vercel environment configuration files
+vercel-env-variables.json
+**/vercel-env-variables.json
+
+# Million Lint
+.million
+
+# Backup and temporary files (prevent future duplicate accumulation)
+*.backup
+*.old
+*.bak
+*.tmp
+*.temp
+*~
+.#*
+
+# Editor temporary files
+.vscode/settings.json.tmp
+.vscode/tasks.json.tmp
+
+# Debug and error logs
+*.log
+logs/
+ERROR*LOGS*/
+connection-monitor.log
+firebase-debug.log
+firestore-debug.log
+temp-private-key.txt
+
+# Root directory organization - prevent clutter accumulation
+# Status and completion files that should be in docs/status/
+*-COMPLETE.md
+*-STATUS.md
+*-IMPLEMENTATION-*.md
+*-DEPLOYMENT-*.md
+*-OPTIMIZATION-*.md
+*-CONFIGURATION-*.md
+*-ANALYSIS-*.md
+*-GUIDE.md (root only, docs/ are allowed)
+*-CHECKLIST.md (root only)
+*-SUMMARY.md (root only)
+*-REPORT.md (root only)
+*-SUCCESS.md
+*-FIXED.md
+*-RESOLVED.md
+
+# Log files that should be in logs/
+mcp-*.log*
+connection-monitor.log*
+sentry-monitoring-*.txt
+*.log.err
+
+# Environment files that should be in config/environment/
+vercel-env-*.txt
+vercel-env-*.json
+*ENV*.txt (root only)
+
+# Scripts that should be in scripts/
+setup-*.ps1 (root only)
+start-*.ps1 (root only)
+verify-*.sh (root only)
+*-env-setup.sh (root only)
+
+# Backup directories that should be in archives/
+*backup*/
+*-backup-*/
+gcs-backup-*/
+temp-backup*/
+
+# Temporary and build artifacts
+test-payload.json
+--max-warnings=*
+build-output.txt (root only)
+production-deployment-report.txt (root only)

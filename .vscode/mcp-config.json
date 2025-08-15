@@ -1,0 +1,117 @@
+{
+  "mcpServers": {
+    "mcp-filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\Austin\\Downloads\\wedding-website"
+      ],
+      "description": "File system operations for the wedding website project",
+      "enabled": true
+    },
+    "mcp-fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "description": "Web fetching capabilities for external resources",
+      "enabled": true
+    },
+    "mcp-git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "C:\\Users\\Austin\\Downloads\\wedding-website"
+      ],
+      "description": "Git operations for version control",
+      "enabled": true
+    },
+    "mcp-memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Persistent memory for project knowledge",
+      "enabled": true
+    },
+    "mcp-time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"],
+      "description": "Time and date operations",
+      "enabled": true
+    },
+    "mcp-sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Advanced reasoning and planning capabilities",
+      "enabled": true
+    },
+    "mcp-playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"],
+      "description": "Browser automation and testing",
+      "enabled": true
+    },
+    "mcp-image-processing": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-image-processing"],
+      "description": "Photo optimization for wedding memory galleries and guest viewing",
+      "enabled": true
+    },
+    "mcp-http-client": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-http-client"],
+      "description": "HTTP client for API interactions",
+      "enabled": true
+    },
+    "mcp-database": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"],
+      "description": "Guest memory analytics, photo views, and guestbook engagement tracking",
+      "enabled": true
+    },
+    "mcp-puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Generate social media previews of wedding memories and photo galleries",
+      "enabled": true
+    },
+    "mcp-brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "description": "Web search capabilities - minimal use for post-wedding site",
+      "enabled": false,
+      "note": "Not needed for memory sharing site"
+    },
+    "mcp-google-maps": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-google-maps"],
+      "description": "Maps for venue nostalgia - limited use for post-wedding",
+      "enabled": false,
+      "note": "Wedding already happened, minimal benefit"
+    },
+    "mcp-email-automation": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-smtp"],
+      "description": "Automated thank you emails for guestbook entries and memory sharing",
+      "enabled": true
+    },
+    "mcp-postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "description": "Advanced database operations and analytics",
+      "enabled": true
+    }
+  },
+  "settings": {
+    "autoStart": true,
+    "maxRetries": 3,
+    "logLevel": "info",
+    "healthCheck": true,
+    "post_wedding_focus": {
+      "memory_sharing": true,
+      "photo_optimization": true,
+      "guest_engagement": true,
+      "thank_you_automation": true,
+      "social_media_memories": true
+    }
+  }
+}

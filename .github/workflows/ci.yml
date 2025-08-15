@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      GCP_SERVICE_ACCOUNT_JSON_BASE64: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON_BASE64 || '' }}
+      REACT_APP_API_URL: 'https://www.theporadas.com/api'
+      NEXT_PUBLIC_API_URL: 'https://www.theporadas.com/api'
+      # Sentry configuration for CI
+      SENTRY_DISABLE_TELEMETRY: true
+      SENTRY_SUPPRESS_UPLOAD_WARNINGS: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install root dependencies
+        run: npm ci
+      - name: Install backend dependencies
+        run: cd backend && npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run frontend tests
+        run: npm test -- --coverage
+      - name: Run backend tests
+        run: cd backend && npm test -- --coverage --runInBand
+      - name: Debug GCP_SERVICE_ACCOUNT_JSON_BASE64
+        run: |
+          if [ -z "$GCP_SERVICE_ACCOUNT_JSON_BASE64" ]; then
+            echo "GCP_SERVICE_ACCOUNT_JSON_BASE64 is NOT set!" && exit 1
+          else
+            echo "GCP_SERVICE_ACCOUNT_JSON_BASE64 is set. Length: ${#GCP_SERVICE_ACCOUNT_JSON_BASE64}"
+          fi
+      - name: Build application
+        run: npm run build

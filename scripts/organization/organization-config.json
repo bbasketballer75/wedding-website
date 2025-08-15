@@ -1,0 +1,214 @@
+{
+  "organization": {
+    "version": "2.0.0",
+    "description": "Comprehensive Project Organization Configuration",
+    "lastUpdated": "2025-08-14",
+
+    "structure": {
+      "scripts": {
+        "core": [
+          "maintain-project.ps1",
+          "cleanup-root-directory-clean.ps1",
+          "fix-all-issues.ps1",
+          "validate-optimizations.mjs",
+          "comprehensive-project-organizer.ps1"
+        ],
+        "development": [
+          "dev-startup.ps1",
+          "start-dev-with-monitor.ps1",
+          "setup-development-environment.ps1",
+          "validate-dev-env.mjs",
+          "verify-development-environment.ps1"
+        ],
+        "deployment": [
+          "deploy-vercel.ps1",
+          "production-deployment.mjs",
+          "post-deployment-validation.mjs",
+          "build-for-vercel.mjs",
+          "build-for-netlify.mjs",
+          "verify-deployment.sh"
+        ],
+        "testing": [
+          "accessibility-audit.mjs",
+          "lighthouse-testing-suite.mjs",
+          "quick-accessibility-test.mjs",
+          "local-testing.mjs",
+          "comprehensive-accessibility-test.mjs"
+        ],
+        "monitoring": ["connection-monitor.ps1", "status-check.ps1", "web-vitals-monitoring.js"],
+        "optimization": [
+          "optimize-bundle.mjs",
+          "optimize-project.mjs",
+          "convert-to-webp.mjs",
+          "convert-to-avif.mjs",
+          "run-image-optimization.mjs"
+        ],
+        "security": ["security-remediation.ps1", "check-gcp-access.ps1", "fix-pylance-mcp.ps1"],
+        "mcp": [
+          "mcp-health-check.mjs",
+          "supercharged-mcp-manager.mjs",
+          "start-mcp-servers.ps1",
+          "stop-mcp-servers.ps1",
+          "check-mcp-servers.ps1"
+        ],
+        "analytics": [
+          "seo-analyzer.js",
+          "social-media-validator.js",
+          "intelligent-project-analyzer.mjs",
+          "analyze-live-site.mjs"
+        ],
+        "utilities": [
+          "generate-sitemap.js",
+          "git-cleanup.ps1",
+          "quick-commit.ps1",
+          "auto-commit.ps1",
+          "backup.sh"
+        ]
+      },
+
+      "source": {
+        "components": {
+          "ui": [
+            "ModernButtons.tsx",
+            "ModernCards.tsx",
+            "ModernNavigation.jsx",
+            "ModernFooter.tsx",
+            "LoadingScreen.tsx",
+            "Navbar.tsx",
+            "NavLink.tsx"
+          ],
+          "forms": [
+            "UploadForm.jsx",
+            "GuestPhotoUpload.jsx",
+            "PasswordPrompt.jsx",
+            "GuestMemorySubmission.jsx"
+          ],
+          "media": [
+            "PhotoGallery.jsx",
+            "VideoPlayer.jsx",
+            "VideoModal.jsx",
+            "MusicPlayer.jsx",
+            "OptimizedImage.jsx",
+            "CustomYouTubePlayer.jsx"
+          ],
+          "features": [
+            "DigitalTimeCapsule.jsx",
+            "FamilyTree.jsx",
+            "InteractiveLoveTimeline.jsx",
+            "MagicalPhotoGallery.jsx",
+            "MemoryWall.jsx",
+            "PhotoTagging.jsx",
+            "RealTimeGuestbook.tsx"
+          ],
+          "admin": ["AdminDashboard.jsx", "ModerationCard.jsx", "PostWeddingAnalytics.jsx"],
+          "accessibility": [
+            "AccessibilityEnhancements.tsx",
+            "SkipLinks.tsx",
+            "OrientationOverlay.jsx"
+          ],
+          "performance": [
+            "PerformanceMonitor.tsx",
+            "ServiceWorkerRegistration.tsx",
+            "PWAInstallPrompt.tsx"
+          ],
+          "interactive": [
+            "InteractiveComponents.tsx",
+            "AnimationComponents.tsx",
+            "LiveActivityFeed.tsx",
+            "PhotoReactions.tsx"
+          ],
+          "mobile": ["MobileFeatures.tsx"],
+          "ai": ["AIFeatures.tsx"]
+        },
+
+        "page-components": {
+          "core": ["HomePage.jsx", "ModernHomePage.jsx", "LandingPage.jsx"],
+          "gallery": [
+            "AlbumPage.jsx",
+            "EnhancedAlbumPage.jsx",
+            "MagicalAlbumPage.jsx",
+            "WeddingHighlightsGallery.tsx"
+          ],
+          "interactive": [
+            "GuestbookPage.jsx",
+            "MapPage.jsx",
+            "WeddingPartyPage.jsx",
+            "MemoryUpload.tsx"
+          ],
+          "family": ["FamilyTreePage.jsx", "FamilyWeddingPartyPage.tsx"],
+          "admin": ["AdminPage.jsx"]
+        },
+
+        "styles": {
+          "core": ["design-system.css", "modern-2025-design.css", "premium-design-system.css"],
+          "features": [
+            "magical-interactions.css",
+            "advanced-animations.css",
+            "interactive-love-timeline.css"
+          ],
+          "components": ["magical-photo-gallery.css", "magical-toast.css", "real-time-activity.css"]
+        },
+
+        "utils": {
+          "core": ["analytics.js", "performanceMonitor.js", "featureDetection.js"],
+          "seo": ["seoEnhancements.js", "seoUtils.ts", "structuredData.js"],
+          "performance": ["lazyLoading.js", "webVitals.js", "serviceWorker.ts"],
+          "features": ["magicalInteractions.js", "AnniversaryManager.js", "weddingAnalytics.js"],
+          "security": ["security.js", "offlineStorage.js"],
+          "accessibility": ["skipLinkManager.js"]
+        }
+      },
+
+      "tests": {
+        "strategy": "co-located",
+        "patterns": [
+          "**/__tests__/**/*.test.{js,jsx,ts,tsx}",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/*.spec.{js,jsx,ts,tsx}"
+        ]
+      }
+    },
+
+    "naming": {
+      "conventions": {
+        "components": "PascalCase",
+        "files": "camelCase or kebab-case",
+        "directories": "kebab-case",
+        "constants": "UPPER_SNAKE_CASE"
+      },
+      "prefixes": {
+        "components": {
+          "pages": "Page",
+          "modals": "Modal",
+          "forms": "Form"
+        }
+      }
+    },
+
+    "imports": {
+      "aliases": {
+        "@": "./src",
+        "@components": "./src/components",
+        "@pages": "./src/page-components",
+        "@utils": "./src/utils",
+        "@styles": "./src/styles",
+        "@hooks": "./src/hooks"
+      },
+      "rules": [
+        "Use absolute imports for cross-directory references",
+        "Prefer named exports over default exports",
+        "Group imports: external, internal, relative"
+      ]
+    },
+
+    "maintenance": {
+      "schedule": "monthly",
+      "commands": [
+        "npm run organize:analyze",
+        "npm run organize:dry-run",
+        "npm run organize",
+        "npm run organize:validate"
+      ]
+    }
+  }
+}

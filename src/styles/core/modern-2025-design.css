@@ -1,0 +1,1025 @@
+/*
+ * 🌟 MODERN 2025 WEDDING DESIGN SYSTEM 🌟
+ * Post-Wedding Celebration Website
+ * Advanced Glassmorphism + Parallax + Micro-interactions
+ */
+
+:root {
+  /* 🎨 ENHANCED 2025 COLOR PALETTE */
+  --sage-50: #f7faf5;
+  --sage-100: #ebf4e3;
+  --sage-200: #d7e9c7;
+  --sage-300: #b8d1a6;
+  --sage-400: #9bb87e;
+  --sage-500: #8fa876;
+  --sage-600: #6b8a4f;
+  --sage-700: #4a6136;
+  --sage-800: #3d4f2b;
+  --sage-900: #2a3820;
+
+  --blush-50: #fdf7f8;
+  --blush-100: #faeaec;
+  --blush-200: #f4d5d9;
+  --blush-300: #ecb4ba;
+  --blush-400: #e293a0;
+  --blush-500: #e8b4b8;
+  --blush-600: #d49ca1;
+  --blush-700: #b8747c;
+  --blush-800: #9a5a63;
+  --blush-900: #7d464e;
+
+  /* 💎 MODERN GLASSMORPHISM */
+  --glass-white: rgba(255, 255, 255, 0.1);
+  --glass-white-strong: rgba(255, 255, 255, 0.25);
+  --glass-sage: rgba(143, 168, 118, 0.1);
+  --glass-blush: rgba(232, 180, 184, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-strong: rgba(255, 255, 255, 0.3);
+
+  /* 🌟 PREMIUM SHADOWS & DEPTH */
+  --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.37), 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-glass-hover: 0 16px 64px rgba(31, 38, 135, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-deep:
+    0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --shadow-float: 0 32px 64px rgba(0, 0, 0, 0.12), 0 16px 32px rgba(0, 0, 0, 0.08);
+
+  /* ✨ MODERN BLUR EFFECTS */
+  --blur-xs: blur(2px);
+  --blur-sm: blur(4px);
+  --blur-md: blur(8px);
+  --blur-lg: blur(16px);
+  --blur-xl: blur(24px);
+  --blur-2xl: blur(40px);
+  --blur-3xl: blur(64px);
+
+  /* 🎭 ADVANCED ANIMATIONS */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* 📐 MODERN SPACING SCALE */
+  --space-px: 1px;
+  --space-0-5: 0.125rem;
+  --space-1-5: 0.375rem;
+  --space-2-5: 0.625rem;
+  --space-3-5: 0.875rem;
+  --space-14: 3.5rem;
+  --space-18: 4.5rem;
+  --space-36: 9rem;
+  --space-44: 11rem;
+  --space-52: 13rem;
+  --space-60: 15rem;
+  --space-72: 18rem;
+  --space-80: 20rem;
+  --space-96: 24rem;
+
+  /* 🎨 MODERN BORDER RADIUS */
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+  --radius-6xl: 3rem;
+
+  /* 📱 MODERN BREAKPOINTS */
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* 🌟 MODERN BASE STYLES */
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--sage-50) 0%,
+    var(--blush-50) 25%,
+    var(--sage-100) 50%,
+    var(--blush-100) 75%,
+    var(--sage-50) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  color: var(--sage-900);
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 💎 GLASSMORPHISM CARD SYSTEM */
+.glass-card {
+  background: var(--glass-white);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-glass);
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border-strong), transparent);
+}
+
+.glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: var(--glass-border-strong);
+}
+
+.glass-card-strong {
+  background: var(--glass-white-strong);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+}
+
+/* 🌟 ELEGANT WEDDING HERO SECTIONS */
+.hero-modern {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, var(--sage-50) 0%, var(--sage-100) 50%, var(--sage-150) 100%);
+  overflow: hidden;
+}
+
+.hero-modern::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(143, 168, 118, 0.1) 0%, transparent 50%);
+  animation: float 15s ease-in-out infinite;
+}
+
+.hero-modern::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 70% 60%, rgba(232, 180, 184, 0.1) 0%, transparent 50%);
+  animation: float 12s ease-in-out infinite reverse;
+}
+
+.hero-content-modern {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  max-width: 800px;
+  padding: var(--space-8);
+}
+
+.hero-title-modern {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: var(--space-6);
+  background: linear-gradient(
+    135deg,
+    var(--sage-700) 0%,
+    var(--blush-600) 50%,
+    var(--sage-600) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.hero-subtitle-modern {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
+  font-weight: 400;
+  margin-bottom: var(--space-8);
+  color: var(--sage-700);
+  opacity: 0.9;
+}
+
+/* 🎭 FLOATING ELEMENTS */
+.floating-element-modern {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.floating-element-modern:nth-child(odd) {
+  animation-delay: -2s;
+  animation-duration: 10s;
+}
+
+.floating-element-modern:nth-child(3n) {
+  animation-delay: -4s;
+  animation-duration: 12s;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-40px) translateX(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-20px) translateX(-10px) rotate(-1deg);
+  }
+}
+
+/* 🔘 MODERN BUTTONS */
+.btn-modern {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+  overflow: hidden;
+  transform-origin: center;
+  z-index: 1;
+}
+
+.btn-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--sage-500) 0%, var(--sage-600) 100%);
+  transition: all 0.3s var(--ease-out-expo);
+  z-index: -1;
+}
+
+.btn-modern::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s var(--ease-out-expo);
+}
+
+.btn-modern:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-deep);
+  color: white;
+}
+
+.btn-modern:hover::before {
+  background: linear-gradient(135deg, var(--sage-600) 0%, var(--sage-700) 100%);
+}
+
+.btn-modern:hover::after {
+  left: 100%;
+}
+
+.btn-modern:active {
+  transform: translateY(0) scale(1.02);
+}
+
+.btn-modern-outline {
+  background: var(--glass-white);
+  backdrop-filter: var(--blur-md);
+  border: 2px solid var(--glass-border-strong);
+  color: var(--sage-700);
+}
+
+.btn-modern-outline::before {
+  background: linear-gradient(135deg, var(--sage-500) 0%, var(--sage-600) 100%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+
+.btn-modern-outline:hover {
+  color: white;
+  border-color: transparent;
+}
+
+.btn-modern-outline:hover::before {
+  opacity: 1;
+}
+
+/* 📖 ELEGANT WEDDING TYPOGRAPHY */
+.heading-modern-1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: var(--space-6);
+  color: var(--sage-800);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.heading-modern-2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: var(--space-4);
+  color: var(--sage-700);
+  letter-spacing: -0.01em;
+}
+
+.heading-modern-3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: var(--space-3);
+  color: var(--sage-700);
+}
+
+.text-modern-body {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--warm-gray);
+  margin-bottom: var(--space-4);
+  font-weight: 400;
+}
+
+.text-modern-large {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--charcoal);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* 🖼️ MODERN IMAGE STYLES */
+.image-modern {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.image-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(143, 168, 118, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.image-modern:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-float);
+}
+
+.image-modern:hover::before {
+  opacity: 1;
+}
+
+.image-modern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.image-modern:hover img {
+  transform: scale(1.1);
+}
+
+/* 🎨 SECTION STYLES */
+.section-modern {
+  padding: var(--space-24) var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-modern-alt {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(143, 168, 118, 0.05) 100%);
+}
+
+.container-modern {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.container-modern-narrow {
+  max-width: 800px;
+}
+
+.container-modern-wide {
+  max-width: 1400px;
+}
+
+/* 📱 RESPONSIVE GRID SYSTEM */
+.grid-modern {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid-modern-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-modern-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-modern-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* 🌟 PARALLAX EFFECTS */
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.parallax-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* ✨ INTERSECTION ANIMATION CLASSES */
+.fade-in-up-modern {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s var(--ease-out-expo);
+}
+
+.fade-in-up-modern.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left-modern {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 0.8s var(--ease-out-expo);
+}
+
+.fade-in-left-modern.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right-modern {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.8s var(--ease-out-expo);
+}
+
+.fade-in-right-modern.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in-modern {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s var(--ease-out-back);
+}
+
+.scale-in-modern.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 🎭 MICRO-INTERACTIONS */
+.hover-lift {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s var(--ease-out-expo);
+}
+
+.hover-glow:hover {
+  box-shadow:
+    0 0 20px rgba(143, 168, 118, 0.3),
+    0 0 40px rgba(232, 180, 184, 0.2);
+}
+
+.hover-scale {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* 🎪 LOADING STATES */
+.skeleton-modern {
+  background: linear-gradient(
+    90deg,
+    var(--glass-white) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    var(--glass-white) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s infinite;
+  border-radius: var(--radius-lg);
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 🌟 ACCESSIBILITY ENHANCEMENTS */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --sage-500: #4a6136;
+    --blush-500: #b8747c;
+    --glass-border: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* 📱 RESPONSIVE BREAKPOINTS */
+@media (max-width: 640px) {
+  .section-modern {
+    padding: var(--space-16) var(--space-4);
+  }
+
+  .grid-modern {
+    gap: var(--space-4);
+  }
+
+  .btn-modern {
+    padding: var(--space-3) var(--space-6);
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 475px) {
+  .hero-content-modern {
+    padding: var(--space-4);
+  }
+
+  .container-modern {
+    padding: 0 var(--space-2);
+  }
+}
+
+/* 🎨 SPECIAL EFFECTS */
+.aurora-bg {
+  background: linear-gradient(
+    45deg,
+    var(--sage-100),
+    var(--blush-100),
+    var(--sage-200),
+    var(--blush-200)
+  );
+  background-size: 400% 400%;
+  animation: aurora 20s ease infinite;
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+.text-gradient-modern {
+  background: linear-gradient(
+    135deg,
+    var(--sage-600) 0%,
+    var(--blush-500) 50%,
+    var(--sage-700) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* 💫 CELEBRATION SPECIFIC STYLES */
+.celebration-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--glass-white-strong);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sage-700);
+}
+
+.celebration-badge::before {
+  content: '✨';
+  font-size: 1rem;
+}
+
+.memory-card {
+  background: var(--glass-white);
+  backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--sage-500) 0%,
+    var(--blush-500) 50%,
+    var(--sage-500) 100%
+  );
+}
+
+.memory-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-float);
+}
+
+/* ===============================
+   🚀 MODERN FOOTER STYLES
+   =============================== */
+
+.modern-footer {
+  background: linear-gradient(135deg, var(--sage-deep) 0%, var(--sage-primary) 100%);
+  color: white;
+  padding: 4rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.modern-footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.modern-footer-section {
+  text-align: center;
+}
+
+.modern-footer-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.footer-heart-icon {
+  color: var(--blush-primary);
+  filter: drop-shadow(0 0 10px rgba(232, 180, 184, 0.5));
+}
+
+.modern-footer-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.modern-footer-heading {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--blush-whisper);
+}
+
+.modern-footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.modern-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modern-social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.modern-footer-date {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--blush-whisper);
+  margin-bottom: 0.5rem;
+}
+
+.modern-footer-description {
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.modern-footer-bottom {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.modern-footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  margin-bottom: 2rem;
+}
+
+.modern-footer-copyright {
+  opacity: 0.8;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.inline-heart {
+  color: var(--blush-primary);
+  filter: drop-shadow(0 0 5px rgba(232, 180, 184, 0.5));
+}
+
+@media (max-width: 768px) {
+  .modern-footer {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .modern-footer-content {
+    gap: 2rem;
+  }
+
+  .modern-footer-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ===============================
+   🚀 MODERN APP STRUCTURE
+   =============================== */
+
+.modern-app {
+  min-height: 100vh;
+  background: var(--gradient-background);
+  font-family: var(--font-body);
+}
+
+.modern-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--sage-deep);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+}
+
+.modern-skip-link:focus {
+  top: 0;
+}
+
+.modern-floating-audio {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.modern-main {
+  position: relative;
+  z-index: 1;
+}
+
+.modern-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✨ ELEGANT WEDDING CONTENT SECTIONS */
+.section-wedding {
+  padding: var(--space-20) 0;
+  position: relative;
+}
+
+.section-wedding::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sage-400), transparent);
+}
+
+.wedding-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 var(--space-6);
+}
+
+.wedding-story {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.8;
+  color: var(--sage-700);
+  margin-bottom: var(--space-8);
+  font-style: italic;
+}
+
+.wedding-story::first-letter {
+  font-size: 3em;
+  float: left;
+  line-height: 1;
+  margin: 0.1em 0.1em 0 0;
+  color: var(--sage-600);
+  font-weight: 400;
+}
+
+.wedding-highlight {
+  display: inline-block;
+  background: linear-gradient(120deg, var(--sage-200) 0%, var(--sage-300) 100%);
+  padding: 0.2em 0.6em;
+  border-radius: var(--radius-lg);
+  color: var(--sage-800);
+  font-weight: 600;
+  margin: 0 0.2em;
+  letter-spacing: 0.025em;
+}
+
+/* 💐 WEDDING DECORATIVE ELEMENTS */
+.wedding-divider {
+  text-align: center;
+  margin: var(--space-12) 0;
+  position: relative;
+}
+
+.wedding-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sage-300), transparent);
+}
+
+.wedding-divider-icon {
+  display: inline-block;
+  background: var(--sage-50);
+  padding: 0 var(--space-4);
+  font-size: 1.5rem;
+  color: var(--sage-500);
+  position: relative;
+  z-index: 1;
+}

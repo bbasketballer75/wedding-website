@@ -1,0 +1,500 @@
+/* GuestMemorySubmission.css - Wedding Theme Guest Memory Submission */
+
+.guest-memory-submission {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-8, 2rem);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl, 12px);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--sage-whisper);
+  position: relative;
+  overflow: hidden;
+}
+
+.guest-memory-submission::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-wedding);
+}
+
+.memory-form-header {
+  text-align: center;
+  margin-bottom: var(--space-10, 2.5rem);
+}
+
+.memory-form-header h2 {
+  color: var(--sage-deep);
+  margin-bottom: var(--space-2, 0.5rem);
+  font-size: var(--text-4xl, 2rem);
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.memory-form-header p {
+  color: var(--charcoal);
+  font-size: var(--text-lg, 1.1rem);
+  line-height: var(--leading-relaxed, 1.6);
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+}
+
+/* Form Structure */
+.memory-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 2rem);
+}
+
+.form-section {
+  border: 1px solid var(--sage-whisper);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-6, 1.5rem);
+  background: var(--sage-mist);
+}
+
+.form-section legend {
+  font-weight: 600;
+  color: var(--sage-deep);
+  padding: 0 var(--space-3, 0.75rem);
+  margin-bottom: var(--space-4, 1rem);
+  font-size: var(--text-lg, 1.1rem);
+  font-family: var(--font-display);
+}
+
+.form-group {
+  margin-bottom: var(--space-6, 1.5rem);
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4, 1rem);
+}
+
+/* Labels */
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--space-2, 0.5rem);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+}
+
+.form-group label.required::after {
+  content: ' *';
+  color: var(--blush-deep);
+  font-weight: 600;
+}
+
+/* Input Styles */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: var(--space-3, 0.75rem);
+  border: 2px solid var(--sage-whisper);
+  border-radius: var(--radius-md, 6px);
+  font-size: var(--text-base, 1rem);
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  background: var(--pearl);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--sage-primary);
+  box-shadow: 0 0 0 3px rgba(143, 168, 118, 0.2);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: var(--blush-deep);
+  box-shadow: 0 0 0 3px rgba(212, 156, 161, 0.2);
+}
+
+/* Textarea specific */
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  line-height: var(--leading-relaxed, 1.5);
+}
+
+/* Character count */
+.char-count {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-2, 0.5rem);
+}
+
+.char-counter {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--sage-deep);
+  font-family: var(--font-body);
+}
+
+/* File input styling */
+.form-group input[type='file'] {
+  padding: var(--space-2, 0.5rem);
+  border: 2px dashed var(--sage-soft);
+  background: var(--sage-whisper);
+  cursor: pointer;
+}
+
+.form-group input[type='file']:focus {
+  border-color: var(--sage-primary);
+  border-style: solid;
+}
+
+.form-group input[type='file']:hover {
+  border-color: var(--sage-primary);
+  background: var(--blush-mist);
+}
+
+/* Selected files display */
+.selected-files {
+  margin-top: var(--space-4, 1rem);
+  padding: var(--space-4, 1rem);
+  background: var(--blush-mist);
+  border-radius: var(--radius-md, 6px);
+  border: 1px solid var(--blush-whisper);
+}
+
+.selected-files h4 {
+  margin: 0 0 var(--space-3, 0.75rem) 0;
+  color: var(--sage-deep);
+  font-size: var(--text-base, 1rem);
+  font-family: var(--font-display);
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2, 0.5rem) 0;
+  border-bottom: 1px solid var(--blush-whisper);
+  gap: var(--space-4, 1rem);
+}
+
+.file-item:last-child {
+  border-bottom: none;
+}
+
+.file-name {
+  font-weight: 500;
+  color: var(--charcoal);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-body);
+}
+
+.file-size {
+  color: var(--sage-deep);
+  font-size: var(--text-sm, 0.875rem);
+  flex-shrink: 0;
+  font-family: var(--font-body);
+}
+
+.remove-file {
+  background: none;
+  border: none;
+  color: var(--blush-deep);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--space-1, 0.25rem);
+  border-radius: var(--radius-sm, 3px);
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  flex-shrink: 0;
+}
+
+.remove-file:hover {
+  background: var(--blush-deep);
+  color: var(--pearl);
+}
+
+.remove-file:focus {
+  outline: 2px solid var(--blush-deep);
+  outline-offset: 2px;
+}
+
+/* Checkbox styling */
+.checkbox-group {
+  margin-bottom: var(--space-4, 1rem);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 0.75rem);
+  cursor: pointer;
+  font-weight: normal;
+  margin-bottom: 0;
+  font-family: var(--font-body);
+}
+
+.checkbox-label input[type='checkbox'] {
+  width: auto;
+  margin: 0;
+  flex-shrink: 0;
+  margin-top: var(--space-1, 0.125rem);
+}
+
+.checkbox-text {
+  flex: 1;
+  line-height: var(--leading-relaxed, 1.5);
+}
+
+/* Help text */
+.help-text {
+  display: block;
+  margin-top: var(--space-1, 0.25rem);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--sage-deep);
+  line-height: var(--leading-normal, 1.4);
+  font-family: var(--font-body);
+}
+
+/* Error messages */
+.error-message {
+  display: block;
+  margin-top: var(--space-1, 0.25rem);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--blush-deep);
+  font-weight: 500;
+  font-family: var(--font-body);
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+  margin-top: var(--space-4, 1rem);
+  padding-top: var(--space-6, 1.5rem);
+  border-top: 1px solid var(--sage-whisper);
+}
+
+.submit-button {
+  background: var(--gradient-sage);
+  color: var(--pearl);
+  border: none;
+  padding: var(--space-4, 1rem) var(--space-8, 2rem);
+  border-radius: var(--radius-lg, 8px);
+  font-size: var(--text-lg, 1.1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-normal, 0.3s) var(--ease-out, ease);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  min-width: 200px;
+  justify-content: center;
+  font-family: var(--font-body);
+}
+
+.submit-button:hover:not(:disabled) {
+  background: var(--sage-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-large);
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 168, 118, 0.3);
+}
+
+.submit-button:disabled {
+  background: var(--dove);
+  color: var(--sage-deep);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .guest-memory-submission {
+    padding: var(--space-6, 1.5rem);
+    margin: var(--space-4, 1rem);
+  }
+
+  .memory-form-header h2 {
+    font-size: var(--text-3xl, 1.75rem);
+  }
+
+  .form-section {
+    padding: var(--space-4, 1rem);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .file-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2, 0.5rem);
+  }
+
+  .file-name {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .submit-button {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .guest-memory-submission {
+    padding: var(--space-4, 1rem);
+    margin: var(--space-2, 0.5rem);
+  }
+
+  .memory-form-header {
+    margin-bottom: var(--space-6, 1.5rem);
+  }
+
+  .memory-form-header h2 {
+    font-size: var(--text-2xl, 1.5rem);
+  }
+
+  .memory-form-header p {
+    font-size: var(--text-base, 1rem);
+  }
+
+  .form-section {
+    padding: var(--space-3, 0.75rem);
+  }
+
+  .form-section legend {
+    font-size: var(--text-base, 1rem);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .guest-memory-submission {
+    background: var(--charcoal);
+    color: var(--pearl);
+  }
+
+  .form-section {
+    background: var(--midnight);
+    border-color: var(--sage-deep);
+  }
+
+  .form-section legend {
+    color: var(--pearl);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--charcoal);
+    border-color: var(--sage-deep);
+    color: var(--pearl);
+  }
+
+  .form-group input[type='file'] {
+    background: var(--midnight);
+  }
+
+  .selected-files {
+    background: var(--midnight);
+    border-color: var(--sage-deep);
+  }
+
+  .file-item {
+    border-color: var(--sage-deep);
+  }
+
+  .form-actions {
+    border-color: var(--sage-deep);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border-width: 3px;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    box-shadow: 0 0 0 4px rgba(143, 168, 118, 0.5);
+  }
+
+  .submit-button:focus {
+    box-shadow: 0 0 0 4px rgba(143, 168, 118, 0.7);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .submit-button,
+  .remove-file {
+    transition: none;
+  }
+
+  .loading-spinner {
+    animation: none;
+  }
+
+  .submit-button:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -1,0 +1,406 @@
+/* 🎉 REAL-TIME ACTIVITY FEED STYLES ✨ */
+
+.real-time-activity-feed {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 350px;
+  max-height: 80vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  border: 1px solid rgba(139, 168, 118, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Header */
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #8b9467, #e8c5a0);
+  color: white;
+}
+
+.online-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  background: #4caf50;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+.online-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.online-count {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffe066;
+}
+
+.toggle-feed {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-feed:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Activity List */
+.activity-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 168, 118, 0.3) transparent;
+}
+
+.activity-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.activity-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 168, 118, 0.3);
+  border-radius: 3px;
+}
+
+.activity-title {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b9467;
+}
+
+/* Activity Items */
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(139, 168, 118, 0.05);
+  border-radius: 10px;
+  border-left: 3px solid var(--activity-color);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+
+.activity-item:hover {
+  background: rgba(139, 168, 118, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.activity-icon {
+  font-size: 1.5rem;
+  min-width: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+.activity-user {
+  font-weight: bold;
+  color: #8b9467;
+}
+
+.activity-action {
+  color: #666;
+}
+
+.activity-time {
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
+}
+
+.activity-celebration {
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.activity-item:hover .activity-celebration {
+  opacity: 1;
+}
+
+.celebration-icon {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Encouragement Message */
+.encouragement-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(139, 168, 118, 0.1), rgba(232, 197, 160, 0.1));
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid rgba(139, 168, 118, 0.2);
+}
+
+.encouragement-text {
+  font-size: 0.9rem;
+  color: #8b9467;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-buttons .btn-magical {
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Floating Notifications */
+.floating-notifications {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.floating-notification {
+  background: rgba(139, 168, 118, 0.95);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+  animation: slideInOut 4s ease-in-out;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideInOut {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+  }
+  15%,
+  85% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .real-time-activity-feed {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    width: auto;
+    max-height: 50vh;
+  }
+
+  .activity-header {
+    padding: 0.75rem;
+  }
+
+  .online-text {
+    font-size: 0.8rem;
+  }
+
+  .toggle-feed {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .activity-list {
+    padding: 0.75rem;
+    max-height: 250px;
+  }
+
+  .activity-item {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .activity-icon {
+    font-size: 1.2rem;
+    min-width: 25px;
+  }
+
+  .activity-text {
+    font-size: 0.8rem;
+  }
+
+  .activity-time {
+    font-size: 0.7rem;
+  }
+
+  .encouragement-message {
+    padding: 0.75rem;
+  }
+
+  .encouragement-text {
+    font-size: 0.8rem;
+  }
+
+  .action-buttons .btn-magical {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Tablet Responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .real-time-activity-feed {
+    width: 300px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .real-time-activity-feed {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(139, 168, 118, 0.4);
+  }
+
+  .activity-item {
+    background: rgba(75, 85, 99, 0.3);
+    color: #e5e7eb;
+  }
+
+  .activity-item:hover {
+    background: rgba(75, 85, 99, 0.5);
+  }
+
+  .activity-user {
+    color: #a7f3d0;
+  }
+
+  .activity-action {
+    color: #d1d5db;
+  }
+
+  .activity-time {
+    color: #9ca3af;
+  }
+
+  .encouragement-message {
+    background: linear-gradient(135deg, rgba(75, 85, 99, 0.3), rgba(107, 114, 128, 0.2));
+    border-color: rgba(139, 168, 118, 0.3);
+  }
+
+  .encouragement-text {
+    color: #a7f3d0;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .real-time-activity-feed {
+    background: white;
+    border: 2px solid #000;
+  }
+
+  .activity-item {
+    background: #f0f0f0;
+    border-left-width: 4px;
+  }
+
+  .activity-user {
+    color: #000;
+  }
+
+  .activity-action,
+  .activity-time {
+    color: #333;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .real-time-activity-feed {
+    display: none;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .celebration-icon,
+  .floating-notification {
+    animation: none;
+  }
+
+  .activity-item:hover,
+  .toggle-feed:hover {
+    transform: none;
+  }
+}

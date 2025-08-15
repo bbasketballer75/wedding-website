@@ -1,0 +1,506 @@
+/* 💕 INTERACTIVE LOVE STORY TIMELINE STYLES ✨ */
+
+.interactive-love-timeline {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(221, 160, 221, 0.1));
+  border-radius: 20px;
+  position: relative;
+}
+
+/* Header */
+.timeline-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.timeline-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ff69b4, #dda0dd, #ffb6c1);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.timeline-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.autoplay-btn {
+  background: linear-gradient(45deg, #ff69b4, #dda0dd);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.autoplay-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+}
+
+/* Timeline Container */
+.timeline-container {
+  display: grid;
+  grid-template-columns: 300px 1fr 400px;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  min-height: 600px;
+}
+
+/* Timeline Line */
+.timeline-line {
+  position: relative;
+  width: 4px;
+  background: rgba(255, 182, 193, 0.3);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #ff69b4, #dda0dd, #ffb6c1);
+  border-radius: 2px;
+  transition: height 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Milestones */
+.milestones-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.milestone-item:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateX(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.milestone-item.active {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(15px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+}
+
+.milestone-marker {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--milestone-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.milestone-item.active .milestone-marker {
+  transform: scale(1.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.milestone-item.completed .milestone-marker {
+  background: linear-gradient(45deg, var(--milestone-color), #ffd700);
+}
+
+.milestone-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.milestone-content {
+  flex: 1;
+}
+
+.milestone-date {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.milestone-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.milestone-location {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Featured Story */
+.featured-story {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+}
+
+.story-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.story-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+
+.story-image:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+.story-overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  background: var(--story-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.story-content {
+  padding: 1.5rem;
+}
+
+.story-date {
+  color: #999;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.story-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.story-text {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.story-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #777;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.location-icon {
+  font-size: 1rem;
+}
+
+/* Navigation Controls */
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  margin-bottom: 2rem;
+}
+
+.control-btn {
+  background: linear-gradient(45deg, #dda0dd, #ffb6c1);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(221, 160, 221, 0.4);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 182, 193, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: #ff69b4;
+  transform: scale(1.3);
+}
+
+.progress-dot:hover {
+  background: #dda0dd;
+  transform: scale(1.1);
+}
+
+/* Love Stats */
+.love-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 182, 193, 0.3);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .interactive-love-timeline {
+    padding: 2rem 1rem;
+  }
+
+  .timeline-title {
+    font-size: 2rem;
+  }
+
+  .timeline-subtitle {
+    font-size: 1rem;
+  }
+
+  .timeline-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .milestones-container {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .milestone-item {
+    min-width: 200px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .milestone-item:hover,
+  .milestone-item.active {
+    transform: translateY(-5px);
+  }
+
+  .story-card {
+    max-width: 100%;
+  }
+
+  .timeline-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .love-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    padding: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+/* Tablet Responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .timeline-container {
+    grid-template-columns: 250px 1fr 350px;
+  }
+
+  .love-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .interactive-love-timeline {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.2), rgba(75, 0, 130, 0.2));
+  }
+
+  .story-card,
+  .stat-item {
+    background: rgba(31, 41, 55, 0.9);
+    color: #e5e7eb;
+  }
+
+  .milestone-item:hover,
+  .milestone-item.active {
+    background: rgba(55, 65, 81, 0.8);
+  }
+
+  .timeline-controls {
+    background: rgba(31, 41, 55, 0.8);
+  }
+
+  .milestone-title,
+  .story-title {
+    color: #f9fafb;
+  }
+
+  .milestone-date,
+  .story-date,
+  .timeline-subtitle {
+    color: #d1d5db;
+  }
+
+  .story-text {
+    color: #d1d5db;
+  }
+}
+
+/* Accessibility Enhancements */
+.milestone-item:focus,
+.control-btn:focus,
+.progress-dot:focus {
+  outline: 3px solid rgba(255, 105, 180, 0.6);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .timeline-progress,
+  .milestone-item,
+  .story-card,
+  .milestone-marker {
+    transition: none;
+  }
+
+  .milestone-icon,
+  .story-overlay {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .interactive-love-timeline {
+    background: none;
+    padding: 1rem;
+  }
+
+  .autoplay-btn,
+  .timeline-controls {
+    display: none;
+  }
+
+  .timeline-container {
+    grid-template-columns: 1fr;
+  }
+
+  .milestones-container {
+    display: block;
+  }
+
+  .milestone-item {
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}

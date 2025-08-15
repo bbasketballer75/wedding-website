@@ -1,0 +1,599 @@
+@charset "utf-8";
+/*
+ * ✨ PREMIUM WEDDING DESIGN SYSTEM ✨
+ * Sophisticated styling for Austin & Jordyn's Wedding Website
+ * Created by AI Styling Specialist
+ */
+
+:root {
+  /* 🌿 SOPHISTICATED COLOR PALETTE */
+  /* Primary Wedding Colors - Enhanced */
+  --sage-primary: #8fa876;
+  --sage-deep: #6b8a4f;
+  --sage-soft: #a8c090;
+  --sage-whisper: #d4e5c7;
+  --sage-mist: #f0f7ea;
+
+  --blush-primary: #e8b4b8;
+  --blush-deep: #d49ca1;
+  --blush-soft: #f2c9cd;
+  --blush-whisper: #fae6e8;
+  --blush-mist: #fdf6f7;
+
+  --eucalyptus-primary: #b8d1a6;
+  --eucalyptus-deep: #9cb587;
+  --eucalyptus-soft: #cde0ba;
+  --eucalyptus-whisper: #e8f1dd;
+  --eucalyptus-mist: #f4f9f0;
+
+  /* 🚀 Turbopack Hot Reload Test - RESOLVED & WORKING! */
+  --turbo-test-glow: rgba(142, 168, 118, 0.25);
+
+  /* Sophisticated Neutrals */
+  --pearl: #fefcfa;
+  --champagne: #f9f5f0;
+  --dove: #f2efeb;
+  --slate: #e8e5e1;
+  --charcoal: #2c2c2c;
+  --midnight: #1a1a1a;
+
+  /* 📝 PREMIUM TYPOGRAPHY */
+  --font-display: 'Cormorant Garamond', serif; /* Elegant display font */
+  --font-script: 'Allura', cursive; /* Sophisticated script */
+  --font-body: 'Inter', sans-serif; /* Modern, readable body */
+
+  /* Typography Scale - Perfect Ratio (1.25) */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+  --text-7xl: 4.5rem; /* 72px */
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* 🎯 SPACING SYSTEM - Based on 8px grid */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-32: 8rem; /* 128px */
+
+  /* 🔄 MODERN BORDER RADIUS */
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-base: 0.5rem; /* 8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
+  --radius-2xl: 2rem; /* 32px */
+  --radius-full: 9999px;
+
+  /* ✨ PREMIUM SHADOWS */
+  --shadow-soft: 0 1px 3px rgba(139, 168, 118, 0.08), 0 1px 2px rgba(139, 168, 118, 0.04);
+  --shadow-medium: 0 4px 6px rgba(139, 168, 118, 0.05), 0 2px 4px rgba(139, 168, 118, 0.03);
+  --shadow-large: 0 10px 15px rgba(139, 168, 118, 0.08), 0 4px 6px rgba(139, 168, 118, 0.03);
+  --shadow-xl: 0 20px 25px rgba(139, 168, 118, 0.08), 0 8px 10px rgba(139, 168, 118, 0.03);
+  --shadow-2xl: 0 25px 50px rgba(139, 168, 118, 0.12);
+  --shadow-inner: inset 0 2px 4px rgba(139, 168, 118, 0.04);
+
+  /* 🎭 SOPHISTICATED ANIMATIONS */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+
+  --ease-linear: linear;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+  /* 🎨 ELEGANT GRADIENTS */
+  --gradient-sage: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-deep) 100%);
+  --gradient-blush: linear-gradient(135deg, var(--blush-primary) 0%, var(--blush-deep) 100%);
+  --gradient-wedding: linear-gradient(
+    135deg,
+    var(--sage-primary) 0%,
+    var(--blush-primary) 50%,
+    var(--eucalyptus-primary) 100%
+  );
+  --gradient-subtle: linear-gradient(135deg, var(--pearl) 0%, var(--champagne) 100%);
+  --gradient-ethereal: linear-gradient(
+    135deg,
+    var(--sage-mist) 0%,
+    var(--blush-mist) 50%,
+    var(--eucalyptus-mist) 100%
+  );
+}
+
+/* 🌟 PREMIUM MOTION & MICRO-INTERACTIONS */
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gentle-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmer-gold {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes romantic-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(142, 168, 118, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(232, 180, 184, 0.3),
+      0 0 40px rgba(142, 168, 118, 0.2);
+  }
+}
+
+/* 💎 LUXURY GLASS MORPHISM EFFECTS */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-sage {
+  background: rgba(143, 168, 118, 0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(143, 168, 118, 0.15);
+}
+
+.glass-blush {
+  background: rgba(232, 180, 184, 0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(232, 180, 184, 0.15);
+}
+
+/* 🎨 SOPHISTICATED HOVER STATES */
+.premium-hover {
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--duration-slow) var(--ease-out);
+  z-index: 1;
+}
+
+.premium-hover:hover::before {
+  left: 100%;
+}
+
+.premium-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ✨ ELEGANT TYPOGRAPHY ENHANCEMENTS */
+.text-shimmer {
+  background: linear-gradient(90deg, var(--sage-deep), var(--champagne), var(--sage-deep));
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-gold 3s ease-in-out infinite;
+}
+
+.text-elegant-shadow {
+  text-shadow:
+    0 1px 2px rgba(139, 168, 118, 0.1),
+    0 2px 4px rgba(139, 168, 118, 0.05);
+}
+
+/* 🌿 NATURE-INSPIRED DECORATIVE ELEMENTS */
+.botanical-divider {
+  position: relative;
+  text-align: center;
+  margin: var(--space-8) 0;
+}
+
+.botanical-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--sage-primary), transparent);
+  transform: translateY(-50%);
+}
+
+.botanical-divider::after {
+  content: '🌿';
+  background: var(--cream);
+  padding: 0 var(--space-4);
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* 🔧 MODERN CSS RESET & BASE STYLES */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--charcoal);
+  background: var(--gradient-ethereal);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 📚 TYPOGRAPHY COMPONENTS */
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+}
+
+.text-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: var(--leading-snug);
+}
+
+.text-body {
+  font-family: var(--font-body);
+  line-height: var(--leading-normal);
+}
+
+/* Heading Styles */
+.heading-1 {
+  font-size: var(--text-6xl);
+  font-weight: 300;
+  margin: var(--space-8) 0 var(--space-6);
+}
+
+.heading-2 {
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  margin: var(--space-6) 0 var(--space-4);
+}
+
+.heading-3 {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  margin: var(--space-5) 0 var(--space-3);
+}
+
+/* 🎨 PREMIUM CARD SYSTEM */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-large);
+  padding: var(--space-8);
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-wedding);
+  opacity: 0.6;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-2xl);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-elegant {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(139, 168, 118, 0.1);
+}
+
+/* 🔘 SOPHISTICATED BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--gradient-sage);
+  color: white;
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-large);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--sage-deep);
+  border: 1px solid var(--sage-primary);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: var(--sage-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--sage-deep);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  background: rgba(139, 168, 118, 0.1);
+  border-color: var(--sage-primary);
+}
+
+/* ✨ MAGICAL ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 🎯 UTILITY CLASSES */
+.fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-out);
+}
+
+.slide-in-left {
+  animation: slideInLeft var(--duration-slow) var(--ease-out);
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Spacing utilities */
+.p-0 {
+  padding: var(--space-0);
+}
+.p-4 {
+  padding: var(--space-4);
+}
+.p-8 {
+  padding: var(--space-8);
+}
+.m-0 {
+  margin: var(--space-0);
+}
+.m-4 {
+  margin: var(--space-4);
+}
+.m-8 {
+  margin: var(--space-8);
+}
+
+/* Text utilities */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+/* Color utilities */
+.text-sage {
+  color: var(--sage-primary);
+}
+.text-blush {
+  color: var(--blush-primary);
+}
+.text-charcoal {
+  color: var(--charcoal);
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  :root {
+    --text-6xl: 2.5rem;
+    --text-4xl: 1.875rem;
+    --text-2xl: 1.25rem;
+  }
+
+  .card {
+    padding: var(--space-6);
+  }
+
+  .btn {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-sm);
+  }
+}
+
+/* 🎨 ACCESSIBILITY ENHANCEMENTS */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--sage-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 🌟 PREMIUM LOADING STATES */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* 🚀 TURBOPACK HOT RELOAD TEST INDICATOR */
+.turbo-test-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: var(--turbo-test-glow);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--sage-primary);
+  border-radius: var(--radius-lg);
+  padding: 8px 16px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--sage-deep);
+  z-index: 9999;
+  box-shadow: var(--shadow-elegant);
+  transition: all 0.3s var(--ease-elegant);
+}
+
+.turbo-test-indicator::before {
+  content: '🚀 Turbopack Active';
+}
+
+.turbo-test-indicator:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-premium);
+}

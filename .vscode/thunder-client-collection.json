@@ -1,0 +1,172 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Wedding Website API",
+  "dateExported": "2025-01-18T00:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "_id": "local-api",
+      "name": "Local Development",
+      "containerId": "",
+      "created": "2025-01-18T00:00:00.000Z",
+      "sortNum": 10000
+    },
+    {
+      "_id": "prod-api",
+      "name": "Production",
+      "containerId": "",
+      "created": "2025-01-18T00:00:00.000Z",
+      "sortNum": 20000
+    }
+  ],
+  "requests": [
+    {
+      "_id": "local-health",
+      "colId": "wedding-api",
+      "containerId": "local-api",
+      "name": "Health Check",
+      "url": "{{LOCAL_API}}/health",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "local-guestbook-get",
+      "colId": "wedding-api",
+      "containerId": "local-api",
+      "name": "Get Guestbook Entries",
+      "url": "{{LOCAL_API}}/guestbook",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-body",
+          "custom": "tc.test('Response is array', () => {\n  const json = tc.response.json;\n  tc.expect(json.success).to.be.true;\n  tc.expect(json.data).to.be.an('array');\n});",
+          "action": "contains",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "_id": "local-guestbook-post",
+      "colId": "wedding-api",
+      "containerId": "local-api",
+      "name": "Submit Guestbook Entry",
+      "url": "{{LOCAL_API}}/guestbook",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Thunder Client Test\",\n  \"message\": \"Testing guestbook submission from Thunder Client!\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "res-body",
+          "custom": "tc.test('Entry created successfully', () => {\n  const json = tc.response.json;\n  tc.expect(json.success).to.be.true;\n  tc.expect(json.data).to.have.property('id');\n  tc.expect(json.data.approved).to.be.false;\n});",
+          "action": "contains",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "_id": "local-album-get",
+      "colId": "wedding-api",
+      "containerId": "local-api",
+      "name": "Get Photo Albums",
+      "url": "{{LOCAL_API}}/album",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "prod-health",
+      "colId": "wedding-api",
+      "containerId": "prod-api",
+      "name": "Health Check",
+      "url": "{{PROD_API}}/health",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "prod-guestbook-get",
+      "colId": "wedding-api",
+      "containerId": "prod-api",
+      "name": "Get Guestbook Entries",
+      "url": "{{PROD_API}}/guestbook",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2025-01-18T00:00:00.000Z",
+      "modified": "2025-01-18T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    }
+  ]
+}

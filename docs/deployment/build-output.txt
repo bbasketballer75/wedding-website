@@ -1,0 +1,38 @@
+
+> wedding-website@0.1.0 build
+> next build
+
+   Γû▓ Next.js 15.4.5
+   - Environments: .env.local, .env.production, .env
+   - Experiments (use with caution):
+     ┬╖ clientTraceMetadata
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 6.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9) 
+   Generating static pages (4/9) 
+   Generating static pages (6/9) 
+ Γ£ô Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
+   Exporting (0/3) ...
+ Γ£ô Exporting (3/3)
+
+Route (app)                                Size  First Load JS
+Γöî Γùï /                                   2.21 kB         531 kB
+Γö£ Γùï /_not-found                           299 B         529 kB
+Γö£ Γùï /admin                                566 B         530 kB
+Γö£ ╞Æ /api/sentry-example-api               298 B         529 kB
+Γö£ Γùï /sentry-example-page                2.46 kB         531 kB
+Γöö Γùï /sitemap.xml                          299 B         529 kB
++ First Load JS shared by all            529 kB
+  Γö£ chunks/vendors-a8243efa31c84128.js   525 kB
+  Γöö other shared chunks (total)         4.87 kB
+
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

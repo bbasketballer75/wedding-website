@@ -1,0 +1,328 @@
+/* ✨ MAGICAL MICRO-INTERACTIONS CSS ✨ */
+
+/* 🌟 Floating Animation for Photos */
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-0.3deg);
+  }
+}
+
+@keyframes hover-glow {
+  0%,
+  100% {
+    box-shadow: 0 4px 20px rgba(139, 168, 118, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(139, 168, 118, 0.6);
+  }
+}
+
+/* Photo Hover Magic */
+.photo-magic {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center center;
+}
+
+.photo-magic:hover {
+  animation: gentle-float 3s ease-in-out infinite;
+  transform: scale(1.02) translateZ(0);
+  filter: brightness(1.1) saturate(1.1);
+  z-index: 10;
+  position: relative;
+}
+
+/* ✨ Button Breathing Effect */
+@keyframes button-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(139, 168, 118, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 25px rgba(139, 168, 118, 0.6);
+  }
+}
+
+.btn-magical {
+  animation: button-breathe 4s ease-in-out infinite;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.btn-magical:hover {
+  animation: none;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(139, 168, 118, 0.8);
+}
+
+/* 🌈 Text Shimmer Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #8b9467 0%,
+    #e8c5a0 20%,
+    #f4e8d4 40%,
+    #e8c5a0 60%,
+    #8b9467 100%
+  );
+  background-size: 200px 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* 💫 Page Transition Effects */
+.page-transition-enter {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: scale(1.05) translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🎪 Scroll-Triggered Animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-animation {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stagger-animation.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add delays for staggered effect */
+.stagger-animation:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.stagger-animation:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.stagger-animation:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.stagger-animation:nth-child(4) {
+  transition-delay: 0.4s;
+}
+.stagger-animation:nth-child(5) {
+  transition-delay: 0.5s;
+}
+.stagger-animation:nth-child(6) {
+  transition-delay: 0.6s;
+}
+
+/* 💖 Heart Pulse for Special Elements */
+@keyframes heart-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+.heart-pulse {
+  animation: heart-pulse 2s ease-in-out infinite;
+  color: #e8c5a0;
+}
+
+/* ⭐ Sparkle Effect */
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+.sparkle::before {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  animation: sparkle 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* 🌊 Ripple Effect for Clicks */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* 🎨 Gradient Shift on Hover */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-magic {
+  background: linear-gradient(45deg, #8b9467, #e8c5a0, #f4e8d4, #e8c5a0, #8b9467);
+  background-size: 400% 400%;
+  transition: all 0.3s ease;
+}
+
+.gradient-magic:hover {
+  animation: gradient-shift 2s ease infinite;
+}
+
+/* 🪄 Magic Loading Skeleton */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* 🎭 Elegant Hover Lift */
+.elegant-lift {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.elegant-lift:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌟 Focus Magic for Accessibility */
+.focus-magic:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 168, 118, 0.5);
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+/* 🎪 Confetti Celebration */
+@keyframes confetti {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #e8c5a0;
+  animation: confetti 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.confetti:nth-child(odd) {
+  background: #8b9467;
+  animation-delay: 0.5s;
+}
+
+/* 🌈 Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .photo-magic:hover,
+  .btn-magical,
+  .text-shimmer,
+  .heart-pulse,
+  .sparkle::before,
+  .gradient-magic:hover {
+    animation: none;
+  }
+
+  .fade-in-up,
+  .stagger-animation,
+  .page-transition-enter-active,
+  .page-transition-exit-active {
+    transition: none;
+  }
+}

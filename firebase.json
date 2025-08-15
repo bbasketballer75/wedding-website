@@ -1,0 +1,17 @@
+{
+  "emulators": {
+    "firestore": {
+      "port": 8082
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4001
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "northamerica-northeast1",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

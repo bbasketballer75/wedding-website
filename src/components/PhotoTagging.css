@@ -1,0 +1,414 @@
+/* PhotoTagging.css - Wedding Theme Photo Tagging Functionality */
+
+.photo-tagging-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+  max-width: 100%;
+}
+
+.photo-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: default;
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  transition: all var(--duration-normal, 0.3s) var(--ease-out, ease);
+}
+
+.photo-wrapper:disabled {
+  cursor: default;
+}
+
+.photo-wrapper:not(:disabled) {
+  cursor: crosshair;
+}
+
+.photo-wrapper:focus {
+  outline: 2px solid var(--sage-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(143, 168, 118, 0.2);
+}
+
+.taggable-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg, 8px);
+  transition: filter var(--duration-normal, 0.3s) var(--ease-out, ease);
+}
+
+.photo-wrapper:not(:disabled) .taggable-photo {
+  filter: brightness(1.05) saturate(1.05);
+}
+
+/* Tag indicators */
+.photo-tag {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tag-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--sage-primary);
+  border: 2px solid var(--pearl);
+  box-shadow: var(--shadow-medium);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+}
+
+.photo-tag.verified .tag-dot {
+  background: var(--eucalyptus-primary);
+}
+
+.photo-tag.pending .tag-dot {
+  background: var(--blush-primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tag-dot:hover {
+  transform: scale(1.2);
+}
+
+/* Tag tooltips */
+.tag-tooltip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(44, 44, 44, 0.95);
+  color: var(--pearl);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-md, 6px);
+  font-size: var(--text-sm, 0.875rem);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  border: 1px solid var(--sage-soft);
+  backdrop-filter: blur(10px);
+}
+
+.tag-indicator:hover .tag-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tag-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(44, 44, 44, 0.95);
+}
+
+.tag-name {
+  font-weight: 500;
+  color: var(--pearl);
+}
+
+.remove-tag {
+  background: none;
+  border: none;
+  color: var(--blush-primary);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin-left: var(--space-1, 0.25rem);
+  transition: color var(--duration-fast, 0.2s) var(--ease-out, ease);
+}
+
+.remove-tag:hover {
+  color: var(--blush-deep);
+}
+
+/* Tag form overlay */
+.tag-form-overlay {
+  position: absolute;
+  z-index: 20;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.tag-form {
+  background: var(--pearl);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-6, 1.5rem);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--sage-whisper);
+  min-width: 280px;
+  animation: tagFormAppear 0.2s ease-out;
+}
+
+@keyframes tagFormAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--space-2, 0.5rem);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--space-3, 0.75rem);
+  border: 2px solid var(--sage-whisper);
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-sm, 0.875rem);
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  background: var(--pearl);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--sage-primary);
+  box-shadow: 0 0 0 3px rgba(143, 168, 118, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  border: none;
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  font-family: var(--font-body);
+}
+
+.btn-primary {
+  background: var(--gradient-sage);
+  color: var(--pearl);
+}
+
+.btn-primary:hover {
+  background: var(--sage-deep);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+  background: var(--dove);
+  color: var(--charcoal);
+  border: 1px solid var(--sage-whisper);
+}
+
+.btn-secondary:hover {
+  background: var(--sage-whisper);
+  border-color: var(--sage-soft);
+}
+
+/* Tagging controls */
+.tagging-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4, 1rem);
+  padding: var(--space-4, 1rem);
+  background: var(--sage-mist);
+  border-radius: var(--radius-lg, 8px);
+  border: 1px solid var(--sage-whisper);
+}
+
+.tag-mode-btn {
+  padding: var(--space-3, 0.75rem) var(--space-6, 1.5rem);
+  border: 2px solid var(--sage-primary);
+  border-radius: var(--radius-md, 6px);
+  background: var(--pearl);
+  color: var(--sage-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast, 0.2s) var(--ease-out, ease);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  font-family: var(--font-body);
+}
+
+.tag-mode-btn:hover {
+  background: var(--sage-primary);
+  color: var(--pearl);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.tag-mode-btn.active {
+  background: var(--sage-primary);
+  color: var(--pearl);
+}
+
+.tag-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  color: var(--sage-deep);
+  font-size: var(--text-sm, 0.875rem);
+  font-family: var(--font-body);
+}
+
+.tag-count {
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+/* Instructions */
+.tagging-instructions {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background: var(--blush-mist);
+  border: 1px solid var(--blush-whisper);
+  border-radius: var(--radius-md, 6px);
+  color: var(--blush-deep);
+  font-size: var(--text-sm, 0.875rem);
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tag-form {
+    min-width: 260px;
+    padding: 1rem;
+  }
+
+  .tagging-controls {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .tag-mode-btn {
+    justify-content: center;
+  }
+
+  .tag-tooltip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .tag-form {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .form-group label {
+    color: #e2e8f0;
+  }
+
+  .form-group input {
+    background: #1a202c;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+
+  .tagging-controls {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .tagging-instructions {
+    background: #2c5282;
+    border-color: #3182ce;
+    color: #bee3f8;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tag-dot {
+    border-width: 3px;
+  }
+
+  .tag-tooltip {
+    border: 2px solid white;
+  }
+
+  .form-group input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .photo-wrapper,
+  .taggable-photo,
+  .tag-dot,
+  .tag-tooltip,
+  .btn-primary,
+  .btn-secondary,
+  .tag-mode-btn {
+    transition: none;
+  }
+
+  .photo-tag.pending .tag-dot {
+    animation: none;
+  }
+
+  .tag-form {
+    animation: none;
+  }
+}

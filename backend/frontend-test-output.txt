@@ -1,0 +1,32 @@
+PASS utils/errorHandler.test.js
+PASS utils/geo.test.js
+PASS routes/videoRoutes.test.js
+PASS controllers/guestbookController.test.js
+PASS routes/mapRoutes.test.js
+PASS routes/album.test.js
+PASS routes/guestbookRoutes.test.js
+PASS utils/asyncHandler.test.js
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |   91.66 |       75 |   85.71 |    91.3 |                   
+ controllers             |   81.25 |     87.5 |   66.66 |   81.25 |                   
+  guestbookController.js |   81.25 |     87.5 |   66.66 |   81.25 | 41-45             
+ models                  |     100 |      100 |     100 |     100 |                   
+  GuestbookEntry.js      |     100 |      100 |     100 |     100 |                   
+ routes                  |     100 |      100 |     100 |     100 |                   
+  album.js               |     100 |      100 |     100 |     100 |                   
+  guestbookRoutes.js     |     100 |      100 |     100 |     100 |                   
+  mapRoutes.js           |     100 |      100 |     100 |     100 |                   
+  videoRoutes.js         |     100 |      100 |     100 |     100 |                   
+ utils                   |   93.75 |     62.5 |     100 |   92.85 |                   
+  asyncHandler.js        |     100 |      100 |     100 |     100 |                   
+  errorHandler.js        |     100 |       50 |     100 |     100 | 4-10              
+  geo.js                 |   88.88 |       75 |     100 |   88.88 | 20                
+-------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 8 passed, 8 total
+Tests:       40 passed, 40 total
+Snapshots:   0 total
+Time:        1.944 s, estimated 3 s
+Ran all test suites.

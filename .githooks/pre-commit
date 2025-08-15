@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Pre-commit hook to automatically fix code quality issues
+echo "🔧 Running pre-commit fixes..."
+
+# Run the pre-commit fix script
+npm run fix:pre-commit
+
+# Get the exit code
+if [ $? -ne 0 ]; then
+    echo "❌ Pre-commit fixes failed. Please review and fix issues manually."
+    exit 1
+fi
+
+echo "✅ Pre-commit fixes completed successfully!"
+exit 0

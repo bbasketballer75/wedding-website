@@ -1,0 +1,73 @@
+# Vercel Ignore File - Optimize deployment by excluding unnecessary files
+
+# Development files
+.env.local
+.env.development
+.env.example
+.env.template
+
+# Build artifacts not needed
+out/
+dist/
+.next/cache/
+
+# Test files
+**/*.test.*
+**/*.spec.*
+cypress/
+__tests__/
+coverage/
+
+# Documentation (not needed in production)
+docs/
+*.md
+!README.md
+
+# Scripts not needed in production
+scripts/dev-*
+scripts/monitoring/
+scripts/test-*
+
+# Logs
+logs/
+*.log
+
+# Development tools
+.storybook/
+.million/
+.sonarlint/
+
+# Archives and backups
+archives/
+gcs-backup-*/
+temp-*
+
+# Error logs directory
+ERROR LOGS IGNORE/
+
+# IDE files
+.vscode/settings.json
+.vscode/launch.json
+
+# Firebase development files
+firebase-debug.log
+firestore-debug.log
+firestore.indexes.json
+firestore.rules
+
+# Netlify files (not needed for Vercel)
+netlify/
+.netlifyignore
+netlify.toml
+netlify-env-setup.sh
+
+# Large dependencies that can be installed on Vercel
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.tmp/
+temp/

@@ -1,0 +1,196 @@
+/* Family Tree - Wedding Theme */
+.family-tree-container {
+  width: 100%;
+  text-align: center;
+  padding: 3rem 0;
+  overflow-x: auto; /* Allows horizontal scrolling for large trees */
+  background: linear-gradient(135deg, var(--sage-green-pale) 0%, var(--blush-pale) 100%);
+  border-radius: var(--border-radius-large);
+  margin: 2rem 0;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.family-tree-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--sage-green) 0%,
+    var(--blush) 50%,
+    var(--eucalyptus) 100%
+  );
+  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+}
+
+.family-tree {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 20px 0;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.member-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(156, 175, 136, 0.2);
+  border-radius: var(--border-radius-large);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-medium);
+  min-width: 220px;
+  z-index: 1;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.member-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sage-green) 0%, var(--blush) 100%);
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-large);
+}
+
+.member-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  color: var(--sage-green-dark);
+  margin-bottom: 0.5rem;
+}
+
+.member-role {
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--sage-green);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.children {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px; /* Space for connecting lines */
+  position: relative;
+}
+
+/* Vertical connecting line from parent to children container */
+.member-card::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(var(--sage-green-light), var(--blush-light));
+}
+
+/* Hide the line for members with no children */
+.member:has(.children:empty) .member-card::after {
+  display: none;
+}
+
+.children > .member {
+  padding: 20px;
+}
+
+/* Horizontal connecting line for children */
+.children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage-green-light) 0%, var(--blush-light) 100%);
+}
+
+/* Vertical connecting line from child to horizontal line */
+.member::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(var(--sage-green-light), var(--blush-light));
+}
+
+/* Hide the line for the top-level member */
+.family-tree > .member::before {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .family-tree-container {
+    padding: 2rem 1rem;
+  }
+
+  .member-card {
+    min-width: 180px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .member-name {
+    font-size: 1.1rem;
+  }
+
+  .member-role {
+    font-size: 0.9rem;
+  }
+
+  .children > .member {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .member-card {
+    min-width: 160px;
+    padding: 1rem;
+  }
+
+  .member-name {
+    font-size: 1rem;
+  }
+
+  .member-role {
+    font-size: 0.85rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .family-tree,
+  .member {
+    animation: none;
+  }
+
+  .member-card:hover {
+    transform: none;
+  }
+}

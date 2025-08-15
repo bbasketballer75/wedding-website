@@ -1,0 +1,29 @@
+[
+  {
+    "key": "ctrl+shift+alt+f",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Fix All Issues (Auto)",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Fix All Issues (Quick)",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "f6",
+    "command": "eslint.executeAutofix",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+f6",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+k ctrl+s",
+    "command": "sonarlint.showAllRules",
+    "when": "editorTextFocus"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "client": "Thunder Client",
+  "environmentName": "Wedding Website Environments",
+  "dateExported": "2025-01-18T00:00:00.000Z",
+  "version": "1.0",
+  "variables": [
+    {
+      "name": "LOCAL_API",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "name": "PROD_API",
+      "value": "https://www.theporadas.com/api"
+    },
+    {
+      "name": "ADMIN_KEY",
+      "value": "your-admin-key-here"
+    }
+  ]
+}

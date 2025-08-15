@@ -1,0 +1,17 @@
+{
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.postCommitCommand": "push",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "git.suggestSmartCommit": true,
+  "scm.diffDecorations": "gutter",
+  "scm.alwaysShowProviders": true,
+  "scm.defaultViewMode": "tree",
+  "git.enableCommitSigning": false,
+  "workbench.scm.alwaysShowRepositories": true,
+  "timeline.excludeSources": [],
+  "git.timeline.date": "committed",
+  "git.timeline.showAuthor": true
+}

@@ -1,0 +1,104 @@
+PRODUCTION DEPLOYMENT GUIDE
+===========================
+
+1. NETLIFY DEPLOYMENT SETUP
+============================
+
+Option A: Drag & Drop Deployment
+---------------------------------
+1. Build production files:
+   npm run build
+
+2. Go to netlify.com → Deploy site
+3. Drag the '.next' folder to the deploy area
+4. Your site will be live with a random URL
+
+Option B: Git Integration (Recommended)
+--------------------------------------
+1. Push your code to GitHub
+2. Connect repository to Netlify
+3. Set build settings:
+   - Build command: npm run build
+   - Publish directory: .next
+   - Node version: 18
+
+Option C: Netlify CLI
+--------------------
+1. Install CLI: npm install -g netlify-cli
+2. Login: netlify login  
+3. Initialize: netlify init
+4. Deploy: netlify deploy --prod --dir=.next
+
+2. ENVIRONMENT VARIABLES
+========================
+✅ VERIFIED - Your Netlify environment variables are configured:
+
+✅ ADMIN_KEY (Scoped to Builds, Functions, Runtime)
+✅ GCP_CLIENT_EMAIL (All scopes)
+✅ GCP_PRIVATE_KEY (Scoped to Builds, Functions, Runtime)
+✅ GCP_PROJECT_ID (All scopes)
+✅ GCS_BUCKET_NAME (All scopes)
+✅ NODE_ENV (All scopes)
+✅ REACT_APP_API_URL (All scopes)
+✅ REACT_APP_BASE_URL (All scopes)
+✅ SENTRY_AUTH_TOKEN (Scoped to Builds, Functions, Runtime)
+✅ SENTRY_DSN (All scopes)
+✅ SENTRY_ENVIRONMENT (All scopes)
+✅ SESSION_SECRET (Scoped to Builds, Functions, Runtime)
+
+🎯 All required environment variables are properly configured!
+
+3. CUSTOM DOMAIN SETUP
+======================
+□ Go to Domain settings in Netlify
+□ Add your custom domain
+□ Configure DNS records as instructed
+□ Enable HTTPS (automatic with Netlify)
+
+4. PERFORMANCE MONITORING
+=========================
+After deployment:
+□ Run Lighthouse audit on live URL
+□ Test Core Web Vitals with real users
+□ Monitor Sentry for errors
+□ Check accessibility with screen readers
+
+5. POST-DEPLOYMENT CHECKLIST
+============================
+□ Site loads correctly on all devices
+□ All images display properly
+□ Forms submit successfully
+□ Navigation works smoothly
+□ Performance scores are good
+□ No console errors
+□ Accessibility features work
+□ Error monitoring is active
+
+6. ONGOING MAINTENANCE
+=====================
+□ Weekly: Check Sentry for errors
+□ Monthly: Run Lighthouse audits
+□ Quarterly: Full accessibility review
+□ As needed: Update dependencies
+
+TROUBLESHOOTING
+===============
+Site won't build:
+- Check build logs in Netlify
+- Verify environment variables
+- Test build locally first
+
+Images not loading:
+- Check file paths are correct
+- Verify images are in public/ folder
+- Test with different image formats
+
+Forms not working:
+- Check API endpoints
+- Verify CORS settings
+- Test network requests
+
+Performance issues:
+- Run bundle analyzer
+- Optimize images further
+- Check third-party scripts

@@ -1,0 +1,42 @@
+.stayintouch-section {
+  min-height: 40vh;
+  background: var(--eucalyptus-light);
+  padding: 3rem 0 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stayintouch-content {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-medium);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.stayintouch-title {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: var(--sage-green-dark);
+  margin-bottom: 1.2rem;
+}
+
+.stayintouch-message {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--charcoal);
+  line-height: 1.7;
+}
+
+.stayintouch-message a {
+  color: var(--sage-green);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.stayintouch-message a:hover {
+  color: var(--blush);
+}

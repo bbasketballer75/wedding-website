@@ -1,0 +1,167 @@
+{
+  "agentMode": {
+    "version": "2.0.0",
+    "name": "Wedding Website Ultimate Agent",
+    "capabilities": {
+      "projectControl": {
+        "level": "maximum",
+        "fileAccess": "full",
+        "multiFileEditing": true,
+        "coordinatedRefactoring": true,
+        "automaticBackups": true
+      },
+      "analysis": {
+        "codebaseUnderstanding": "deep",
+        "performanceMonitoring": true,
+        "securityScanning": true,
+        "accessibilityAuditing": true,
+        "dependencyAnalysis": true,
+        "architecturalInsights": true
+      },
+      "automation": {
+        "testGeneration": true,
+        "buildOptimization": true,
+        "deploymentManagement": true,
+        "errorResolution": true,
+        "performanceTuning": true,
+        "securityHardening": true
+      },
+      "intelligence": {
+        "contextAwareness": "maximum",
+        "patternRecognition": true,
+        "predictiveAnalysis": true,
+        "proactiveOptimization": true,
+        "adaptiveLearning": true
+      }
+    },
+    "configuration": {
+      "concurrency": {
+        "maxConcurrentTasks": 8,
+        "taskPrioritization": "intelligent",
+        "resourceOptimization": true
+      },
+      "aiParameters": {
+        "temperature": 0.2,
+        "contextWindow": "maximum",
+        "responseOptimization": true,
+        "creativityBalance": "balanced"
+      },
+      "safety": {
+        "backupBeforeChanges": true,
+        "validationRequired": false,
+        "rollbackCapability": true,
+        "changeTracking": true
+      },
+      "performance": {
+        "cacheOptimization": true,
+        "bundleAnalysis": true,
+        "coreWebVitalsMonitoring": true,
+        "realTimeOptimization": true
+      }
+    },
+    "workflows": {
+      "codeGeneration": {
+        "enabled": true,
+        "templates": ["component", "page", "service", "test", "utility"],
+        "bestPractices": true,
+        "typeScript": true,
+        "accessibility": true,
+        "testing": true
+      },
+      "refactoring": {
+        "enabled": true,
+        "strategies": ["modernize", "optimize", "secure", "accessibility"],
+        "crossFileCoordination": true,
+        "dependencyUpdating": true,
+        "testMaintenance": true
+      },
+      "optimization": {
+        "enabled": true,
+        "areas": ["performance", "security", "accessibility", "seo", "mobile"],
+        "automaticApplication": false,
+        "validationRequired": true,
+        "rollbackOnFailure": true
+      },
+      "deployment": {
+        "enabled": true,
+        "environments": ["preview", "production"],
+        "preDeploymentChecks": true,
+        "postDeploymentValidation": true,
+        "rollbackCapability": true
+      }
+    },
+    "integrations": {
+      "vscode": {
+        "experimentalFeatures": true,
+        "extensionOptimization": true,
+        "workspaceSettings": true,
+        "taskAutomation": true
+      },
+      "testing": {
+        "vitest": true,
+        "jest": true,
+        "cypress": true,
+        "coverage": true,
+        "accessibility": true
+      },
+      "deployment": {
+        "netlify": true,
+        "vercel": true,
+        "cicd": true,
+        "monitoring": true
+      },
+      "services": {
+        "firestore": true,
+        "googleCloud": true,
+        "sentry": true,
+        "analytics": true
+      }
+    },
+    "specializations": {
+      "weddingWebsite": {
+        "domainExpertise": true,
+        "designPatterns": true,
+        "userExperience": true,
+        "emotionalDesign": true
+      },
+      "nextjs": {
+        "appRouter": true,
+        "serverComponents": true,
+        "optimization": true,
+        "seo": true
+      },
+      "accessibility": {
+        "wcagCompliance": true,
+        "screenReaders": true,
+        "keyboardNavigation": true,
+        "colorContrast": true
+      },
+      "performance": {
+        "coreWebVitals": true,
+        "imageOptimization": true,
+        "bundleOptimization": true,
+        "caching": true
+      }
+    },
+    "commands": {
+      "analyze": "Deep project analysis and insights",
+      "optimize": "Performance, security, accessibility optimization",
+      "refactor": "Intelligent code refactoring with AI assistance",
+      "generate": "AI-powered code and test generation",
+      "deploy": "Automated deployment with validation",
+      "secure": "Advanced security hardening",
+      "accelerate": "Performance boost implementation",
+      "modernize": "Technology stack updates",
+      "enhance": "Feature enhancement and improvements",
+      "fix": "Intelligent bug detection and resolution"
+    },
+    "status": {
+      "initialized": true,
+      "configured": true,
+      "tested": true,
+      "ready": true,
+      "version": "2.0.0",
+      "lastUpdate": "2025-08-13T19:45:00Z"
+    }
+  }
+}

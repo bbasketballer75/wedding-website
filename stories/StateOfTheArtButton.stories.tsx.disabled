@@ -1,0 +1,280 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import StateOfTheArtButton from '../src/components/ui/StateOfTheArtButton';
+
+/**
+ * 🎨 STATE-OF-THE-ART BUTTON STORIES ✨
+ *
+ * Professional button component with GSAP animations and design tokens
+ */
+
+type Story = StoryObj<typeof meta>;
+
+const meta = {
+  title: 'Design System/Button',
+  component: StateOfTheArtButton,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `
+# State-of-the-Art Button
+
+A professional button component built with GSAP animations, design tokens, and accessibility best practices.
+
+## Features
+- 🎬 **GSAP Animations** - Smooth 60fps interactions
+- 🎨 **Design Tokens** - Consistent styling system
+- ♿ **Accessibility** - WCAG AA compliant
+- 🎯 **Variants** - Multiple styles for different contexts
+- 📱 **Responsive** - Works on all device sizes
+- ⚡ **Performance** - Optimized animations and rendering
+
+## Usage
+\`\`\`jsx
+import { StateOfTheArtButton } from './components/ui/StateOfTheArtButton';
+
+<StateOfTheArtButton variant="primary" size="medium">
+  Get Started
+</StateOfTheArtButton>
+\`\`\`
+        `
+      }
+    }
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'ghost', 'danger'],
+      description: 'Visual style variant of the button'
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large', 'xl'],
+      description: 'Size of the button'
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the button is disabled'
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Whether the button is in loading state'
+    },
+    children: {
+      control: 'text',
+      description: 'Button content'
+    }
+  },
+  args: {
+    children: 'Button',
+    variant: 'primary',
+    size: 'medium',
+    disabled: false,
+    loading: false
+  }
+};
+
+export default meta;
+
+// Primary button - main call-to-action
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Primary Button',
+  },
+};
+
+// Secondary button - alternative action
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    children: 'Secondary Button',
+  },
+};
+
+// Ghost button - subtle action
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    children: 'Ghost Button',
+  },
+};
+
+// Danger button - destructive action
+export const Danger: Story = {
+  args: {
+    variant: 'danger',
+    children: 'Delete Item',
+  },
+};
+
+// All sizes showcase
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <StateOfTheArtButton variant="primary" size="small">
+        Small
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="primary" size="medium">
+        Medium
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="primary" size="large">
+        Large
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="primary" size="xl">
+        Extra Large
+      </StateOfTheArtButton>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All available button sizes from small to extra large.'
+      }
+    }
+  }
+};
+
+// All variants showcase
+export const AllVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <StateOfTheArtButton variant="primary">
+        Primary
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="secondary">
+        Secondary
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="ghost">
+        Ghost
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="danger">
+        Danger
+      </StateOfTheArtButton>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All available button variants for different use cases.'
+      }
+    }
+  }
+};
+
+// Loading states
+export const LoadingStates: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <StateOfTheArtButton variant="primary" loading>
+        Loading...
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="secondary" loading>
+        Processing
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="ghost" loading>
+        Saving
+      </StateOfTheArtButton>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Buttons in loading state with animated spinners.'
+      }
+    }
+  }
+};
+
+// Disabled states
+export const DisabledStates: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <StateOfTheArtButton variant="primary" disabled>
+        Disabled Primary
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="secondary" disabled>
+        Disabled Secondary
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="ghost" disabled>
+        Disabled Ghost
+      </StateOfTheArtButton>
+      <StateOfTheArtButton variant="danger" disabled>
+        Disabled Danger
+      </StateOfTheArtButton>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled button states for all variants.'
+      }
+    }
+  }
+};
+
+// Wedding website specific examples
+export const WeddingExamples: Story = {
+  render: () => (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2rem',
+      padding: '2rem',
+      background: 'linear-gradient(135deg, #f6f9f4 0%, #eaf2e4 100%)',
+      borderRadius: '16px'
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <h3 style={{ marginBottom: '1rem', color: '#2d3748' }}>Wedding Website Actions</h3>
+      </div>
+
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <StateOfTheArtButton variant="primary" size="large">
+          ▶️ Watch Our Wedding Video
+        </StateOfTheArtButton>
+        <StateOfTheArtButton variant="secondary" size="medium">
+          📖 Sign Guestbook
+        </StateOfTheArtButton>
+        <StateOfTheArtButton variant="ghost" size="medium">
+          📸 View Gallery
+        </StateOfTheArtButton>
+      </div>
+
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <StateOfTheArtButton variant="primary" size="medium">
+          💌 Send Love Note
+        </StateOfTheArtButton>
+        <StateOfTheArtButton variant="secondary" size="medium">
+          🗺️ View Love Map
+        </StateOfTheArtButton>
+        <StateOfTheArtButton variant="ghost" size="small">
+          ℹ️ Wedding Details
+        </StateOfTheArtButton>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Real-world examples of buttons used in the wedding website context.'
+      }
+    }
+  }
+};
+
+// Interactive demo
+export const Interactive: Story = {
+  args: {
+    variant: 'primary',
+    size: 'medium',
+    children: 'Click me!',
+    onClick: () => alert('Button clicked! 🎉')
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Interactive button with click handler. Try clicking it!'
+      }
+    }
+  }
+};

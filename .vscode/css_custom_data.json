@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": "Import Tailwind CSS directives",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+        }
+      ]
+    },
+    {
+      "name": "@apply",
+      "description": "Apply Tailwind CSS utility classes",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+        }
+      ]
+    },
+    {
+      "name": "@layer",
+      "description": "Define CSS in a specific Tailwind layer",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+        }
+      ]
+    },
+    {
+      "name": "@screen",
+      "description": "Create media queries using Tailwind's breakpoint names",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#screen"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "--tw-",
+      "description": "Tailwind CSS custom property prefix for internal variables"
+    }
+  ]
+}

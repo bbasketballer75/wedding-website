@@ -1,0 +1,38 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "layer",
+          "container",
+          "theme",
+          "use",
+          "forward",
+          "include",
+          "mixin",
+          "if",
+          "else",
+          "for",
+          "each",
+          "while",
+          "function",
+          "return",
+          "warn",
+          "error",
+          "debug",
+          "extend"
+        ]
+      }
+    ],
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["tailwind", "apply", "layer", "container", "theme"]
+      }
+    ]
+  }
+}
