@@ -84,8 +84,8 @@ class PrivacyManager {
   disableAnalytics() {
     // Clear analytics data
     try {
-      if (typeof gtag !== 'undefined') {
-        gtag('consent', 'update', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('consent', 'update', {
           analytics_storage: 'denied',
         });
       }
@@ -97,8 +97,8 @@ class PrivacyManager {
   // Update tracking scripts based on consent
   updateTrackingScripts() {
     // Google Analytics consent mode
-    if (typeof gtag !== 'undefined') {
-      gtag('consent', 'update', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
         analytics_storage: this.consent.analytics ? 'granted' : 'denied',
         ad_storage: this.consent.marketing ? 'granted' : 'denied',
         personalization_storage: this.consent.personalization ? 'granted' : 'denied',
@@ -133,7 +133,7 @@ class PrivacyManager {
                 🍃 We respect your privacy
               </h3>
               <p style="margin: 0; color: #666; font-size: 0.9rem; line-height: 1.4;">
-                We use cookies and similar technologies to enhance your experience on our wedding website. 
+                We use cookies and similar technologies to enhance your experience on our wedding website.
                 You can choose which types of data we collect.
               </p>
             </div>
@@ -205,7 +205,7 @@ class PrivacyManager {
           <h2 style="margin: 0 0 1.5rem 0; color: var(--sage-green, #8B9A8B);">
             Privacy Preferences
           </h2>
-          
+
           <div style="margin-bottom: 2rem;">
             <div style="margin-bottom: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -218,7 +218,7 @@ class PrivacyManager {
                 <input type="checkbox" checked disabled style="transform: scale(1.2);">
               </div>
             </div>
-            
+
             <div style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
@@ -230,7 +230,7 @@ class PrivacyManager {
                 <input type="checkbox" id="analytics-consent" ${this.consent.analytics ? 'checked' : ''} style="transform: scale(1.2);">
               </div>
             </div>
-            
+
             <div style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
@@ -243,7 +243,7 @@ class PrivacyManager {
               </div>
             </div>
           </div>
-          
+
           <div style="display: flex; gap: 1rem; justify-content: flex-end;">
             <button onclick="privacyManager.closePreferences()" style="
               background: transparent;

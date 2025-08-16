@@ -147,8 +147,8 @@ class WeddingAnalyticsManager {
     this.sendToAnalytics(eventData);
 
     // Also send to Google Analytics if available
-    if (typeof gtag !== 'undefined') {
-      gtag('event', event, {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', event, {
         custom_parameter_1: JSON.stringify(data),
         event_category: 'wedding_interaction',
         event_label: event,

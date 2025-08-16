@@ -22,8 +22,8 @@ function sendToAnalytics(metric) {
   }
 
   // Send to Google Analytics if available
-  if (typeof gtag !== 'undefined') {
-    gtag('event', metric.name, {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', metric.name, {
       event_category: 'Web Vitals',
       event_label: metric.id,
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
@@ -135,9 +135,9 @@ export function initPerformanceObserver() {
           }
 
           // Send to analytics
-          if (typeof gtag !== 'undefined') {
+          if (typeof window !== 'undefined' && window.gtag) {
             Object.entries(navigationTiming).forEach(([key, value]) => {
-              gtag('event', 'navigation_timing', {
+              window.gtag('event', 'navigation_timing', {
                 event_category: 'Performance',
                 event_label: key,
                 value: Math.round(value),
