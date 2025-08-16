@@ -374,7 +374,7 @@
   "javascript.suggest.completeFunctionCalls": true,
 
   // 🎨 UI/UX OPTIMIZATIONS FOR AGENT MODE
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": true,
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.startupEditor": "none",
   "workbench.colorTheme": "Default Dark Modern",
