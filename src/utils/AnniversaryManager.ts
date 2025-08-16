@@ -24,7 +24,7 @@ interface AnniversaryContent {
 }
 
 export class AnniversaryManager {
-  private anniversaryDate: Date;
+  private readonly anniversaryDate: Date;
 
   constructor(anniversaryDate: string = '2025-05-10') {
     this.anniversaryDate = new Date(anniversaryDate);

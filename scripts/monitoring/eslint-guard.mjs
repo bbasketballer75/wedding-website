@@ -31,7 +31,7 @@ class ESLintGuard {
   }
 
   log(message, type = 'info') {
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
     const colors = {
       info: chalk.blue,
       success: chalk.green,
@@ -40,7 +40,9 @@ class ESLintGuard {
       detection: chalk.magenta,
     };
 
-    console.log(`${chalk.gray(`[${timestamp}]`)} ${colors[type]('🚫 ESLint Guard:')} ${message}`);
+    const coloredMessage = colors[type]('🚫 ESLint Guard:') + ' ' + message;
+    const timestampPart = chalk.gray(`[${timestamp}]`);
+    console.log(timestampPart + ' ' + coloredMessage);
   }
 
   async checkForLegacyConfigs() {

@@ -17,9 +17,9 @@ declare global {
 }
 
 class WeddingAnalyticsManager {
-  private events: WeddingEvent[] = [];
-  private sessionStart: number;
-  private visitorId: string;
+  private readonly events: WeddingEvent[] = [];
+  private readonly sessionStart: number;
+  private readonly visitorId: string;
 
   constructor() {
     this.sessionStart = Date.now();
@@ -50,7 +50,7 @@ class WeddingAnalyticsManager {
     const stored = localStorage.getItem('wedding-visitor-id');
     if (stored) return stored;
 
-    const id = 'visitor_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    const id = 'visitor_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
     localStorage.setItem('wedding-visitor-id', id);
     return id;
   }
@@ -166,6 +166,7 @@ class WeddingAnalyticsManager {
       });
     } catch (error) {
       // Fallback to localStorage for offline tracking
+      console.warn('Analytics request failed, storing locally:', error);
       const stored = localStorage.getItem('wedding-analytics-queue') || '[]';
       const queue = JSON.parse(stored);
       queue.push(event);

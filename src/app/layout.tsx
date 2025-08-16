@@ -4,12 +4,15 @@ import type { Metadata, Viewport } from 'next';
 import { Allura, Cormorant_Garamond, Inter } from 'next/font/google';
 import Script from 'next/script';
 import React from 'react';
+import AccessibilityMonitor from '../components/accessibility/AccessibilityMonitor';
 import { AudioProvider } from '../components/AmbientSoundSystem';
 import { EnhancedErrorBoundary } from '../components/EnhancedErrorBoundary';
 import { ToastProvider } from '../components/MagicalToastSystem';
+import WebVitalsProvider from '../components/performance/WebVitalsMonitor';
 import WeddingAnalytics from '../components/performance/WeddingAnalytics';
+import StructuredData from '../components/seo/StructuredData';
 import ServiceWorkerRegistration from '../components/ServiceWorkerRegistration';
-import '../styles/core/modern-2025-design.css';
+// Modern design styles are included in globals.css
 import './globals.css';
 
 // Configure premium wedding fonts
@@ -186,8 +189,12 @@ export default function RootLayout({
         <AudioProvider>
           <ToastProvider>
             <EnhancedErrorBoundary componentName="RootLayout" sessionStart={Date.now()}>
-              <WeddingAnalytics />
-              {children}
+              <WebVitalsProvider>
+                <WeddingAnalytics />
+                <StructuredData />
+                <AccessibilityMonitor />
+                {children}
+              </WebVitalsProvider>
             </EnhancedErrorBoundary>
           </ToastProvider>
         </AudioProvider>

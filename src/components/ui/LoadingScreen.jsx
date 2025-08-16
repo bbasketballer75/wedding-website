@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
 const LoadingScreen = ({ message = 'Loading...' }) => {
   return (
-    <div className="loading-screen" role="status" aria-live="polite">
+    <div className="loading-screen" aria-live="polite">
       <div className="loading-content">
         <div className="loading-spinner">
           <div className="spinner-ring"></div>
@@ -75,3 +77,7 @@ const LoadingScreen = ({ message = 'Loading...' }) => {
 };
 
 export default LoadingScreen;
+
+LoadingScreen.propTypes = {
+  message: PropTypes.string,
+};

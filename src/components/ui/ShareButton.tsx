@@ -45,13 +45,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       case 'email':
         shareUrl = socialShare.email(url, title, description);
         break;
-      case 'copy':
+      case 'copy': {
         const success = await socialShare.copyLink(url);
         if (success) {
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
         }
-        return;
+        break;
+      }
     }
 
     if (shareUrl) {
@@ -61,12 +62,16 @@ const ShareButton: React.FC<ShareButtonProps> = ({
     setIsOpen(false);
 
     // Track sharing analytics
-    if (typeof window !== 'undefined' && (window as any).weddingAnalytics) {
-      (window as any).weddingAnalytics.trackEvent('share_action', {
-        platform,
-        url,
-        title,
-      });
+    if (typeof window !== 'undefined' && 'weddingAnalytics' in window) {
+      const analytics = (window as { weddingAnalytics?: { trackEvent: Function } })
+        .weddingAnalytics;
+      if (analytics) {
+        analytics.trackEvent('share_action', {
+          platform,
+          url,
+          title,
+        });
+      }
     }
   };
 
@@ -81,16 +86,20 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         });
 
         // Track native sharing
-        if (typeof window !== 'undefined' && (window as any).weddingAnalytics) {
-          (window as any).weddingAnalytics.trackEvent('share_action', {
-            platform: 'native',
-            url,
-            title,
-          });
+        if (typeof window !== 'undefined' && 'weddingAnalytics' in window) {
+          const analytics = (window as { weddingAnalytics?: { trackEvent: Function } })
+            .weddingAnalytics;
+          if (analytics) {
+            analytics.trackEvent('share_action', {
+              platform: 'native',
+              url,
+              title,
+            });
+          }
         }
-      } catch (error) {
+      } catch {
         // User cancelled or error occurred
-        console.log('Share cancelled');
+        console.warn('Share operation cancelled or failed');
       }
     } else {
       setIsOpen(!isOpen);
@@ -124,7 +133,12 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
       {isOpen && !navigator.share && (
         <div className="share-menu">
-          <div className="share-menu-overlay" onClick={() => setIsOpen(false)} />
+          <button
+            className="share-menu-overlay"
+            onClick={() => setIsOpen(false)}
+            role="button"
+            aria-label="Close share menu"
+          />
           <div className="share-menu-content">
             <h3 className="share-menu-title">Share this page</h3>
 
@@ -199,7 +213,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .share-button-container {
           position: relative;
           display: inline-block;

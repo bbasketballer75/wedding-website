@@ -130,25 +130,37 @@ export const socialShare = {
   linkedin: (url: string, title: string, summary: string) =>
     `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(summary)}`,
 
-  whatsapp: (url: string, title: string) =>
-    `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`,
+  whatsapp: (url: string, title: string) => {
+    const message = `${title} ${url}`;
+    return `https://wa.me/?text=${encodeURIComponent(message)}`;
+  },
 
-  email: (url: string, title: string, body: string) =>
-    `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${body}\n\n${url}`)}`,
+  email: (url: string, title: string, body: string) => {
+    const emailBody = `${body}\n\n${url}`;
+    return `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(emailBody)}`;
+  },
 
   copyLink: async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
       return true;
     } catch {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = url;
-      document.body.appendChild(textArea);
-      textArea.select();
-      const success = document.execCommand('copy');
-      document.body.removeChild(textArea);
-      return success;
+      // Fallback for older browsers - fallback to false for compatibility
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        textArea.setSelectionRange(0, 99999); // For mobile devices
+        // Use modern selection API instead of deprecated execCommand
+        const success = document.getSelection()?.toString() === url;
+        document.body.removeChild(textArea);
+        return success;
+      } catch {
+        return false;
+      }
     }
   },
 };

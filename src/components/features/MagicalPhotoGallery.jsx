@@ -186,7 +186,7 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
 
       {/* Fullscreen Modal */}
       {isFullscreen && (
-        <div className="fullscreen-modal"  role="button" tabIndex={0} onClick={toggleFullscreen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFullscreen(e); } }}>
+        <button className="fullscreen-modal"  role="button" tabIndex={0} onClick={toggleFullscreen} onKeyDown={(e) = role="button"> { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFullscreen(e); } }}>
           <div className="fullscreen-content">
             <img
               src={photos[currentIndex]?.url}

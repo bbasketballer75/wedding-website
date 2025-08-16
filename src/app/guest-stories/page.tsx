@@ -227,7 +227,7 @@ export default function GuestStoriesPage() {
                 {story.tags.length > 0 && (
                   <div className="story-tags">
                     {story.tags.map((tag, index) => (
-                      <span key={`tag-${index}`} className="story-tag">
+                      <span key={`tag-${tag}-${index}`} className="story-tag">
                         {tag}
                       </span>
                     ))}
@@ -265,7 +265,7 @@ export default function GuestStoriesPage() {
               {story.tags.length > 0 && (
                 <div className="story-tags">
                   {story.tags.slice(0, 3).map((tag, index) => (
-                    <span key={`tag-${index}`} className="story-tag">
+                    <span key={`tag-${tag}-${index}`} className="story-tag">
                       {tag}
                     </span>
                   ))}

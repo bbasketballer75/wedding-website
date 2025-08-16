@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { AudioControls } from '../components/AmbientSoundSystem';
 import ModernFooter from '../components/ui/ModernFooter';
 import VideoHomePage from '../page-components/VideoHomePage';
-import '../styles/core/modern-2025-design.css';
+// Modern design styles are included in globals.css
 
 export default function HomePage() {
   useEffect(() => {

@@ -7,7 +7,7 @@
 
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-import { ConfettiCelebration } from '../utils/magicalInteractions.js';
+import { ConfettiCelebration } from '../utils/features/magicalInteractions.js';
 
 const InteractiveLoveTimeline = ({ className = '' }) => {
   const [activeIndex, setActiveIndex] = useState(0);

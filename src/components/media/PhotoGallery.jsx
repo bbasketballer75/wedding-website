@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { getAlbumMedia } from '../../services/api';
-import './PhotoGallery.css';
 
 const PhotoGallery = ({ refreshKey }) => {
   const [media, setMedia] = useState([]);

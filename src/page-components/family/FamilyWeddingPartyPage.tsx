@@ -1,8 +1,7 @@
 'use client';
-import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 import VideoModal from '../../components/media/VideoModal';
-import './FamilyTreePage-enhanced.css';
 
 const PARENT_VIDEOS = [
   {

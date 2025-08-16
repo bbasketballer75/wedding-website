@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getAlbumMedia, uploadMedia } from '../../services/api';
+import { useEffect, useState } from 'react';
 import LoadingScreen from '../../components/ui/LoadingScreen';
-
-import './AlbumPage.css';
+import { getAlbumMedia, uploadMedia } from '../../services/api';
 
 const AlbumPage = () => {
   const [photos, setPhotos] = useState([]);

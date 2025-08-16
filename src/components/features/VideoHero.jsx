@@ -1,5 +1,7 @@
 'use client';
 
+import PropTypes from 'prop-types';
+
 /**
  * 🎬 VIDEO-CENTRIC HERO SECTION ✨
  *
@@ -10,7 +12,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { useInteractionSounds } from '../AmbientSoundSystem';
-import EnhancedVideoPlayer from '../media/EnhancedVideoPlayer';
+import StateOfTheArtEnhancedVideoPlayer from '../media/StateOfTheArtEnhancedVideoPlayer';
 
 const VideoHero = ({
   videoSrc = '/video/wedding-film.mp4',
@@ -196,7 +198,7 @@ const VideoHero = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
       >
-        <EnhancedVideoPlayer
+        <StateOfTheArtEnhancedVideoPlayer
           src={videoSrc}
           posterSrc={posterSrc}
           title="Austin & Jordyn's Wedding Film"
@@ -595,3 +597,11 @@ const VideoHero = ({
 };
 
 export default VideoHero;
+
+VideoHero.propTypes = {
+  videoSrc: PropTypes.string,
+  posterSrc: PropTypes.string,
+  chapters: PropTypes.array,
+  autoplay: PropTypes.bool,
+  showWelcomeOverlay: PropTypes.bool,
+};

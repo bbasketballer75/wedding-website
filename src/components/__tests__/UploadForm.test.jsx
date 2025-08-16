@@ -3,9 +3,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import UploadForm from '../forms/UploadForm.jsx';
 
-// Mock CSS imports to prevent issues in tests
-vi.mock('../forms/UploadForm.css', () => ({}));
-
 // Mock the API service - this will override the global mock for this test file
 vi.mock('../../services/api.js', () => ({
   uploadMedia: vi.fn(),

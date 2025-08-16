@@ -5,6 +5,7 @@
  * Shows live guest activities and creates excitement
  */
 
+import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { ConfettiCelebration } from '../utils/features/magicalInteractions.js';
 
@@ -13,7 +14,6 @@ const RealTimeActivityFeed = ({ className = '' }) => {
   const [onlineCount, setOnlineCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const feedRef = useRef(null);
-  const wsRef = useRef(null);
 
   // Mock activities for demonstration (replace with real API)
   const mockActivities = [
@@ -208,6 +208,10 @@ const RealTimeActivityFeed = ({ className = '' }) => {
       </div>
     </div>
   );
+};
+
+RealTimeActivityFeed.propTypes = {
+  className: PropTypes.string,
 };
 
 export default RealTimeActivityFeed;

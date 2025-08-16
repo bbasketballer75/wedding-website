@@ -204,10 +204,11 @@ class PerformanceMonitor {
 
   async sendMetrics() {
     try {
-      await fetch('/api/performance-metrics', {
+      await fetch('/api/performance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          type: 'metrics',
           metrics: this.metrics,
           timestamp: Date.now(),
           userAgent: navigator.userAgent,
@@ -221,11 +222,12 @@ class PerformanceMonitor {
 
   async sendAlert(type, data) {
     try {
-      await fetch('/api/performance-alerts', {
+      await fetch('/api/performance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type,
+          type: 'alerts',
+          alertType: type,
           data,
           severity: this.getAlertSeverity(type),
           timestamp: Date.now(),

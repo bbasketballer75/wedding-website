@@ -287,8 +287,7 @@ const VideoHomePage = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>📸</span>
-                        Photo Gallery
+                        <span>📸</span> Photo Gallery
                       </motion.button>
 
                       <motion.button
@@ -298,8 +297,7 @@ const VideoHomePage = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>💌</span>
-                        Guest Messages
+                        <span>💌</span> Guest Messages
                       </motion.button>
 
                       <motion.button
@@ -309,8 +307,7 @@ const VideoHomePage = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>🗺️</span>
-                        Interactive Map
+                        <span>🗺️</span> Interactive Map
                       </motion.button>
                     </div>
                   </motion.div>

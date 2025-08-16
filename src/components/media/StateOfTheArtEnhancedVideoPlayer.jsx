@@ -12,6 +12,9 @@ import { gsap } from 'gsap';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+// Import the CSS module styles
+import styles from '../../styles/components/StateOfTheArtVideoPlayer.module.css';
+
 // State-of-the-art components
 import StateOfTheArtButton from '../ui/StateOfTheArtButton';
 import StateOfTheArtCard from '../ui/StateOfTheArtCard';
@@ -20,8 +23,6 @@ import StateOfTheArtCard from '../ui/StateOfTheArtCard';
 import { useInteractionSounds } from '../AmbientSoundSystem';
 
 // Styles
-import styles from '../../styles/components/StateOfTheArtVideoPlayer.module.css';
-
 const StateOfTheArtEnhancedVideoPlayer = ({
   src,
   posterSrc,
@@ -374,13 +375,14 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             <StateOfTheArtCard variant="glass" size="medium" className={styles.controlsCard}>
               {/* Progress bar */}
               <div className={styles.progressContainer}>
-                <div
+                <button
                   className={styles.progressBar}
                   onClick={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const pos = (e.clientX - rect.left) / rect.width;
                     handleSeek(pos * duration);
                   }}
+                  role="button"
                 >
                   <div
                     className={styles.progressFill}
@@ -390,7 +392,7 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                     className={styles.progressHandle}
                     style={{ left: `${(currentTime / duration) * 100}%` }}
                   />
-                </div>
+                </button>
                 <div className={styles.timeDisplay}>
                   <span>{formatTime(currentTime)}</span>
                   <span>/</span>

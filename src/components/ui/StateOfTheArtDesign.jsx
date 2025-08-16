@@ -101,9 +101,9 @@ export const StateOfTheArtVideoControls = ({
     <div ref={controlsRef} className="state-of-the-art-controls">
       {/* Progress Bar */}
       <div className="progress-container">
-        <div
+        <button
           className="progress-track"
-           role="button" tabIndex={0} onClick={(e) => {
+           role="button" tabIndex={0} onClick={(e) = role="button"> {
             const rect = e.currentTarget.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
             onSeek(percent * duration);

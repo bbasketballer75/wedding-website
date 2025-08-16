@@ -36,6 +36,7 @@ export async function GET(_request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    console.log("Request body:", body);
     // Validate required fields
     if (!body.name || !body.message) {
       return NextResponse.json(

@@ -10,7 +10,27 @@ const nextConfig = {
   // Vercel-optimized configuration
   experimental: {
     // Optimize for Vercel's infrastructure
-    optimizePackageImports: ['@mui/material', '@mui/icons-material'],
+    optimizePackageImports: [
+      '@mui/material',
+      '@mui/icons-material',
+      'framer-motion',
+      'gsap',
+      'lucide-react',
+      '@radix-ui/react-select',
+      '@radix-ui/react-slider',
+      '@radix-ui/react-tooltip',
+    ],
+    // Enable dynamic imports optimization
+    esmExternals: true,
+    // Turbo optimizations
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 
   // Performance optimizations for Vercel
@@ -48,12 +68,15 @@ const nextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
             priority: 20,
+            maxSize: 200000, // Split large vendor chunks
           },
           common: {
             minChunks: 2,
@@ -67,6 +90,24 @@ const nextConfig = {
             name: 'react',
             chunks: 'all',
             priority: 30,
+          },
+          framerMotion: {
+            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+            name: 'framer-motion',
+            chunks: 'all',
+            priority: 25,
+          },
+          gsap: {
+            test: /[\\/]node_modules[\\/]gsap[\\/]/,
+            name: 'gsap',
+            chunks: 'all',
+            priority: 25,
+          },
+          ui: {
+            test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
+            name: 'ui-components',
+            chunks: 'all',
+            priority: 25,
           },
         },
       };

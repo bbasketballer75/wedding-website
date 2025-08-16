@@ -471,10 +471,10 @@ ${devices.map((device) => `- ${device.name} (${device.width}x${device.height})`)
   getDeviceSpecificIssues() {
     return this.results.deviceTests
       .filter((device) => device.issues.length > 0)
-      .map(
-        (device) =>
-          `### ${device.device}\n${device.issues.map((issue) => `- ${issue.message}`).join('\n')}`
-      )
+      .map((device) => {
+        const issueList = device.issues.map((issue) => `- ${issue.message}`).join('\n');
+        return `### ${device.device}\n${issueList}`;
+      })
       .join('\n\n');
   }
 }

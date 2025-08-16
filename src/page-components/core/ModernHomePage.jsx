@@ -9,8 +9,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useIntersectionObserver } from '../../page-components/hooks/useIntersectionObserver';
-import '../../styles/modern-2025-design.css';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+// Modern design styles are included in globals.css
 
 const ModernHomePage = () => {
   const containerRef = useRef(null);

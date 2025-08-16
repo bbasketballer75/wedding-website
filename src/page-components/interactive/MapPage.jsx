@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getMapLocations as getPins } from '../../services/api';
+import { useEffect, useState } from 'react';
 import LoadingScreen from '../../components/ui/LoadingScreen';
-import './MapPage.css';
+import { getMapLocations as getPins } from '../../services/api';
 
 const MapPage = () => {
   const [pins, setPins] = useState([]);

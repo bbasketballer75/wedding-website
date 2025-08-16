@@ -7,8 +7,6 @@ import { getAlbumMedia, uploadMedia } from '../../services/api';
 import { useInteractionSounds } from '../components/AmbientSoundSystem';
 import { useToast, useWeddingToasts } from '../components/MagicalToastSystem';
 
-import './AlbumPage.css';
-
 const MagicalAlbumPage = () => {
   const [photos, setPhotos] = useState([]);
   const [file, setFile] = useState(null);

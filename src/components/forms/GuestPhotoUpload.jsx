@@ -1,6 +1,4 @@
 import { Camera, Heart, MessageCircle, Upload } from 'lucide-react';
-import { useState } from 'react';
-
 const GuestPhotoUpload = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
