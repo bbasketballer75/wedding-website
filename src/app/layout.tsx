@@ -8,6 +8,7 @@ import AccessibilityMonitor from '../components/accessibility/AccessibilityMonit
 import { AudioProvider } from '../components/AmbientSoundSystem';
 import { EnhancedErrorBoundary } from '../components/EnhancedErrorBoundary';
 import { ToastProvider } from '../components/MagicalToastSystem';
+import AppProviders from '../components/providers/AppProviders';
 import WebVitalsProvider from '../components/performance/WebVitalsMonitor';
 import WeddingAnalytics from '../components/performance/WeddingAnalytics';
 import StructuredData from '../components/seo/StructuredData';
@@ -186,18 +187,20 @@ export default function RootLayout({
         {/* Vercel Analytics & Speed Insights */}
         <Analytics />
         <SpeedInsights />
-        <AudioProvider>
-          <ToastProvider>
-            <EnhancedErrorBoundary componentName="RootLayout" sessionStart={Date.now()}>
-              <WebVitalsProvider>
-                <WeddingAnalytics />
-                <StructuredData />
-                <AccessibilityMonitor />
-                {children}
-              </WebVitalsProvider>
-            </EnhancedErrorBoundary>
-          </ToastProvider>
-        </AudioProvider>
+        <AppProviders>
+          <AudioProvider>
+            <ToastProvider>
+              <EnhancedErrorBoundary componentName="RootLayout" sessionStart={Date.now()}>
+                <WebVitalsProvider>
+                  <WeddingAnalytics />
+                  <StructuredData />
+                  <AccessibilityMonitor />
+                  {children}
+                </WebVitalsProvider>
+              </EnhancedErrorBoundary>
+            </ToastProvider>
+          </AudioProvider>
+        </AppProviders>
       </body>
     </html>
   );
