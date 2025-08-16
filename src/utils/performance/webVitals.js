@@ -1,4 +1,4 @@
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
 
 // Thresholds for Web Vitals (Google's recommended values)
 const THRESHOLDS = {
