@@ -1,5 +1,10 @@
 {
   // 🚀 OPTIMAL VS CODE CONFIGURATION FOR WEDDING WEBSITE
+
+  // 🤖 AI ASSISTANT SETTINGS
+  "chat.tools.autoApprove": true,
+  "chat.agent.maxRequests": 100,
+
   "github.copilot.enable": {
     "*": true,
     "javascript": true,
@@ -151,10 +156,21 @@
   "explorer.confirmDelete": false,
   "git.autofetch": true,
   "git.enableSmartCommit": true,
+  "git.confirmSync": false,
 
   // 🔧 TERMINAL
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.confirmOnExit": "never",
+
+  // 🔁 Reduce approval prompts & allow automation
+  "task.allowAutomaticTasks": "on",
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "window.confirmBeforeClose": "never",
   "sonarlint.connectedMode.project": {
     "connectionId": "wedding-website-main",
     "projectKey": "bbasketballer75_wedding-website-main"

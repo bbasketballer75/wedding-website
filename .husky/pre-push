@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+echo "🔍 Running test suite before push..."
+npm test || exit 1
+
+echo "🏗️  Building production bundle..."
+npm run build || exit 1
+
+echo "✅ Pre-push checks passed. Proceeding with push."
