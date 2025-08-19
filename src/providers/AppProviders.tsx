@@ -2,10 +2,10 @@
 
 /**
  * 🏠 Enhanced AppProviders with PWA Integration
- * 
+ *
  * Central provider wrapper combining all application contexts:
  * - Audio management
- * - Toast notifications  
+ * - Toast notifications
  * - Error boundaries
  * - Performance monitoring
  * - Analytics
@@ -15,6 +15,7 @@
 
 import React from 'react';
 import { AudioProvider } from '@/providers/AudioProvider';
+import { AudioProvider as AmbientAudioProvider } from '@/components/AmbientSoundSystem';
 import { ToastProvider } from '@/providers/ToastProvider';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { WebVitalsReporter } from '@/components/performance/WebVitalsReporter';
@@ -33,9 +34,10 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
       <AIWeddingProvider>
       <AnalyticsProvider>
       <AudioProvider>
+      <AmbientAudioProvider>
       <ToastProvider>
                 {children}
-                
+
                 {/* PWA Components */}
                 <PWAInstallBanner
       />
@@ -43,11 +45,12 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
       />
       <NotificationManager
       />
-                
+
                 {/* Performance Monitoring */}
                 <WebVitalsReporter
       />
       </ToastProvider>
+      </AmbientAudioProvider>
       </AudioProvider>
       </AnalyticsProvider>
       </AIWeddingProvider>

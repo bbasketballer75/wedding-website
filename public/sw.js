@@ -6,6 +6,13 @@ const STATIC_CACHE = 'static-cache-v1';
 const DYNAMIC_CACHE = 'dynamic-cache-v1';
 const IMAGE_CACHE = 'image-cache-v1';
 
+// Development logging helper
+const devLog = (...args) => {
+  if (self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1') {
+    console.log(...args);
+  }
+};
+
 // Files to cache immediately
 const STATIC_ASSETS = [
   '/',
@@ -39,12 +46,12 @@ const CACHE_FIRST_PATHS = [
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('🔄 Service Worker installing...');
-  
+  devLog('🔄 Service Worker installing...');
+
   event.waitUntil(
     Promise.all([
       caches.open(STATIC_CACHE).then((cache) => {
-        console.log('📦 Caching static assets');
+        devLog('📦 Caching static assets');
         return cache.addAll(STATIC_ASSETS);
       }),
       self.skipWaiting()
@@ -54,19 +61,19 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('✅ Service Worker activated');
-  
+  devLog('✅ Service Worker activated');
+
   event.waitUntil(
     Promise.all([
       // Clean up old caches
       caches.keys().then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME && 
-                cacheName !== STATIC_CACHE && 
-                cacheName !== DYNAMIC_CACHE && 
+            if (cacheName !== CACHE_NAME &&
+                cacheName !== STATIC_CACHE &&
+                cacheName !== DYNAMIC_CACHE &&
                 cacheName !== IMAGE_CACHE) {
-              console.log('🗑️ Deleting old cache:', cacheName);
+              devLog('🗑️ Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -122,17 +129,17 @@ async function handleFetch(request) {
 async function networkFirstStrategy(request) {
   try {
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       // Cache successful API responses
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
-    console.log('🌐 Network failed, checking cache for:', request.url);
-    
+    devLog('🌐 Network failed, checking cache for:', request.url);
+
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;
@@ -150,19 +157,19 @@ async function networkFirstStrategy(request) {
 // Cache first strategy (for static assets)
 async function cacheFirstStrategy(request) {
   const cachedResponse = await caches.match(request);
-  
+
   if (cachedResponse) {
     return cachedResponse;
   }
 
   try {
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       const cache = await caches.open(STATIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('Failed to fetch:', request.url);
@@ -173,7 +180,7 @@ async function cacheFirstStrategy(request) {
 // Image strategy with WebP optimization
 async function imageStrategy(request) {
   const url = new URL(request.url);
-  
+
   // Check cache first
   const cachedResponse = await caches.match(request);
   if (cachedResponse) {
@@ -182,23 +189,23 @@ async function imageStrategy(request) {
 
   try {
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       const cache = await caches.open(IMAGE_CACHE);
-      
+
       // Cache with size limit (50MB total)
       const cacheSize = await getCacheSize(IMAGE_CACHE);
       if (cacheSize < 50 * 1024 * 1024) { // 50MB
         cache.put(request, networkResponse.clone());
       } else {
-        console.log('🗃️ Image cache full, not caching:', request.url);
+        devLog('🗃️ Image cache full, not caching:', request.url);
       }
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('Failed to fetch image:', request.url);
-    
+
     // Return placeholder image for failed image requests
     const placeholderUrl = '/images/placeholder.webp';
     return caches.match(placeholderUrl) || fetch(placeholderUrl);
@@ -231,8 +238,8 @@ async function staleWhileRevalidateStrategy(request) {
 
 // Background sync for offline actions
 self.addEventListener('sync', (event) => {
-  console.log('🔄 Background sync triggered:', event.tag);
-  
+  devLog('🔄 Background sync triggered:', event.tag);
+
   if (event.tag === 'wedding-data-sync') {
     event.waitUntil(syncWeddingData());
   }
@@ -240,21 +247,21 @@ self.addEventListener('sync', (event) => {
 
 async function syncWeddingData() {
   try {
-    console.log('📤 Syncing wedding data...');
-    
+    devLog('📤 Syncing wedding data...');
+
     // Get sync queue from IndexedDB or localStorage
     const syncData = await getSyncQueue();
-    
+
     for (const item of syncData) {
       try {
         await syncDataItem(item);
         await removeSyncItem(item.id);
-        console.log('✅ Synced item:', item.id);
+        devLog('✅ Synced item:', item.id);
       } catch (error) {
         console.error('❌ Failed to sync item:', item.id, error);
       }
     }
-    
+
     // Notify clients about sync completion
     const clients = await self.clients.matchAll();
     clients.forEach(client => {
@@ -263,7 +270,7 @@ async function syncWeddingData() {
         data: { synced: syncData.length }
       });
     });
-    
+
   } catch (error) {
     console.error('Background sync failed:', error);
   }
@@ -287,10 +294,10 @@ async function syncDataItem(item) {
 
 // Push notification handling
 self.addEventListener('push', (event) => {
-  console.log('📨 Push notification received');
-  
+  devLog('📨 Push notification received');
+
   const data = event.data ? event.data.json() : {};
-  
+
   const options = {
     title: data.title || 'Wedding Update',
     body: data.body || 'New content available!',
@@ -320,8 +327,8 @@ self.addEventListener('push', (event) => {
 
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
-  console.log('🔔 Notification clicked:', event.notification.tag);
-  
+  devLog('🔔 Notification clicked:', event.notification.tag);
+
   event.notification.close();
 
   const action = event.action;
@@ -330,7 +337,7 @@ self.addEventListener('notificationclick', (event) => {
   if (action === 'view' || !action) {
     // Open the app or navigate to specific URL
     const urlToOpen = data.url || '/';
-    
+
     event.waitUntil(
       self.clients.matchAll({ type: 'window', includeUncontrolled: true })
         .then((clients) => {
@@ -340,7 +347,7 @@ self.addEventListener('notificationclick', (event) => {
               return client.focus();
             }
           }
-          
+
           // Open new window
           if (self.clients.openWindow) {
             return self.clients.openWindow(urlToOpen);
@@ -358,11 +365,11 @@ self.addEventListener('message', (event) => {
     case 'SKIP_WAITING':
       self.skipWaiting();
       break;
-      
+
     case 'QUEUE_SYNC':
       queueSyncData(data);
       break;
-      
+
     case 'CLEAR_CACHE':
       clearAllCaches();
       break;
@@ -375,7 +382,7 @@ function isNetworkFirst(pathname) {
 }
 
 function isCacheFirst(pathname) {
-  return CACHE_FIRST_PATHS.some(path => 
+  return CACHE_FIRST_PATHS.some(path =>
     pathname.includes(path) || pathname.endsWith(path)
   );
 }
@@ -389,7 +396,7 @@ async function getCacheSize(cacheName) {
   const cache = await caches.open(cacheName);
   const keys = await cache.keys();
   let size = 0;
-  
+
   for (const key of keys) {
     const response = await cache.match(key);
     if (response) {
@@ -397,7 +404,7 @@ async function getCacheSize(cacheName) {
       size += blob.size;
     }
   }
-  
+
   return size;
 }
 
@@ -406,7 +413,7 @@ async function clearAllCaches() {
   await Promise.all(
     cacheNames.map(cacheName => caches.delete(cacheName))
   );
-  console.log('🗑️ All caches cleared');
+  devLog('🗑️ All caches cleared');
 }
 
 async function getSyncQueue() {
@@ -417,12 +424,12 @@ async function getSyncQueue() {
 
 async function removeSyncItem(id) {
   // In a real implementation, this would remove from IndexedDB
-  console.log('Removing sync item:', id);
+  devLog('Removing sync item:', id);
 }
 
 async function queueSyncData(data) {
   // In a real implementation, this would store in IndexedDB
-  console.log('Queueing sync data:', data);
+  devLog('Queueing sync data:', data);
 }
 
 // Periodic background sync (if supported)
@@ -435,20 +442,20 @@ if ('periodicSync' in self.registration) {
 }
 
 async function syncWeddingPhotos() {
-  console.log('📸 Syncing wedding photos in background...');
-  
+  devLog('📸 Syncing wedding photos in background...');
+
   try {
     const response = await fetch('/api/photos/recent');
     if (response.ok) {
       const photos = await response.json();
-      
+
       // Pre-cache new photos
       const imageCache = await caches.open(IMAGE_CACHE);
       for (const photo of photos.slice(0, 10)) { // Cache first 10
         try {
           await imageCache.add(photo.url);
         } catch (error) {
-          console.log('Failed to cache photo:', photo.url);
+          devLog('Failed to cache photo:', photo.url);
         }
       }
     }
@@ -457,4 +464,4 @@ async function syncWeddingPhotos() {
   }
 }
 
-console.log('🎉 Wedding Website Service Worker loaded successfully!');
+devLog('🎉 Wedding Website Service Worker loaded successfully!');

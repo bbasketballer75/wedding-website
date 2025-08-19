@@ -147,7 +147,10 @@ export function exportPerformanceData() {
 
 export function logPerformanceWarning(message, data) {
   // eslint-disable-next-line no-console
-  console.log(`Performance Warning: ${message}`, data || {});
+  // Only log warnings in development
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    console.log(`Performance Warning: ${message}`, data || {});
+  }
 }
 
 export function suggestOptimizations() {

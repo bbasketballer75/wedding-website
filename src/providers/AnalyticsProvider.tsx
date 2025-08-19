@@ -52,16 +52,26 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
 
     // Also track with Vercel Analytics
-    if (typeof window !== 'undefined' && w.va) {
-      w.va.track(event.action, {
-        category: event.category,
-        label: event.label,
-        value: event.value,
-        ...event.customParameters,
-      });
+    if (typeof window !== 'undefined' && w.va && typeof w.va.track === 'function') {
+      try {
+        w.va.track(event.action, {
+          category: event.category,
+          label: event.label,
+          value: event.value,
+          ...event.customParameters,
+        });
+      } catch (error) {
+        console.warn('Vercel Analytics tracking failed:', error);
+      }
     }
 
-    console.error('📊 Analytics Event:', event);
+    // Debug log for development
+    if (process.env.NODE_ENV === 'development') {
+      // Log analytics events in development only
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📊 Analytics Event:', event);
+      }
+    }
   }, []);
 
   // Page view tracking

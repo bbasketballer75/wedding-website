@@ -11,7 +11,7 @@ declare global {
 
 /**
  * 🤝 Real-time Collaborative Features
- * 
+ *
  * Implements cutting-edge collaboration features for August 2025:
  * - Real-time guest interactions with Socket.IO
  * - Live photo reactions and comments
@@ -92,21 +92,38 @@ class RealTimeManager {
   }
 
   private setupSimulatedConnection() {
-    // Simulate real-time connection with localStorage and BroadcastChannel
-    const channel = new BroadcastChannel('wedding-collaboration');
-    
-    channel.onmessage = (event) => {
-      const { type, data } = event.data;
-      this.emit(type, data);
-    };
+    // Check if BroadcastChannel is available (not in all environments)
+    if (typeof BroadcastChannel === 'undefined') {
+      // Fallback for environments without BroadcastChannel
+      setTimeout(() => {
+        this.emit('connected', { userId: this.userId });
+      }, 100);
+      return;
+    }
 
-    // Simulate connection established
-    setTimeout(() => {
-      this.emit('connected', { userId: this.userId });
-    }, 100);
+    try {
+      // Simulate real-time connection with localStorage and BroadcastChannel
+      const channel = new BroadcastChannel('wedding-collaboration');
 
-    // Store channel for sending messages
-    (this as any).channel = channel;
+      channel.onmessage = (event) => {
+        const { type, data } = event.data;
+        this.emit(type, data);
+      };
+
+      // Simulate connection established
+      setTimeout(() => {
+        this.emit('connected', { userId: this.userId });
+      }, 100);
+
+      // Store channel for sending messages
+      (this as any).channel = channel;
+    } catch (error) {
+      console.warn('BroadcastChannel not available, using fallback mode');
+      // Fallback mode - just emit connected event
+      setTimeout(() => {
+        this.emit('connected', { userId: this.userId });
+      }, 100);
+    }
   }
 
   private handleReconnect() {
@@ -119,8 +136,13 @@ class RealTimeManager {
   }
 
   public send(type: string, data: unknown) {
-    if ((this as any).channel) {
-      (this as any).channel.postMessage({ type, data, userId: this.userId });
+    try {
+      if ((this as any).channel) {
+        (this as any).channel.postMessage({ type, data, userId: this.userId });
+      }
+    } catch (error) {
+      // Silently handle cases where channel is not available
+      console.warn('Real-time messaging not available');
     }
   }
 
@@ -149,8 +171,13 @@ class RealTimeManager {
   }
 
   public disconnect() {
-    if ((this as any).channel) {
-      (this as any).channel.close();
+    try {
+      if ((this as any).channel) {
+        (this as any).channel.close();
+      }
+    } catch (error) {
+      // Silently handle cleanup errors
+      console.warn('Channel cleanup error:', error);
     }
   }
 }
@@ -170,9 +197,9 @@ export const CollaborationProvider: React.FC<{ children: React.ReactNode }> = ({
     // Initialize user
     const userId = localStorage.getItem('wedding-user-id') || `user-${Date.now()}`;
     const userName = localStorage.getItem('wedding-user-name') || 'Guest';
-    
+
     localStorage.setItem('wedding-user-id', userId);
-    
+
     const user: CollaborativeUser = {
       id: userId,
       name: userName,
@@ -181,9 +208,9 @@ export const CollaborationProvider: React.FC<{ children: React.ReactNode }> = ({
       lastSeen: new Date(),
       isGuest: true
     };
-    
+
     setCurrentUser(user);
-    
+
     // Initialize real-time manager
     const manager = new RealTimeManager(userId, userName);
     setRtManager(manager);
@@ -213,7 +240,7 @@ export const CollaborationProvider: React.FC<{ children: React.ReactNode }> = ({
 
     manager.on('interaction', (interaction: LiveInteraction) => {
       setInteractions(prev => [interaction, ...prev.slice(0, 49)]); // Keep last 50
-      
+
       // Trigger visual effects
       if (interaction.type === 'reaction' && interaction.coordinates) {
         createReactionAnimation(interaction);
@@ -254,7 +281,7 @@ export const CollaborationProvider: React.FC<{ children: React.ReactNode }> = ({
     element.style.fontSize = '24px';
     element.style.pointerEvents = 'none';
     element.style.zIndex = '9999';
-    
+
     document.body.appendChild(element);
 
     // GSAP animation
@@ -307,7 +334,7 @@ export const CollaborationProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const setUserStatus = useCallback((status: CollaborativeUser['status']) => {
     if (!rtManager || !currentUser) return;
-    
+
     rtManager.send('user_status', { userId: currentUser.id, status });
     setCurrentUser(prev => prev ? { ...prev, status } : prev);
   }, [rtManager, currentUser]);
@@ -428,9 +455,9 @@ export const LiveReactions: React.FC<{ targetId: string; className?: string }> =
       </AnimatePresence>
 
       {/* Recent reactions display */}
-      <div className="recent-reactions" style={{ 
-        position: 'absolute', 
-        top: '-30px', 
+      <div className="recent-reactions" style={{
+        position: 'absolute',
+        top: '-30px',
         right: '0',
         display: 'flex',
         gap: '2px'

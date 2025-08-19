@@ -37,24 +37,8 @@ class WeddingAnalytics {
 
   // Track Core Web Vitals
   trackCoreWebVitals() {
-    // Check if we can dynamically import web-vitals (won't work in all environments)
-    try {
-      import('web-vitals')
-        .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-          getCLS(this.sendMetric.bind(this));
-          getFID(this.sendMetric.bind(this));
-          getFCP(this.sendMetric.bind(this));
-          getLCP(this.sendMetric.bind(this));
-          getTTFB(this.sendMetric.bind(this));
-        })
-        .catch((error) => {
-          console.warn('web-vitals module not available, using fallback:', error.message);
-          this.trackCoreWebVitalsFallback();
-        });
-    } catch (error) {
-      console.warn('Dynamic import not supported, using fallback:', error.message);
-      this.trackCoreWebVitalsFallback();
-    }
+    // Use fallback method since dynamic imports don't work in public scripts
+    this.trackCoreWebVitalsFallback();
   }
 
   // Fallback Core Web Vitals tracking using Performance Observer
@@ -204,7 +188,10 @@ class WeddingAnalytics {
         }),
       });
     } catch (error) {
-      console.log('Analytics tracking failed:', error);
+      // Silently handle analytics tracking failures in production
+      if (window.location.hostname === 'localhost') {
+        console.log('Analytics tracking failed:', error);
+      }
     }
   }
 
