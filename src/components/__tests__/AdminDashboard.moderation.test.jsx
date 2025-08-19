@@ -24,7 +24,8 @@ describe('AdminDashboard Moderation', () => {
       },
     ];
     await act(async () => {
-      render(<AdminDashboard adminKey="test-key" />);
+      render(<AdminDashboard adminKey="test-key"
+      />);
     });
     // Simulate media loaded
     // ...simulate approve/deny actions and check UI updates...

@@ -349,7 +349,6 @@ const GuestReunionPlanner = () => {
           margin-left: 1rem;
         }
       `}</style>
-
       <div className="planner-header">
         <h1>🎉 Reunion Planner</h1>
         <p>
@@ -357,10 +356,8 @@ const GuestReunionPlanner = () => {
           gatherings, and special reunions. Keep the love and friendships alive! 💕
         </p>
       </div>
-
       <div className="create-event-section">
         <h2 className="section-title">📅 Plan New Event</h2>
-
         <form onSubmit={handleCreateEvent}>
           <div className="form-grid">
             <div className="form-group">
@@ -374,7 +371,6 @@ const GuestReunionPlanner = () => {
                 placeholder="e.g., 'Austin & Jordyn's 1st Anniversary Party'"
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="date">Event Date</label>
               <input
@@ -385,7 +381,6 @@ const GuestReunionPlanner = () => {
                 onChange={(e) => setNewEvent((prev) => ({ ...prev, date: e.target.value }))}
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="location">Location</label>
               <input
@@ -397,7 +392,6 @@ const GuestReunionPlanner = () => {
                 placeholder="Address or venue name"
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="maxGuests">Max Guests</label>
               <input
@@ -412,24 +406,32 @@ const GuestReunionPlanner = () => {
               />
             </div>
           </div>
-
           <div className="form-group">
-            <label>Event Type</label>
-            <div className="event-types">
-              {eventTypes.map((type) => (
-                <button
-                  key={type.value}
-                  type="button"
-                  className={`event-type-btn ${newEvent.type === type.value ? 'selected' : ''}`}
-                  onClick={() => setNewEvent((prev) => ({ ...prev, type: type.value }))}
-                >
-                  <div>{type.icon}</div>
-                  <div>{type.label.split(' ').slice(1).join(' ')}</div>
-                </button>
-              ))}
-            </div>
+            <fieldset>
+              <legend>Event Type</legend>
+              <div className="event-types" role="radiogroup" aria-label="Select event type">
+                {eventTypes.map((type) => (
+                  <label key={type.value} className="event-type-option">
+                    <input
+                      type="radio"
+                      name="event-type"
+                      value={type.value}
+                      checked={newEvent.type === type.value}
+                      onChange={() => setNewEvent((prev) => ({ ...prev, type: type.value }))}
+                      className="sr-only"
+                    />
+                    <div
+                      className={`event-type-btn ${newEvent.type === type.value ? 'selected' : ''}`}
+                      aria-label={type.label}
+                    >
+                      <div>{type.icon}</div>
+                      <div>{type.label.split(' ').slice(1).join(' ')}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
           </div>
-
           <div className="form-group">
             <label htmlFor="description">Event Description</label>
             <textarea
@@ -440,7 +442,6 @@ const GuestReunionPlanner = () => {
               placeholder="Describe your event, what to expect, dress code, etc..."
             />
           </div>
-
           <div className="checkbox-group">
             <input
               type="checkbox"
@@ -452,16 +453,13 @@ const GuestReunionPlanner = () => {
             />
             <label htmlFor="virtualOption">Include virtual attendance option</label>
           </div>
-
           <button type="submit" className="create-btn" disabled={isCreating}>
             {isCreating ? '📅 Creating Event...' : '🎉 Create Event'}
           </button>
         </form>
       </div>
-
       <div>
         <h2 className="section-title">🎊 Upcoming Events</h2>
-
         <div className="events-grid">
           {events.map((event) => {
             const eventDate = new Date(event.date);
@@ -477,19 +475,16 @@ const GuestReunionPlanner = () => {
                     {event.virtualOption && <span className="virtual-badge">Virtual Option</span>}
                   </div>
                 </div>
-
                 <div className="event-date">
                   📅 {eventDate.toLocaleDateString()} at{' '}
                   {eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
-
                 <div className="event-details">
                   <p>
                     <strong>📍 Location:</strong> {event.location}
                   </p>
                   <p>{event.description}</p>
                 </div>
-
                 <div className="event-stats">
                   <div className="stat">
                     <div className="stat-number">23</div>
@@ -504,7 +499,6 @@ const GuestReunionPlanner = () => {
                     <div className="stat-label">Max</div>
                   </div>
                 </div>
-
                 <div className="rsvp-section">
                   <h4>Will you be attending?</h4>
                   <div className="rsvp-buttons">

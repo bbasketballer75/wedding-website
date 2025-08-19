@@ -7,7 +7,8 @@ window.URL.createObjectURL = vi.fn(() => 'mock-url');
 
 describe('MemoryWall', () => {
   test('renders memory wall with initial memories', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     expect(screen.getByText('Tapestry of Cherished Moments')).toBeInTheDocument();
     expect(screen.getByText('Such a beautiful day! Congrats!')).toBeInTheDocument();
@@ -17,7 +18,8 @@ describe('MemoryWall', () => {
   });
 
   test('renders memory form with required fields', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     expect(screen.getByPlaceholderText('Your name (if you wish to sign)')).toBeInTheDocument();
     expect(
@@ -27,14 +29,16 @@ describe('MemoryWall', () => {
   });
 
   test('submit button is disabled when message is empty', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     const submitBtn = screen.getByRole('button', { name: /add to our story/i });
     expect(submitBtn).toBeDisabled();
   });
 
   test('submit button is enabled when message is filled', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     const messageInput = screen.getByPlaceholderText(
       'Share a treasured memory or heartfelt message...'
@@ -46,7 +50,8 @@ describe('MemoryWall', () => {
   });
 
   test('can add a new memory', async () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     const nameInput = screen.getByPlaceholderText('Your name (if you wish to sign)');
     const messageInput = screen.getByPlaceholderText(
@@ -72,7 +77,8 @@ describe('MemoryWall', () => {
   });
 
   test('displays emoji reaction buttons', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     // Check for emoji buttons
     expect(screen.getAllByText('❤️').length).toBeGreaterThan(0);
@@ -82,7 +88,8 @@ describe('MemoryWall', () => {
   });
 
   test('can react with emojis', () => {
-    render(<MemoryWall />);
+    render(<MemoryWall
+      />);
 
     // Find the first heart emoji button and click it
     const heartButtons = screen.getAllByRole('button', { name: /react with ❤️/i });
@@ -93,7 +100,8 @@ describe('MemoryWall', () => {
   });
 
   test('handles file upload for image preview', async () => {
-    const { container } = render(<MemoryWall />);
+    const { container } = render(<MemoryWall
+      />);
     // Select the specific file input for memory wall (not the guest photo upload)
     const fileInput = container.querySelector('input[id="memory-image"]');
     const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });

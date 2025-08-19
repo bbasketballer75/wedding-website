@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AdminDashboard from '../../components/admin/AdminDashboard';
 import PasswordPrompt from '../../components/forms/PasswordPrompt';
-import './AdminPage.css';
 
 const AdminPage = () => {
   // Use sessionStorage to keep the user "logged in" during their session.

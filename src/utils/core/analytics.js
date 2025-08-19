@@ -1,237 +1,202 @@
-/**
- * Enhanced Analytics for Wedding Website
- * Tracks user engagement and performance metrics
- */
+// Basic analytics utility with local/session storage persistence and privacy gating
 
-class WeddingAnalytics {
-  constructor() {
-    this.sessionStart = Date.now();
-    this.interactions = [];
-    this.pageViews = [];
-    this.init();
-  }
+const ANALYTICS_STORAGE_KEY = 'analytics:events';
+const ANALYTICS_PREFS_KEY = 'privacy:prefs';
+const SESSION_STORAGE_KEY = 'analytics:session';
 
-  init() {
-    this.trackPageView();
-    this.setupIntersectionObserver();
-    this.trackCoreWebVitals();
-    this.setupPerformanceObserver();
-  }
+// In-memory cache so privacy works even if storage is mocked/non-persistent
+let privacyPrefsCache = null;
 
-  // Track section visibility and engagement
-  setupIntersectionObserver() {
-    const sections = document.querySelectorAll('[data-section]');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.trackSectionView(entry.target.dataset.section);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-  }
-
-  // Track Core Web Vitals
-  async trackCoreWebVitals() {
-    // Only run on client side
-    if (typeof window === 'undefined') {
-      this.setupWebVitalsFallback();
-      return;
-    }
-
-    try {
-      // Use dynamic import with better error handling
-      const webVitalsModule = await import('web-vitals');
-      const { getCLS, getFID, getFCP, getLCP, getTTFB } = webVitalsModule;
-
-      getCLS(this.sendMetric.bind(this));
-      getFID(this.sendMetric.bind(this));
-      getFCP(this.sendMetric.bind(this));
-      getLCP(this.sendMetric.bind(this));
-      getTTFB(this.sendMetric.bind(this));
-    } catch (error) {
-      console.warn('web-vitals module not available, using fallback:', error.message);
-      this.setupWebVitalsFallback();
-    }
-  }
-
-  // Fallback implementation for web vitals
-  setupWebVitalsFallback() {
-    // Simple performance tracking fallback
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          if (entry.name === 'largest-contentful-paint') {
-            this.sendMetric({ name: 'LCP', value: entry.startTime });
-          }
-        });
-      });
-
-      try {
-        observer.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch {
-        console.warn('Performance Observer not supported');
-      }
-    }
-  }
-
-  // Performance monitoring
-  setupPerformanceObserver() {
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          if (entry.entryType === 'navigation') {
-            this.trackPageLoadMetrics(entry);
-          } else if (entry.entryType === 'largest-contentful-paint') {
-            this.sendMetric({ name: 'LCP', value: entry.startTime });
-          }
-        });
-      });
-
-      observer.observe({ entryTypes: ['navigation', 'largest-contentful-paint'] });
-    }
-  }
-
-  // Track user interactions
-  trackInteraction(type, target, details = {}) {
-    const interaction = {
-      type,
-      target,
-      timestamp: Date.now(),
-      sessionTime: Date.now() - this.sessionStart,
-      ...details,
-    };
-
-    this.interactions.push(interaction);
-    this.sendToAnalytics('interaction', interaction);
-  }
-
-  // Track section views
-  trackSectionView(section) {
-    const view = {
-      section,
-      timestamp: Date.now(),
-      sessionTime: Date.now() - this.sessionStart,
-    };
-
-    this.pageViews.push(view);
-    this.sendToAnalytics('section_view', view);
-  }
-
-  // Track page performance
-  trackPageLoadMetrics(entry) {
-    const metrics = {
-      dns: entry.domainLookupEnd - entry.domainLookupStart,
-      tcp: entry.connectEnd - entry.connectStart,
-      request: entry.responseStart - entry.requestStart,
-      response: entry.responseEnd - entry.responseStart,
-      domLoad: entry.domContentLoadedEventEnd - entry.navigationStart,
-      windowLoad: entry.loadEventEnd - entry.navigationStart,
-    };
-
-    this.sendToAnalytics('page_performance', metrics);
-  }
-
-  // Send Core Web Vitals
-  sendMetric(metric) {
-    this.sendToAnalytics('web_vital', {
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-    });
-  }
-
-  // Track page views
-  trackPageView(page = window.location.pathname) {
-    this.sendToAnalytics('page_view', {
-      page,
-      referrer: document.referrer,
-      timestamp: Date.now(),
-    });
-  }
-
-  // Send data to analytics endpoint
-  async sendToAnalytics(event, data) {
-    try {
-      // Try Next.js API route first (will fail in static export)
-      await fetch('/api/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event,
-          data,
-          userAgent: navigator.userAgent,
-          timestamp: Date.now(),
-        }),
-      });
-    } catch {
-      // Fallback to backend API or Vercel Functions
-      try {
-        const backendUrl = process.env.REACT_APP_API_URL || window.location.origin;
-        await fetch(`${backendUrl}/api/analytics`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event,
-            data,
-            userAgent: navigator.userAgent,
-            timestamp: Date.now(),
-          }),
-        });
-      } catch (backendError) {
-        // Silently fail - analytics is non-critical
-      }
-    }
-  }
-
-  // Get session summary
-  getSessionSummary() {
-    return {
-      duration: Date.now() - this.sessionStart,
-      interactions: this.interactions.length,
-      sectionsViewed: this.pageViews.length,
-      totalScrolls: this.interactions.filter((i) => i.type === 'scroll').length,
-      totalClicks: this.interactions.filter((i) => i.type === 'click').length,
-    };
+function safeParse(json) {
+  try {
+    return JSON.parse(json);
+  } catch {
+    return null;
   }
 }
 
-// Initialize analytics
-const analytics = new WeddingAnalytics();
+function getPrefs() {
+  if (privacyPrefsCache && typeof privacyPrefsCache === 'object') return privacyPrefsCache;
+  const raw =
+    (typeof localStorage !== 'undefined' && localStorage.getItem(ANALYTICS_PREFS_KEY)) || null;
+  const parsed = raw ? safeParse(raw) || {} : {};
+  privacyPrefsCache = parsed;
+  return parsed;
+}
 
-// Export for global use
-window.weddingAnalytics = analytics;
-
-// Track common interactions
-document.addEventListener('click', (e) => {
-  if (e.target.closest('[data-track]')) {
-    const element = e.target.closest('[data-track]');
-    analytics.trackInteraction('click', element.dataset.track, {
-      text: element.textContent?.slice(0, 50),
-      href: element.href,
-    });
+function setPrefs(prefs) {
+  privacyPrefsCache = { ...(prefs || {}) };
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(ANALYTICS_PREFS_KEY, JSON.stringify(privacyPrefsCache));
   }
-});
+}
 
-// Track scroll depth
-let maxScroll = 0;
-window.addEventListener('scroll', () => {
-  const scrollPercent = Math.round(
-    (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
-  );
+function isEnabled(channel = 'analytics') {
+  const prefs = getPrefs();
+  if (Object.hasOwn(prefs, channel)) {
+    return !!prefs[channel];
+  }
+  return true; // default enabled
+}
 
-  if (scrollPercent > maxScroll) {
-    maxScroll = scrollPercent;
-    if (scrollPercent % 25 === 0) {
-      // Track at 25%, 50%, 75%, 100%
-      analytics.trackInteraction('scroll', `${scrollPercent}%`);
+function getEventStore() {
+  const raw =
+    (typeof localStorage !== 'undefined' && localStorage.getItem(ANALYTICS_STORAGE_KEY)) || null;
+  const parsed = raw ? safeParse(raw) : null;
+  return parsed && typeof parsed === 'object' ? parsed : { events: [] };
+}
+
+function setEventStore(store) {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(ANALYTICS_STORAGE_KEY, JSON.stringify(store));
+  }
+}
+
+export function reset() {
+  // Clear event and session state for tests
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem(ANALYTICS_STORAGE_KEY);
+  }
+  if (typeof sessionStorage !== 'undefined') {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  }
+  privacyPrefsCache = null;
+}
+
+export function setPrivacyPreference(channel, enabled) {
+  const prefs = getPrefs();
+  prefs[channel || 'analytics'] = !!enabled;
+  setPrefs(prefs);
+  // If disabling analytics, clear any queued data immediately
+  if ((channel || 'analytics') === 'analytics' && !enabled) {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(ANALYTICS_STORAGE_KEY);
     }
   }
-});
+}
 
-export default analytics;
+export function trackEvent(type, payload = {}) {
+  if (!isEnabled('analytics') || !type) return;
+  const store = getEventStore();
+  store.events.push({ type, payload, timestamp: Date.now() });
+  setEventStore(store);
+}
+
+export function initSession() {
+  if (typeof sessionStorage === 'undefined') return;
+  const existing = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  if (!existing) {
+    const session = { id: `session_${Date.now()}`, startTime: Date.now(), events: [] };
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
+  }
+}
+
+export function getSessionDuration() {
+  if (typeof sessionStorage === 'undefined') return 0;
+  const raw = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  if (!raw) return 0;
+  const session = safeParse(raw);
+  if (!session || !session.startTime) return 0;
+  return Date.now() - session.startTime;
+}
+
+export function trackPageView(data = {}) {
+  trackEvent('page_view', {
+    path: data.path || (typeof location !== 'undefined' ? location.pathname : undefined),
+    title: data.title || (typeof document !== 'undefined' ? document.title : undefined),
+    referrer: data.referrer || (typeof document !== 'undefined' ? document.referrer : undefined),
+  });
+}
+
+export function trackPagePerformance() {
+  if (typeof performance === 'undefined') return;
+  const timing = performance.timing || {};
+  const metrics = {
+    loadTime: (timing.loadEventEnd || 0) - (timing.navigationStart || 0),
+    domContentLoaded: (timing.domContentLoadedEventEnd || 0) - (timing.navigationStart || 0),
+    paints:
+      typeof performance.getEntriesByType === 'function'
+        ? performance.getEntriesByType('paint')
+        : [],
+  };
+  trackEvent('page_performance', metrics);
+}
+
+function sanitizeErrorMessage(message) {
+  if (!message) return '';
+  return String(message).replace(/password\s*[:=]\s*[^\s]+/gi, 'password:[REDACTED]');
+}
+
+export function trackError(error, context = {}) {
+  if (!isEnabled('analytics')) return;
+  const payload = {
+    message: sanitizeErrorMessage(error?.message || String(error)),
+    stack: error?.stack ? String(error.stack).split('\n').slice(0, 5).join('\n') : undefined,
+    context,
+  };
+  trackEvent('error', payload);
+}
+
+export function trackNetworkError(url, status, message) {
+  trackEvent('network_error', { url, status, message });
+}
+
+export function trackInteraction(kind, details = {}) {
+  trackEvent('interaction', { kind, details });
+}
+
+let lastScrollTs = 0;
+export function trackScroll(details = {}) {
+  const now = Date.now();
+  if (now - lastScrollTs < 200) return; // debounce
+  lastScrollTs = now;
+  trackEvent('scroll', details);
+}
+
+export function exportUserData() {
+  return getEventStore();
+}
+
+export function clearUserData() {
+  reset();
+}
+
+export function flushEvents() {
+  // Respect privacy settings: if analytics is disabled, do not send or write
+  if (!isEnabled('analytics')) {
+    return;
+  }
+  const store = getEventStore();
+  const payload = JSON.stringify({ events: store.events, flushedAt: Date.now() });
+  let sent = false;
+  try {
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      sent = navigator.sendBeacon('/analytics', payload);
+    }
+  } catch {
+    // ignore
+  }
+  if (!sent) {
+    // re-queue for later
+    setEventStore({ events: store.events });
+  } else {
+    setEventStore({ events: [] });
+  }
+}
+
+export default {
+  reset,
+  setPrivacyPreference,
+  trackEvent,
+  initSession,
+  getSessionDuration,
+  trackPageView,
+  trackPagePerformance,
+  trackError,
+  trackNetworkError,
+  trackInteraction,
+  trackScroll,
+  exportUserData,
+  clearUserData,
+  flushEvents,
+};

@@ -1,12 +1,15 @@
-import React, { memo } from 'react';
+'use client';
+/* eslint-disable react/prop-types */
+
 import Link from 'next/link';
+import React, { memo } from 'react';
 
 type NavLinkProps = {
   onePage?: boolean;
   href: string;
   label: string;
   role?: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: (_e: React.MouseEvent<HTMLAnchorElement>) => void;
   'data-track'?: string;
 };
 

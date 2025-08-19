@@ -3,8 +3,9 @@
  * Allows guests to tag themselves and others in wedding photos
  */
 
-import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import '../PhotoTagging.css';
 
 const PhotoTagging = ({ photoId, photoUrl, existingTags, onTagAdded, onTagRemoved, isGuest }) => {
@@ -95,7 +96,17 @@ const PhotoTagging = ({ photoId, photoUrl, existingTags, onTagAdded, onTagRemove
         disabled={!isTagging}
         aria-label={isTagging ? 'Click to tag people in this image' : 'Wedding memory'}
       >
-        <img src={photoUrl} alt="Wedding memory from the celebration" className="taggable-photo" />
+        <div className="relative w-full h-0 pb-[66%]">
+          <Image
+            src={photoUrl}
+            alt="Wedding memory from the celebration"
+            fill
+            sizes="(max-width: 768px) 100vw, 800px"
+            loading="lazy"
+            style={{ objectFit: 'cover' }}
+            unoptimized
+          />
+        </div>
 
         {/* Render existing tags */}
         {tags.map((tag) => (

@@ -5,7 +5,8 @@ import FamilyTreePage from '../../page-components/family/FamilyTreePage.jsx';
 
 describe('FamilyTreePage', () => {
   it('renders all parent cards', () => {
-    render(<FamilyTreePage />);
+    render(<FamilyTreePage
+      />);
     expect(screen.getByText(/Jerame/i)).toBeInTheDocument();
     expect(screen.getByText(/Heather/i)).toBeInTheDocument();
     expect(screen.getByText(/Melony/i)).toBeInTheDocument();
@@ -13,7 +14,8 @@ describe('FamilyTreePage', () => {
   });
 
   it('opens and closes the video modal for a parent', () => {
-    render(<FamilyTreePage />);
+    render(<FamilyTreePage
+      />);
     const jerameCard = screen.getByLabelText(/Play video for Jerame/i);
     fireEvent.click(jerameCard);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -23,7 +25,8 @@ describe('FamilyTreePage', () => {
   });
 
   it('closes modal on ESC key', () => {
-    render(<FamilyTreePage />);
+    render(<FamilyTreePage
+      />);
     fireEvent.click(screen.getByLabelText(/Play video for Jerame/i));
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     fireEvent.keyDown(window, { key: 'Escape' });
@@ -31,7 +34,8 @@ describe('FamilyTreePage', () => {
   });
 
   it('focus is trapped in modal', () => {
-    render(<FamilyTreePage />);
+    render(<FamilyTreePage
+      />);
     fireEvent.click(screen.getByLabelText(/Play video for Jerame/i));
     const closeBtn = screen.getByLabelText(/Close video/i);
     closeBtn.focus();

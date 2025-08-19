@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
-    const body = await request.json();
+    // Read body but don't store it
     // In a real implementation, this would trigger alerts/notifications
     // For now, just log and return success
 

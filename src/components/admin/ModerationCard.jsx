@@ -1,21 +1,20 @@
-import React, { memo } from 'react';
+import Image from 'next/image';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 
 const MediaPreview = memo(({ item }) => {
   if (item.mimetype.startsWith('image/')) {
     return (
-      <picture>
-        <source srcSet={item.filepath.replace(/\.(jpg|jpeg|png)$/i, '.webp')} type="image/webp" />
-        <source srcSet={item.filepath} type="image/jpeg" />
-        <img
+      <div className="relative w-full h-0 pb-[66%]">
+        <Image
           src={item.filepath}
           alt="Submission preview"
+          fill
+          sizes="(max-width: 768px) 100vw, 600px"
+          style={{ objectFit: 'cover' }}
           loading="lazy"
-          width="400"
-          height="300"
-          style={{ maxWidth: '100%', height: 'auto' }}
         />
-      </picture>
+      </div>
     );
   }
   if (item.mimetype.startsWith('video/')) {

@@ -1,0 +1,152 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {
+        "MCP_PORT": 3001,
+        "MCP_CAPABILITIES": "reasoning,planning,analysis"
+      }
+    },
+    "git-operations": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-git"
+      ],
+      "env": {
+        "MCP_PORT": 3003,
+        "MCP_CAPABILITIES": "version-control,branch-management,diff-analysis"
+      }
+    },
+    "web-fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "env": {
+        "MCP_PORT": 3004,
+        "MCP_CAPABILITIES": "web-scraping,api-calls,content-extraction"
+      }
+    },
+    "time-management": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-time"
+      ],
+      "env": {
+        "MCP_PORT": 3005,
+        "MCP_CAPABILITIES": "scheduling,timezone-conversion,date-calculations"
+      }
+    },
+    "memory-persistence": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MCP_PORT": 3006,
+        "MCP_CAPABILITIES": "context-memory,conversation-history,learning"
+      }
+    },
+    "everything": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-everything"
+      ],
+      "env": {
+        "MCP_PORT": 3007,
+        "MCP_CAPABILITIES": "prompts,resources,tools"
+      }
+    },
+    "browser-automation": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--headless"
+      ],
+      "env": {
+        "MCP_PORT": 3008,
+        "MCP_CAPABILITIES": "browser-automation,page-navigation,dom-interaction"
+      }
+    }
+  },
+  "enhancedFeatures": {
+    "autoRestart": true,
+    "healthMonitoring": true,
+    "metricsCollection": true,
+    "loadBalancing": false,
+    "requestThrottling": true,
+    "errorRecovery": true
+  },
+  "serverCapabilities": {
+    "sequential-thinking": {
+      "capabilities": [
+        "reasoning",
+        "planning",
+        "analysis"
+      ],
+      "priority": "high",
+      "port": 3001
+    },
+    "git-operations": {
+      "capabilities": [
+        "version-control",
+        "branch-management",
+        "diff-analysis"
+      ],
+      "priority": "high",
+      "port": 3003
+    },
+    "web-fetch": {
+      "capabilities": [
+        "web-scraping",
+        "api-calls",
+        "content-extraction"
+      ],
+      "priority": "medium",
+      "port": 3004
+    },
+    "time-management": {
+      "capabilities": [
+        "scheduling",
+        "timezone-conversion",
+        "date-calculations"
+      ],
+      "priority": "low",
+      "port": 3005
+    },
+    "memory-persistence": {
+      "capabilities": [
+        "context-memory",
+        "conversation-history",
+        "learning"
+      ],
+      "priority": "high",
+      "port": 3006
+    },
+    "everything": {
+      "capabilities": [
+        "prompts",
+        "resources",
+        "tools"
+      ],
+      "priority": "medium",
+      "port": 3007
+    },
+    "browser-automation": {
+      "capabilities": [
+        "browser-automation",
+        "page-navigation",
+        "dom-interaction"
+      ],
+      "priority": "high",
+      "port": 3008
+    }
+  }
+}

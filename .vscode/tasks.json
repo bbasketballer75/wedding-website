@@ -25,13 +25,7 @@
       "label": "🤖 Agent: Analyze Project",
       "type": "shell",
       "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-Command",
-        "Write-Host '🔍 Analyzing project structure...'; Get-ChildItem -Recurse -File | Where-Object {$_.Extension -match '\\.(js|ts|jsx|tsx|css|scss|json|md)$'} | Group-Object Extension | Sort-Object Count -Descending | Format-Table Name, Count"
-      ],
+      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/analyze-project.ps1"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -91,6 +85,76 @@
         "focus": true,
         "panel": "new"
       }
+    },
+    {
+      "label": "Delete corrupted JSX file",
+      "type": "shell",
+      "command": "Remove-Item",
+      "args": ["-Path", "src/components/WeddingMemoryVault.jsx", "-Force"]
+    },
+    {
+      "label": "Test Build",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"]
+    },
+    {
+      "label": "Build Project",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"]
+    },
+    {
+      "label": "Force delete corrupted file",
+      "type": "shell",
+      "command": "Remove-Item",
+      "args": ["-Path", "src/components/WeddingMemoryVault.jsx", "-Force"]
+    },
+    {
+      "label": "Remove placeholder",
+      "type": "shell",
+      "command": "Remove-Item",
+      "args": ["-Path", "src/components/WeddingMemoryVault-placeholder.jsx"]
+    },
+    {
+      "label": "Final Build Test",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"]
+    },
+    {
+      "label": "🧠 Start Serena MCP (stdio)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "serena:start"],
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" }
+    },
+    {
+      "label": "🧠 Start Serena MCP (SSE)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "serena:start:sse"],
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" }
+    },
+    {
+      "label": "📚 Serena: Index Project",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "serena:index"],
+      "group": "build",
+      "presentation": { "panel": "shared", "reveal": "always" }
+    },
+    {
+      "label": "🚀 MCP: Supercharged Manager",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/mcp/supercharged-mcp-manager.mjs"],
+      "group": "build",
+      "isBackground": true,
+      "options": { "env": { "SERENA_ACTIVE": "1" } },
+      "presentation": { "panel": "shared", "reveal": "always" }
     }
   ]
 }

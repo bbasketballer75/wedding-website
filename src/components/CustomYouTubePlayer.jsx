@@ -131,43 +131,41 @@ const CustomYouTubePlayer = ({ videoId = 'ZOIRb_ghdh0' }) => {
   return (
     <div className="custom-youtube-player">
       <div className="video-container">
-        <div ref={playerRef} className="youtube-player"></div>
+      <div ref={playerRef} className="youtube-player"></div>
 
         {/* Custom Controls */}
         <div className="custom-controls">
-          <button
+      <button
             className="play-pause-btn"
             onClick={handlePlayPause}
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? '⏸️' : '▶️'}
           </button>
-
-          <span className="time-display">{formatTime(currentTime)}</span>
-
-          <button className="fullscreen-btn" onClick={handleFullscreen} aria-label="Fullscreen">
+      <span className="time-display">{formatTime(currentTime)}</span>
+      <button className="fullscreen-btn" onClick={handleFullscreen} aria-label="Fullscreen">
             ⛶
           </button>
-        </div>
+      </div>
       </div>
 
       {/* Chapter List */}
       <div className="chapters-list">
-        <h3>Wedding Video Chapters</h3>
-        <div className="chapters-grid">
+      <h3>Wedding Video Chapters</h3>
+      <div className="chapters-grid">
           {chapters.map((chapter) => (
             <button
               key={`chapter-${chapter.time}-${chapter.title}`}
               className={`chapter-item ${chapters.findIndex((c) => c.time === chapter.time) === activeChapter ? 'active' : ''}`}
               onClick={() => handleChapterClick(chapter.time)}
             >
-              <span className="chapter-time">{formatTime(chapter.time)}</span>
-              <span className="chapter-title">{chapter.title}</span>
-            </button>
+      <span className="chapter-time">{formatTime(chapter.time)}</span>
+      <span className="chapter-title">{chapter.title}</span>
+      </button>
           ))}
         </div>
       </div>
-    </div>
+      </div>
   );
 };
 

@@ -68,6 +68,7 @@ function sendToAnalytics(metric) {
 
   // Log to console in development
   if (process.env.NODE_ENV === 'development') {
+    console.warn('Web Vital:', metric.name, metric.value);
   }
 
   // Send to custom analytics endpoint if available
@@ -132,6 +133,7 @@ export function initPerformanceObserver() {
           };
 
           if (process.env.NODE_ENV === 'development') {
+            console.warn('Navigation Timing:', navigationTiming);
           }
 
           // Send to analytics

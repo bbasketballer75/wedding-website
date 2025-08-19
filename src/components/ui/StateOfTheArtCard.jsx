@@ -1,5 +1,6 @@
 'use client';
 
+
 /**
  * 🎨 STATE-OF-THE-ART CARD COMPONENT ✨
  *
@@ -116,9 +117,10 @@ export const StateOfTheArtCard = forwardRef(
         style={{ ...cardStyles, ...style }}
         {...props}
       >
-        <div className="card-content">{children}</div>
+      <div className="card-content">{children}</div>
 
-        {variant === 'glass' && <div className="glass-overlay" />}
+        {variant === 'glass' && <div className="glass-overlay"
+      />}
 
         <style>{`
           .state-of-the-art-card {

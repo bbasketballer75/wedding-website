@@ -34,6 +34,6 @@ export const Button = ({
           background-color: ${backgroundColor};
         }
       `}</style>
-    </button>
+      </button>
   );
 };

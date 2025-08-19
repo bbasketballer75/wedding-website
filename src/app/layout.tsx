@@ -4,12 +4,15 @@ import type { Metadata, Viewport } from 'next';
 import { Allura, Cormorant_Garamond, Inter } from 'next/font/google';
 import Script from 'next/script';
 import React from 'react';
-import { AudioProvider } from '../components/AmbientSoundSystem';
-import { EnhancedErrorBoundary } from '../components/EnhancedErrorBoundary';
-import { ToastProvider } from '../components/MagicalToastSystem';
-import WeddingAnalytics from '../components/performance/WeddingAnalytics';
+// Enhanced Phase 2D: Modern AI & PWA Provider Architecture
+import { SEOAndPerformance } from '../components/seo/SEOManager';
+import { AppProviders } from '../providers/AppProviders';
+// Legacy components for compatibility
+import AccessibilityMonitor from '../components/accessibility/AccessibilityMonitor';
+import StructuredData from '../components/seo/StructuredData';
 import ServiceWorkerRegistration from '../components/ServiceWorkerRegistration';
-import '../styles/core/modern-2025-design.css';
+// Modern design styles are included in globals.css
+import Navbar from '../components/Navbar';
 import './globals.css';
 
 // Configure premium wedding fonts
@@ -37,52 +40,55 @@ const allura = Allura({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Austin & Jordyn - Wedding Website',
-    template: '%s | Austin & Jordyn',
+    default: "Austin & Partner's Wedding - August 2025",
+    template: "%s | Austin & Partner's Wedding",
   },
   description:
-    'Celebrate with Austin & Jordyn - Wedding photos, guestbook, and memories from our special day',
+    'Join us for our magical wedding celebration in August 2025. Share our love story, view photos, and be part of our special day.',
   keywords: [
     'wedding',
-    'Austin Porada',
-    'Jordyn Porada',
+    'Austin',
+    'August 2025',
     'wedding photos',
     'guestbook',
     'celebration',
+    'love story',
+    'marriage',
   ],
-  authors: [{ name: 'Austin Porada' }, { name: 'Jordyn Porada' }],
-  creator: 'Austin & Jordyn Porada',
-  publisher: 'The Poradas',
+  authors: [{ name: 'Austin' }],
+  creator: 'Austin & Partner',
+  publisher: 'Wedding Website',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://theporadas.com'),
+  metadataBase: new URL('https://austin-wedding.vercel.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://theporadas.com',
-    title: 'Austin & Jordyn - Wedding Website',
+    url: 'https://austin-wedding.vercel.app',
+    title: "Austin & Partner's Wedding - August 2025",
     description:
-      'Celebrate with Austin & Jordyn - Wedding photos, guestbook, and memories from our special day',
-    siteName: 'Austin & Jordyn Wedding',
+      'Join us for our magical wedding celebration in August 2025. Share our love story, view photos, and be part of our special day.',
+    siteName: "Austin & Partner's Wedding",
     images: [
       {
         url: '/images/landing-bg.jpg',
         width: 1200,
         height: 630,
-        alt: 'Austin & Jordyn Wedding',
+        alt: "Austin & Partner's Wedding",
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Austin & Jordyn - Wedding Website',
-    description: 'Celebrate with Austin & Jordyn - Wedding photos, guestbook, and memories',
+    title: "Austin & Partner's Wedding - August 2025",
+    description:
+      'Join us for our magical wedding celebration in August 2025. Share our love story and memories.',
     images: ['/images/landing-bg.jpg'],
   },
   robots: {
@@ -99,6 +105,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-verification-code',
   },
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
@@ -110,6 +117,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#9caf88' },
     { media: '(prefers-color-scheme: dark)', color: '#7a8b6c' },
   ],
+  colorScheme: 'light',
 };
 
 export default function RootLayout({
@@ -158,6 +166,9 @@ export default function RootLayout({
         </a>
         <ServiceWorkerRegistration />
 
+        {/* Primary site navigation for accessibility */}
+        <Navbar onePage={true} />
+
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
@@ -183,14 +194,14 @@ export default function RootLayout({
         {/* Vercel Analytics & Speed Insights */}
         <Analytics />
         <SpeedInsights />
-        <AudioProvider>
-          <ToastProvider>
-            <EnhancedErrorBoundary componentName="RootLayout" sessionStart={Date.now()}>
-              <WeddingAnalytics />
-              {children}
-            </EnhancedErrorBoundary>
-          </ToastProvider>
-        </AudioProvider>
+
+        {/* Enhanced Phase 2D: Modern AI & PWA Architecture */}
+        <AppProviders>
+          <SEOAndPerformance />
+          <AccessibilityMonitor />
+          <StructuredData />
+          {children}
+        </AppProviders>
       </body>
     </html>
   );

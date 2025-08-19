@@ -7,7 +7,8 @@ vi.spyOn(api, 'getAlbumMedia').mockResolvedValue({ data: [] });
 
 describe('AlbumPage Empty State', () => {
   it('shows empty state when no media is available', async () => {
-    render(<AlbumPage />);
+    render(<AlbumPage
+      />);
     await waitFor(() =>
       expect(
         screen.getByText(

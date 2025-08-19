@@ -19,7 +19,8 @@ vi.mock('../../services/api', () => ({
 describe('GuestbookPage', () => {
   it('shows guestbook heading and empty state after render', async () => {
     await act(async () => {
-      render(<GuestbookPage />);
+      render(<GuestbookPage
+      />);
     });
     // Wait for heading to appear
     await waitFor(() =>
@@ -34,7 +35,8 @@ describe('GuestbookPage', () => {
   });
 
   it('renders guestbook components', async () => {
-    render(<GuestbookPage />);
+    render(<GuestbookPage
+      />);
 
     // Wait for component to be ready
     await waitFor(() => {
@@ -56,7 +58,8 @@ describe('GuestbookPage', () => {
   it('submits a new entry', async () => {
     const { createGuestbookEntry } = await import('../../services/api');
 
-    render(<GuestbookPage />);
+    render(<GuestbookPage
+      />);
     await waitFor(() => {
       expect(screen.getByText('Our Sacred Memory Book')).toBeInTheDocument();
     });

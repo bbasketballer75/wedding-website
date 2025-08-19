@@ -5,6 +5,8 @@
  * Beautiful animated journey through Austin & Jordyn's relationship
  */
 
+import Image from 'next/image';
+import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { ConfettiCelebration } from '../../utils/features/magicalInteractions.js';
 
@@ -156,21 +158,24 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
               height: `${((activeIndex + 1) / milestones.length) * 100}%`,
             }}
           />
-            </div>
+        </div>
 
         {/* Timeline Milestones */}
         <div className="milestones-container">
           {milestones.map((milestone, index) => (
-            <div
+            <button
               key={`milestone-${milestone.date}-${index}`}
               className={`milestone-item ${index === activeIndex ? 'active' : ''} ${
                 index <= activeIndex ? 'completed' : ''
               } stagger-animation elegant-lift`}
               style={{ '--delay': `${index * 0.2}s` }}
-               role="button" tabIndex={0} onClick={() => handleMilestoneClick(index)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveIndex(index); } }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();  => handleMilestoneClickindex(e); } }}
+              onClick={() => handleMilestoneClick(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleMilestoneClick(index);
+                }
+              }}
             >
               <div
                 className="milestone-marker sparkle"
@@ -178,7 +183,6 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
               >
                 <span className="milestone-icon">{milestone.icon}</span>
               </div>
-
               <div className="milestone-content">
                 <div className="milestone-date">{formatDate(milestone.date)}</div>
                 <div className="milestone-title">{milestone.title}</div>
@@ -186,7 +190,7 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
                   <div className="milestone-location">📍 {milestone.location}</div>
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -194,22 +198,22 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
         <div className="featured-story">
           <div className="story-card fade-in-up">
             <div className="story-image-container">
-              <img
-                src={getCurrentMilestone().photo}
-                alt={getCurrentMilestone().title}
-                className="story-image photo-magic"
-                onError={(e) => {
-                  e.target.src = '/images/placeholder-love.jpg';
-                }}
+              <Image
+                src={getCurrentMilestone().photo || '/images/placeholder-love.jpg'}
+                alt={getCurrentMilestone().title || 'Love milestone'}
+                width={1200}
+                height={800}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+                unoptimized
               />
-            <div
+              <div
                 className="story-overlay"
                 style={{ '--story-color': getCurrentMilestone().color }}
               >
                 <div className="story-icon heart-pulse">{getCurrentMilestone().icon}</div>
               </div>
             </div>
-
             <div className="story-content">
               <div className="story-date">{formatDate(getCurrentMilestone().date)}</div>
               <h3 className="story-title">{getCurrentMilestone().title}</h3>
@@ -232,7 +236,6 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
         >
           ❮ Previous
         </button>
-
         <div className="progress-dots">
           {milestones.map((milestone, index) => (
             <button
@@ -243,7 +246,6 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
             />
           ))}
         </div>
-
         <button
           className="control-btn btn-magical"
           onClick={() => setActiveIndex(Math.min(milestones.length - 1, activeIndex + 1))}
@@ -272,9 +274,8 @@ const InteractiveLoveTimeline = ({ className = '' }) => {
   );
 };
 
-
 InteractiveLoveTimeline.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default InteractiveLoveTimeline;

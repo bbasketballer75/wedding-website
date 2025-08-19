@@ -1,5 +1,6 @@
 'use client';
 
+
 /**
  * 🎨 STATE-OF-THE-ART INPUT COMPONENT ✨
  *
@@ -154,7 +155,7 @@ export const StateOfTheArtInput = forwardRef(
 
     return (
       <div className={`state-of-the-art-input-container ${variant} ${size} ${className}`}>
-        <div className="input-wrapper">
+      <div className="input-wrapper">
           {/* Icon */}
           {icon && (
             <div ref={iconRef} className="input-icon">
@@ -176,7 +177,7 @@ export const StateOfTheArtInput = forwardRef(
             className="input-field"
             style={inputStyles}
             {...props}
-          />
+      />
 
           {/* Floating Label */}
           {label && (
@@ -196,8 +197,8 @@ export const StateOfTheArtInput = forwardRef(
             style={{
               background: error ? designTokens.colors.semantic.error : getColor('primary.500'),
             }}
-          />
-        </div>
+      />
+      </div>
 
         {/* Helper Text / Error */}
         {(helperText || error) && (

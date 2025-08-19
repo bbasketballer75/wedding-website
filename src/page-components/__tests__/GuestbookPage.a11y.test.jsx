@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('GuestbookPage accessibility', () => {
   it('should have no accessibility violations on load', async () => {
-    const { container } = render(<GuestbookPage />);
+    const { container } = render(<GuestbookPage
+      />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

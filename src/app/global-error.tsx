@@ -42,6 +42,6 @@ export default function GlobalError({
       >
         Try again
       </button>
-    </div>
+      </div>
   );
 }

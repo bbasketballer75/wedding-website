@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { getAlbumMedia } from '../../services/api';
-import './PhotoGallery.css';
 
 const PhotoGallery = ({ refreshKey }) => {
   const [media, setMedia] = useState([]);
@@ -103,23 +103,22 @@ const PhotoGallery = ({ refreshKey }) => {
             {media.map((item, index) => (
               <div key={item._id} className="gallery-item">
                 {item.mimetype.startsWith('image/') && (
-                  <picture>
-                    <source
-                      srcSet={`/${item.filepath}`.replace(/\.(jpg|jpeg|png)$/i, '.webp')}
-                      type="image/webp"
-                    />
-                    <source srcSet={`/${item.filepath}`} type="image/jpeg" />
-                    <img
+                  <div className="relative w-full h-0 pb-[66%]">
+                    <Image
                       src={`/${item.filepath}`}
-                      alt={`Wedding memory ${index + 1}, uploaded ${new Date(item.timestamp).toLocaleDateString()}`}
+                      alt={
+                        item.uploadedBy
+                          ? `Uploaded by ${item.uploadedBy}`
+                          : `Wedding photo ${index + 1}`
+                      }
+                      fill
+                      sizes="(max-width: 768px) 50vw, 33vw"
                       loading="lazy"
-                      width="400"
-                      height="300"
-                      style={{ maxWidth: '100%', height: 'auto' }}
+                      style={{ objectFit: 'cover' }}
                       onError={handleImageError}
-                      className="gallery-image"
+                      unoptimized
                     />
-                  </picture>
+                  </div>
                 )}
                 {item.mimetype.startsWith('video/') && (
                   <video

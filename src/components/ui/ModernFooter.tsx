@@ -1,4 +1,5 @@
 'use client';
+
 import { motion } from 'framer-motion';
 import { Facebook, Heart, Instagram, Mail } from 'lucide-react';
 
@@ -37,57 +38,60 @@ const ModernFooter = () => {
       >
         {/* Main Footer Content */}
         <div className="modern-footer-content">
-          <motion.div className="modern-footer-section" variants={itemVariants}>
-            <h3 className="modern-footer-title">
-              <Heart className="footer-heart-icon" />
+      <motion.div className="modern-footer-section" variants={itemVariants}>
+      <h3 className="modern-footer-title">
+      <Heart className="footer-heart-icon"
+      />
               Austin & Jordyn
             </h3>
-            <p className="modern-footer-subtitle">
+      <p className="modern-footer-subtitle">
               Thank you for celebrating our love story with us
             </p>
-          </motion.div>
-
-          <motion.div className="modern-footer-section" variants={itemVariants}>
-            <h4 className="modern-footer-heading">Stay Connected</h4>
-            <div className="modern-footer-social">
-              <a
+      </motion.div>
+      <motion.div className="modern-footer-section" variants={itemVariants}>
+      <h4 className="modern-footer-heading">Stay Connected</h4>
+      <div className="modern-footer-social">
+      <a
                 href="mailto:austin@theporadas.com"
                 className="modern-social-link"
                 aria-label="Email us"
               >
-                <Mail size={20} />
-                <span>Email</span>
-              </a>
-              <a href="#" className="modern-social-link" aria-label="Follow on Instagram">
-                <Instagram size={20} />
-                <span>Instagram</span>
-              </a>
-              <a href="#" className="modern-social-link" aria-label="Follow on Facebook">
-                <Facebook size={20} />
-                <span>Facebook</span>
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div className="modern-footer-section" variants={itemVariants}>
-            <h4 className="modern-footer-heading">Wedding Day</h4>
-            <p className="modern-footer-date">October 21st, 2023</p>
-            <p className="modern-footer-description">
+      <Mail size={20}
+      />
+      <span>Email</span>
+      </a>
+      <a href="#" className="modern-social-link" aria-label="Follow on Instagram">
+      <Instagram size={20}
+      />
+      <span>Instagram</span>
+      </a>
+      <a href="#" className="modern-social-link" aria-label="Follow on Facebook">
+      <Facebook size={20}
+      />
+      <span>Facebook</span>
+      </a>
+      </div>
+      </motion.div>
+      <motion.div className="modern-footer-section" variants={itemVariants}>
+      <h4 className="modern-footer-heading">Wedding Day</h4>
+      <p className="modern-footer-date">October 21st, 2023</p>
+      <p className="modern-footer-description">
               A celebration of love, laughter, and new beginnings
             </p>
-          </motion.div>
-        </div>
+      </motion.div>
+      </div>
 
         {/* Copyright */}
         <motion.div className="modern-footer-bottom" variants={itemVariants}>
-          <div className="modern-footer-divider"></div>
-          <p className="modern-footer-copyright">
+      <div className="modern-footer-divider"></div>
+      <p className="modern-footer-copyright">
             © {currentYear} Austin & Jordyn Porada. Made with{' '}
-            <Heart className="inline-heart" size={16} /> for our family and friends.
+            <Heart className="inline-heart" size={16}
+      /> for our family and friends.
           </p>
-        </motion.div>
       </motion.div>
-    </footer>
+      </motion.div>
+      </footer>
   );
 };
 

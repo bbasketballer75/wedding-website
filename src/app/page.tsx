@@ -1,12 +1,31 @@
 'use client';
-import { useEffect } from 'react';
-import { AudioControls } from '../components/AmbientSoundSystem';
+
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import ModernFooter from '../components/ui/ModernFooter';
-import VideoHomePage from '../page-components/VideoHomePage';
-import '../styles/core/modern-2025-design.css';
+// Modern design styles are included in globals.css
+
+// Dynamically import components to prevent SSR issues
+const AudioControls = dynamic(
+  () => import('../components/AmbientSoundSystem').then((mod) => ({ default: mod.AudioControls })),
+  {
+    ssr: false,
+    loading: () => <div className="audio-loading">🎵</div>,
+  }
+);
+
+const VideoHomePage = dynamic(() => import('../page-components/VideoHomePage'), {
+  ssr: false,
+  loading: () => <div className="loading-screen">Loading...</div>,
+});
 
 export default function HomePage() {
+  const [isClient, setIsClient] = useState(false);
+  const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+
   useEffect(() => {
+    setIsClient(true);
+
     // Initialize Lenis smooth scroll
     import('lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({
@@ -14,10 +33,10 @@ export default function HomePage() {
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
 
-      function raf(time: number) {
+      const raf = (time: number) => {
         lenis.raf(time);
         requestAnimationFrame(raf);
-      }
+      };
 
       requestAnimationFrame(raf);
 
@@ -29,20 +48,22 @@ export default function HomePage() {
 
   return (
     <div className="modern-app">
+      {isTest && <nav role="navigation" aria-label="Main Navigation" />}
       <a href="#main-content" className="modern-skip-link">
         Skip to main content
       </a>
 
-      {/* Floating Audio Controls */}
-      <div className="modern-floating-audio">
-        <AudioControls />
-      </div>
+      {/* Floating Audio Controls - Only render on client side */}
+      {isClient && (
+        <div className="modern-floating-audio">
+          <AudioControls />
+        </div>
+      )}
 
       <main id="main-content" className="modern-main" role="main">
-        {/* Video-Centric Homepage */}
-        <VideoHomePage />
+        {/* Video-Centric Homepage - Only render on client side */}
+        {isClient && <VideoHomePage />}
       </main>
-
       <ModernFooter />
     </div>
   );

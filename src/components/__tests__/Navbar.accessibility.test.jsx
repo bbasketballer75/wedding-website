@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('Navbar Accessibility', () => {
   it('has no accessibility violations', async () => {
-    render(<Navbar onePage={true} />);
+    render(<Navbar onePage={true}
+      />);
     try {
       const results = await axe(document.body, {
         rules: {
@@ -22,7 +23,8 @@ describe('Navbar Accessibility', () => {
   });
 
   it('supports keyboard navigation', () => {
-    render(<Navbar onePage={true} />);
+    render(<Navbar onePage={true}
+      />);
     const navLinks = screen.getAllByRole('link');
     navLinks.forEach((link) => {
       expect(link).toBeVisible();
@@ -30,7 +32,8 @@ describe('Navbar Accessibility', () => {
   });
 
   it('renders ARIA roles', () => {
-    render(<Navbar onePage={true} />);
+    render(<Navbar onePage={true}
+      />);
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './MusicPlayer.css';
+import React, { useEffect, useRef, useState } from 'react';
 
 const MusicPlayer = ({ isEnabled = false, position = 'bottom-right' }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -91,7 +90,8 @@ const MusicPlayer = ({ isEnabled = false, position = 'bottom-right' }) => {
   return (
     <div className={`music-player ${position} ${isMinimized ? 'minimized' : ''}`}>
       <audio ref={audioRef} src={playlist[currentTrack]?.src} preload="metadata">
-        <track kind="captions" src="" label="No captions available" default />
+      <track kind="captions" src="" label="No captions available" default
+      />
       </audio>
 
       {isMinimized ? (
@@ -104,36 +104,34 @@ const MusicPlayer = ({ isEnabled = false, position = 'bottom-right' }) => {
         </button>
       ) : (
         <div className="player-content">
-          <div className="player-header">
-            <div className="track-info">
-              <div className="track-title">{playlist[currentTrack]?.title}</div>
-              <div className="track-artist">{playlist[currentTrack]?.artist}</div>
-            </div>
-            <button
+      <div className="player-header">
+      <div className="track-info">
+      <div className="track-title">{playlist[currentTrack]?.title}</div>
+      <div className="track-artist">{playlist[currentTrack]?.artist}</div>
+      </div>
+      <button
               className="minimize-button"
               onClick={() => setIsMinimized(true)}
               aria-label="Minimize music player"
             >
               −
             </button>
-          </div>
-
-          <div className="player-progress">
-            <span className="time-current">{formatTime(currentTime)}</span>
-            <div className="progress-bar">
-              <div
+      </div>
+      <div className="player-progress">
+      <span className="time-current">{formatTime(currentTime)}</span>
+      <div className="progress-bar">
+      <div
                 className="progress-fill"
                 style={{ width: `${(currentTime / duration) * 100}%` }}
-              />
-            </div>
-            <span className="time-duration">{formatTime(duration)}</span>
-          </div>
-
-          <div className="player-controls">
-            <button onClick={prevTrack} aria-label="Previous track">
+      />
+      </div>
+      <span className="time-duration">{formatTime(duration)}</span>
+      </div>
+      <div className="player-controls">
+      <button onClick={prevTrack} aria-label="Previous track">
               ⏮
             </button>
-            <button
+      <button
               onClick={() => {
                 if (isPlaying) {
                   audioRef.current.pause();
@@ -148,14 +146,13 @@ const MusicPlayer = ({ isEnabled = false, position = 'bottom-right' }) => {
             >
               {isPlaying ? '⏸' : '▶️'}
             </button>
-            <button onClick={nextTrack} aria-label="Next track">
+      <button onClick={nextTrack} aria-label="Next track">
               ⏭
             </button>
-          </div>
-
-          <div className="volume-control">
-            <span>🔊</span>
-            <input
+      </div>
+      <div className="volume-control">
+      <span>🔊</span>
+      <input
               type="range"
               min="0"
               max="1"
@@ -164,9 +161,9 @@ const MusicPlayer = ({ isEnabled = false, position = 'bottom-right' }) => {
               onChange={handleVolumeChange}
               className="volume-slider"
               aria-label="Volume control"
-            />
-          </div>
-        </div>
+      />
+      </div>
+      </div>
       )}
     </div>
   );

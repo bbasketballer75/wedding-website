@@ -7,8 +7,6 @@ import { getAlbumMedia, uploadMedia } from '../../services/api';
 import { useInteractionSounds } from '../components/AmbientSoundSystem';
 import { useToast, useWeddingToasts } from '../components/MagicalToastSystem';
 
-import './AlbumPage.css';
-
 const MagicalAlbumPage = () => {
   const [photos, setPhotos] = useState([]);
   const [file, setFile] = useState(null);
@@ -86,16 +84,17 @@ const MagicalAlbumPage = () => {
   };
 
   if (isLoading) {
-    return <LoadingScreen message="Loading our magical photo gallery..." />;
+    return <LoadingScreen message="Loading our magical photo gallery..."
+      />;
   }
 
   if (error) {
     return (
       <div className="album-page error-state">
-        <div className="album-header">
-          <h2 className="album-title">📸 Our Photo Gallery</h2>
-          <p className="error-message">{error}</p>
-          <button
+      <div className="album-header">
+      <h2 className="album-title">📸 Our Photo Gallery</h2>
+      <p className="error-message">{error}</p>
+      <button
             onClick={() => {
               playClick();
               fetchPhotos();
@@ -104,7 +103,7 @@ const MagicalAlbumPage = () => {
           >
             ✨ Try Again
           </button>
-        </div>
+      </div>
       </div>
     );
   }
@@ -112,21 +111,21 @@ const MagicalAlbumPage = () => {
   return (
     <div className="album-page magical-album-page">
       <div className="album-header">
-        <h2 className="album-title">📸 Our Magical Photo Gallery</h2>
-        <p className="album-subtitle">Capturing every precious moment of our journey together ✨</p>
+      <h2 className="album-title">📸 Our Magical Photo Gallery</h2>
+      <p className="album-subtitle">Capturing every precious moment of our journey together ✨</p>
 
         {/* Enhanced Upload Section */}
         <div className="upload-section">
-          <div className="upload-controls">
-            <input
+      <div className="upload-controls">
+      <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
               className="file-input"
               id="photo-upload"
               disabled={isUploading}
-            />
-            <label
+      />
+      <label
               htmlFor="photo-upload"
               className="file-label magical-button"
               style={{ opacity: isUploading ? 0.7 : 1 }}
@@ -136,26 +135,25 @@ const MagicalAlbumPage = () => {
 
             {file && (
               <div className="file-preview">
-                <span className="file-name">{file.name}</span>
-                <button
+      <span className="file-name">{file.name}</span>
+      <button
                   onClick={handleUpload}
                   disabled={isUploading}
                   className="upload-button magical-button"
                 >
                   {isUploading ? '✨ Uploading...' : '🚀 Upload Photo'}
                 </button>
-              </div>
+      </div>
             )}
           </div>
-
-          <button
+      <button
             onClick={handleShare}
             className="share-button magical-button"
             title="Share our photo gallery"
           >
             📱 Share Gallery
           </button>
-        </div>
+      </div>
       </div>
 
       {/* Magical Photo Gallery */}
@@ -166,14 +164,14 @@ const MagicalAlbumPage = () => {
             playClick();
             showSuccess('Photo loved!', '💕 Added to Favorites');
           }}
-        />
+      />
       ) : (
         <div className="empty-gallery">
-          <div className="empty-message">
-            <h3>🌟 Gallery Coming Soon!</h3>
-            <p>We're preparing something magical for you. Photos will appear here soon!</p>
-          </div>
-        </div>
+      <div className="empty-message">
+      <h3>🌟 Gallery Coming Soon!</h3>
+      <p>We're preparing something magical for you. Photos will appear here soon!</p>
+      </div>
+      </div>
       )}
 
       <style>{`
@@ -391,7 +389,7 @@ const MagicalAlbumPage = () => {
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

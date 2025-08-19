@@ -1,5 +1,8 @@
 'use client';
 
+
+import PropTypes from 'prop-types';
+
 /**
  * 🎬 VIDEO-CENTRIC HERO SECTION ✨
  *
@@ -10,7 +13,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { useInteractionSounds } from '../AmbientSoundSystem';
-import EnhancedVideoPlayer from '../media/EnhancedVideoPlayer';
+import StateOfTheArtEnhancedVideoPlayer from '../media/StateOfTheArtEnhancedVideoPlayer';
 
 const VideoHero = ({
   videoSrc = '/video/wedding-film.mp4',
@@ -71,66 +74,63 @@ const VideoHero = ({
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <div className="welcome-content">
-              <motion.div
+      <div className="welcome-content">
+      <motion.div
                 className="welcome-text"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
-                <h1 className="hero-title">
-                  <span className="title-line">Austin & Jordyn</span>
-                  <span className="title-line title-accent">Our Wedding Film</span>
-                </h1>
-
-                <p className="hero-subtitle">
+      <h1 className="hero-title">
+      <span className="title-line">Austin & Jordyn</span>
+      <span className="title-line title-accent">Our Wedding Film</span>
+      </h1>
+      <p className="hero-subtitle">
                   Experience our special day through this feature-length wedding film, capturing
                   every magical moment from beginning to end.
                 </p>
-
-                <div className="hero-details">
-                  <div className="detail-item">
-                    <span className="detail-icon">🎬</span>
-                    <span>45 minutes of memories</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-icon">📖</span>
-                    <span>11 chapters to explore</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-icon">💕</span>
-                    <span>Our complete story</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
+      <div className="hero-details">
+      <div className="detail-item">
+      <span className="detail-icon">🎬</span>
+      <span>45 minutes of memories</span>
+      </div>
+      <div className="detail-item">
+      <span className="detail-icon">📖</span>
+      <span>11 chapters to explore</span>
+      </div>
+      <div className="detail-item">
+      <span className="detail-icon">💕</span>
+      <span>Our complete story</span>
+      </div>
+      </div>
+      </motion.div>
+      <motion.div
                 className="welcome-actions"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
               >
-                <button
+      <button
                   className="start-video-button"
                   onClick={handleStartVideo}
                   onMouseEnter={playHover}
                 >
-                  <span className="button-icon">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                  <span className="button-text">Watch Our Wedding Film</span>
-                </button>
-
-                <p className="interaction-hint">
+      <span className="button-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7z"
+      />
+      </svg>
+      </span>
+      <span className="button-text">Watch Our Wedding Film</span>
+      </button>
+      <p className="interaction-hint">
                   Press <kbd>Space</kbd> or <kbd>Enter</kbd> to begin
                 </p>
-              </motion.div>
+      </motion.div>
 
               {/* Floating elements */}
               <div className="floating-elements">
-                <motion.div
+      <motion.div
                   className="floating-heart"
                   animate={{
                     y: [0, -20, 0],
@@ -145,7 +145,7 @@ const VideoHero = ({
                 >
                   💕
                 </motion.div>
-                <motion.div
+      <motion.div
                   className="floating-heart"
                   animate={{
                     y: [0, -15, 0],
@@ -161,7 +161,7 @@ const VideoHero = ({
                 >
                   ✨
                 </motion.div>
-                <motion.div
+      <motion.div
                   className="floating-heart"
                   animate={{
                     y: [0, -25, 0],
@@ -177,15 +177,15 @@ const VideoHero = ({
                 >
                   🎬
                 </motion.div>
-              </div>
-            </div>
+      </div>
+      </div>
 
             {/* Background gradient overlay */}
             <div className="welcome-background">
-              <div className="gradient-overlay"></div>
-              <div className="pattern-overlay"></div>
-            </div>
-          </motion.div>
+      <div className="gradient-overlay"></div>
+      <div className="pattern-overlay"></div>
+      </div>
+      </motion.div>
         )}
       </AnimatePresence>
 
@@ -196,7 +196,7 @@ const VideoHero = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
       >
-        <EnhancedVideoPlayer
+      <StateOfTheArtEnhancedVideoPlayer
           src={videoSrc}
           posterSrc={posterSrc}
           title="Austin & Jordyn's Wedding Film"
@@ -204,7 +204,7 @@ const VideoHero = ({
           autoplay={autoplay && hasStartedVideo}
           showChapters={true}
           className="hero-video-player"
-        />
+      />
       </motion.div>
 
       {/* Video Info Overlay (appears after video starts) */}
@@ -216,27 +216,26 @@ const VideoHero = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <div className="video-info-content">
-              <h2 className="video-title">Our Wedding Film</h2>
-              <p className="video-description">Relive our special day with family and friends</p>
-              <div className="video-stats">
-                <span className="stat">
-                  <strong>{videoChapters.length}</strong> Chapters
+      <div className="video-info-content">
+      <h2 className="video-title">Our Wedding Film</h2>
+      <p className="video-description">Relive our special day with family and friends</p>
+      <div className="video-stats">
+      <span className="stat">
+      <strong>{videoChapters.length}</strong> Chapters
                 </span>
-                <span className="stat-separator">•</span>
-                <span className="stat">
-                  <strong>45</strong> Minutes
+      <span className="stat-separator">•</span>
+      <span className="stat">
+      <strong>45</strong> Minutes
                 </span>
-                <span className="stat-separator">•</span>
-                <span className="stat">
-                  <strong>HD</strong> Quality
+      <span className="stat-separator">•</span>
+      <span className="stat">
+      <strong>HD</strong> Quality
                 </span>
-              </div>
-            </div>
-          </motion.div>
+      </div>
+      </div>
+      </motion.div>
         )}
       </AnimatePresence>
-
       <style>{`
         .video-hero {
           position: relative;
@@ -590,8 +589,16 @@ const VideoHero = ({
           }
         }
       `}</style>
-    </section>
+      </section>
   );
 };
 
 export default VideoHero;
+
+VideoHero.propTypes = {
+  videoSrc: PropTypes.string,
+  posterSrc: PropTypes.string,
+  chapters: PropTypes.array,
+  autoplay: PropTypes.bool,
+  showWelcomeOverlay: PropTypes.bool,
+};

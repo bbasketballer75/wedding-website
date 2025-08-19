@@ -1,3 +1,6 @@
+'use client';
+/* eslint-disable react/prop-types */
+
 import Link from 'next/link';
 import React, { memo, useCallback } from 'react';
 import NavLink from './NavLink';
@@ -61,7 +64,6 @@ const Navbar: React.FC<NavbarProps> = memo(({ onePage }) => {
         >
           <span className="navbar-toggle-icon">☰</span>
         </button>
-
         <ul className="navbar-nav">
           <li className="navbar-nav-item">
             <NavLink

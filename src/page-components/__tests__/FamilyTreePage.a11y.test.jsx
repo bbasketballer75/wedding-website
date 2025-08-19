@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('FamilyTreePage accessibility', () => {
   it('should have no accessibility violations on load', async () => {
-    const { container } = render(<FamilyTreePage />);
+    const { container } = render(<FamilyTreePage
+      />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

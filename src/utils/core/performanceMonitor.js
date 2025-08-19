@@ -1,276 +1,187 @@
-/**
- * Performance monitoring script for wedding website
- * Tracks real-time metrics and sends alerts
- */
+// Performance monitoring utilities used by tests
 
-class PerformanceMonitor {
-  constructor() {
-    this.metrics = {
-      pageLoadTime: 0,
-      coreWebVitals: {},
-      apiResponseTimes: {},
-      errorRate: 0,
-      userSatisfaction: 0,
-    };
-
-    this.thresholds = {
-      pageLoadTime: 3000, // 3 seconds
-      lcp: 2500, // Largest Contentful Paint
-      fid: 100, // First Input Delay
-      cls: 0.1, // Cumulative Layout Shift
-      apiResponseTime: 1000,
-    };
-
-    this.init();
-  }
-
-  init() {
-    this.trackPagePerformance();
-    this.trackCoreWebVitals();
-    this.trackAPIPerformance();
-    this.trackUserExperience();
-    this.setupReporting();
-  }
-
-  trackPagePerformance() {
-    window.addEventListener('load', () => {
-      const navigation = performance.getEntriesByType('navigation')[0];
-      this.metrics.pageLoadTime = navigation.loadEventEnd - navigation.loadEventStart;
-
-      // Check if page load exceeds threshold
-      if (this.metrics.pageLoadTime > this.thresholds.pageLoadTime) {
-        this.sendAlert('slow_page_load', {
-          loadTime: this.metrics.pageLoadTime,
-          threshold: this.thresholds.pageLoadTime,
-        });
-      }
-    });
-  }
-
-  trackCoreWebVitals() {
-    // Import web-vitals library dynamically
-    import('web-vitals').then(({ getCLS, getFID, getLCP, getFCP, getTTFB }) => {
-      getCLS((metric) => {
-        this.metrics.coreWebVitals.cls = metric.value;
-        if (metric.value > this.thresholds.cls) {
-          this.sendAlert('poor_cls', metric);
-        }
-      });
-
-      getFID((metric) => {
-        this.metrics.coreWebVitals.fid = metric.value;
-        if (metric.value > this.thresholds.fid) {
-          this.sendAlert('poor_fid', metric);
-        }
-      });
-
-      getLCP((metric) => {
-        this.metrics.coreWebVitals.lcp = metric.value;
-        if (metric.value > this.thresholds.lcp) {
-          this.sendAlert('poor_lcp', metric);
-        }
-      });
-
-      getFCP((metric) => {
-        this.metrics.coreWebVitals.fcp = metric.value;
-      });
-
-      getTTFB((metric) => {
-        this.metrics.coreWebVitals.ttfb = metric.value;
-      });
-    });
-  }
-
-  trackAPIPerformance() {
-    // Intercept fetch requests to monitor API performance
-    const originalFetch = window.fetch;
-    window.fetch = async (...args) => {
-      const startTime = performance.now();
-      const url = args[0];
-
-      try {
-        const response = await originalFetch(...args);
-        const endTime = performance.now();
-        const duration = endTime - startTime;
-
-        // Track API response times - handle both string URLs and Request objects
-        let urlString;
-        if (typeof url === 'string') {
-          urlString = url;
-        } else if (url instanceof Request) {
-          urlString = url.url;
-        } else {
-          urlString = String(url);
-        }
-
-        if (urlString && urlString.includes('/api/')) {
-          this.metrics.apiResponseTimes[urlString] = duration;
-
-          if (duration > this.thresholds.apiResponseTime) {
-            this.sendAlert('slow_api_response', {
-              url: urlString,
-              duration,
-              threshold: this.thresholds.apiResponseTime,
-            });
-          }
-        }
-
-        return response;
-      } catch (error) {
-        this.trackError(error, urlString || url);
-        throw error;
-      }
-    };
-  }
-
-  trackUserExperience() {
-    // Track rage clicks
-    let clickCount = 0;
-    let clickTimer;
-
-    document.addEventListener('click', () => {
-      clickCount++;
-      clearTimeout(clickTimer);
-
-      clickTimer = setTimeout(() => {
-        if (clickCount > 3) {
-          this.sendAlert('rage_clicks', { clickCount });
-        }
-        clickCount = 0;
-      }, 1000);
-    });
-
-    // Track long tasks
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          if (entry.duration > 50) {
-            // Long task threshold
-            this.sendAlert('long_task', {
-              duration: entry.duration,
-              name: entry.name,
-            });
-          }
-        });
-      });
-
-      observer.observe({ entryTypes: ['longtask'] });
-    }
-  }
-
-  trackError(error, context = '') {
-    this.metrics.errorRate++;
-
-    this.sendAlert('javascript_error', {
-      message: error.message,
-      stack: error.stack,
-      context,
-      timestamp: Date.now(),
-    });
-  }
-
-  setupReporting() {
-    // Send metrics every 30 seconds
-    setInterval(() => {
-      this.sendMetrics();
-    }, 30000);
-
-    // Send final metrics when user leaves
-    window.addEventListener('beforeunload', () => {
-      this.sendMetrics();
-    });
-  }
-
-  async sendMetrics() {
-    try {
-      // Try Next.js API route first (will fail in static export)
-      await fetch('/api/performance-metrics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          metrics: this.metrics,
-          timestamp: Date.now(),
-          userAgent: navigator.userAgent,
-          url: window.location.href,
-        }),
-      });
-    } catch {
-      // Fallback to backend API or Vercel Functions
-      try {
-        const backendUrl = process.env.REACT_APP_API_URL || window.location.origin;
-        await fetch(`${backendUrl}/api/performance-metrics`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            metrics: this.metrics,
-            timestamp: Date.now(),
-            userAgent: navigator.userAgent,
-            url: window.location.href,
-          }),
-        });
-      } catch (backendError) {
-        // Silently fail - performance monitoring is non-critical
-        console.warn('Failed to send performance metrics:', backendError);
-      }
-    }
-  }
-
-  async sendAlert(type, data) {
-    try {
-      await fetch('/api/performance-alerts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type,
-          data,
-          severity: this.getAlertSeverity(type),
-          timestamp: Date.now(),
-          url: window.location.href,
-        }),
-      });
-    } catch (error) {
-      console.warn('Failed to send performance alert:', error);
-    }
-  }
-
-  getAlertSeverity(type) {
-    const severityMap = {
-      slow_page_load: 'medium',
-      poor_cls: 'high',
-      poor_fid: 'high',
-      poor_lcp: 'medium',
-      slow_api_response: 'medium',
-      rage_clicks: 'high',
-      long_task: 'low',
-      javascript_error: 'high',
-    };
-
-    return severityMap[type] || 'low';
-  }
-
-  // Public API for manual performance tracking
-  trackCustomMetric(name, value, unit = 'ms') {
-    this.metrics[name] = { value, unit, timestamp: Date.now() };
-  }
-
-  getMetrics() {
-    return { ...this.metrics };
-  }
+function getTiming() {
+  return (typeof performance !== 'undefined' && (performance.timing || {})) || {};
 }
 
-// Initialize performance monitoring
-const performanceMonitor = new PerformanceMonitor();
+export function getPageLoadTime() {
+  const t = getTiming();
+  const v = (t.loadEventEnd || 0) - (t.navigationStart || 0);
+  return Number.isFinite(v) ? v : 0;
+}
 
-// Global error handler
-window.addEventListener('error', (event) => {
-  performanceMonitor.trackError(event.error, event.filename);
-});
+export function getDOMContentLoadedTime() {
+  const t = getTiming();
+  const v = (t.domContentLoadedEventEnd || 0) - (t.navigationStart || 0);
+  return Number.isFinite(v) ? v : 0;
+}
 
-window.addEventListener('unhandledrejection', (event) => {
-  performanceMonitor.trackError(new Error(event.reason), 'unhandled_promise');
-});
+export function getNetworkTiming() {
+  const t = getTiming();
+  return {
+    dns: (t.domainLookupEnd || 0) - (t.domainLookupStart || 0),
+    tcp: (t.connectEnd || 0) - (t.connectStart || 0),
+    ttfb: (t.responseStart || 0) - (t.requestStart || 0),
+  };
+}
 
-// Export for use in other parts of the application
-window.performanceMonitor = performanceMonitor;
+export function getResourceTiming() {
+  if (typeof performance?.getEntriesByType !== 'function') return [];
+  const entries = performance.getEntriesByType('resource') || [];
+  return entries.map((e) => ({
+    name: e.name,
+    duration: e.duration,
+    size: e.transferSize ?? e.decodedBodySize ?? 0,
+    initiatorType: e.initiatorType,
+  }));
+}
 
-export default performanceMonitor;
+export function getSlowResources(thresholdMs = 1000) {
+  return getResourceTiming().filter((r) => r.duration >= thresholdMs);
+}
+
+export function getTotalPageWeight() {
+  if (typeof performance?.getEntriesByType !== 'function') return { transferred: 0, decoded: 0 };
+  const entries = performance.getEntriesByType('resource') || [];
+  const transferred = entries.reduce((s, e) => s + (e.transferSize || 0), 0);
+  const decoded = entries.reduce((s, e) => s + (e.decodedBodySize || 0), 0);
+  return { transferred, decoded };
+}
+
+export function getMemoryUsage() {
+  const m = performance?.memory || {};
+  return {
+    used: m.usedJSHeapSize || 0,
+    total: m.totalJSHeapSize || 0,
+    limit: m.jsHeapSizeLimit || 0,
+  };
+}
+
+let lastHeap = 0;
+export function detectMemoryLeak() {
+  const used = performance?.memory?.usedJSHeapSize || 0;
+  const leak = used > lastHeap * 1.5 && lastHeap > 0;
+  lastHeap = used;
+  return leak;
+}
+
+export function getMemoryEfficiency() {
+  const m = getMemoryUsage();
+  if (!m.limit || !m.total) return 1;
+  return Math.max(0, Math.min(1, 1 - m.used / m.limit));
+}
+
+export function mark(name) {
+  if (typeof performance?.mark === 'function') performance.mark(name);
+}
+
+export function measure(name, start, end) {
+  if (typeof performance?.measure === 'function') performance.measure(name, start, end);
+}
+
+export function getMeasureDuration(name) {
+  const entries = performance?.getEntriesByName?.(name) || [];
+  return entries[0]?.duration ?? 0;
+}
+
+export function checkPerformanceBudget(budget = {}) {
+  const loadTime = getPageLoadTime();
+  const size = getTotalPageWeight();
+  const failed = [];
+  if (budget.loadTime && loadTime > budget.loadTime)
+    failed.push({ metric: 'loadTime', actual: loadTime, budget: budget.loadTime });
+  if (budget.totalPageSize && size.transferred > budget.totalPageSize)
+    failed.push({
+      metric: 'totalPageSize',
+      actual: size.transferred,
+      budget: budget.totalPageSize,
+    });
+  return { passed: failed.length === 0, failed };
+}
+
+export function getBudgetViolations(budget = {}) {
+  return checkPerformanceBudget(budget).failed;
+}
+
+export function collectRealUserMetrics() {
+  return {
+    timing: getTiming(),
+    navigation:
+      typeof performance?.getEntriesByType === 'function'
+        ? performance.getEntriesByType('navigation')
+        : [],
+    connection: navigator?.connection || {},
+  };
+}
+
+export function trackInteraction(type, name) {
+  mark(`interaction:${type}:${name}:start`);
+}
+
+export function measureInteractionResponsiveness(type, startTime) {
+  const end = performance?.now?.() || Date.now();
+  return Math.max(0, end - startTime);
+}
+
+export function generatePerformanceReport() {
+  return {
+    summary: {
+      loadTime: getPageLoadTime(),
+      domContentLoaded: getDOMContentLoadedTime(),
+    },
+    metrics: {
+      resources: getResourceTiming().length,
+      memory: getMemoryUsage(),
+    },
+    recommendations: [],
+  };
+}
+
+export function exportPerformanceData() {
+  return {
+    timestamp: Date.now(),
+    metrics: generatePerformanceReport().metrics,
+    userAgent: navigator?.userAgent || '',
+  };
+}
+
+export function logPerformanceWarning(message, data) {
+  // eslint-disable-next-line no-console
+  console.log(`Performance Warning: ${message}`, data || {});
+}
+
+export function suggestOptimizations() {
+  const entries =
+    typeof performance?.getEntriesByType === 'function'
+      ? performance.getEntriesByType('resource')
+      : [];
+  const suggestions = [];
+  for (const e of entries) {
+    if ((e.transferSize || 0) > 300000) {
+      suggestions.push({
+        type: 'image',
+        description: `Compress large resource ${e.name}`,
+        impact: 'high',
+      });
+    }
+  }
+  return suggestions;
+}
+
+export function prioritizeOptimizations(items = []) {
+  const weight = (impact) => {
+    if (impact === 'high') return 2;
+    if (impact === 'medium') return 1;
+    return 0;
+  };
+  const effortScore = (effort) => {
+    if (effort === 'low') return 0;
+    if (effort === 'medium') return 1;
+    return 2;
+  };
+  return [...items].sort((a, b) => {
+    const aScore = weight(a.impact) - effortScore(a.effort);
+    const bScore = weight(b.impact) - effortScore(b.effort);
+    return bScore - aScore;
+  });
+}

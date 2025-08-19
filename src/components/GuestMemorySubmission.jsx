@@ -200,24 +200,22 @@ const GuestMemorySubmission = ({
   return (
     <div className="guest-memory-submission">
       <div className="memory-form-header">
-        <h2>Weave Your Thread Into Our Story</h2>
-        <p>
+      <h2>Weave Your Thread Into Our Story</h2>
+      <p>
           Your precious memories are the golden threads that complete the tapestry of our love
           story. Share your treasured moments, heartfelt wishes, and captured memories from our
           celebration!
         </p>
       </div>
-
       <form onSubmit={handleSubmit} className="memory-form" noValidate>
         {/* Guest Information */}
         <fieldset className="form-section">
-          <legend>Tell Us Who You Are</legend>
-
-          <div className="form-group">
-            <label htmlFor="guestName" className="required">
+      <legend>Tell Us Who You Are</legend>
+      <div className="form-group">
+      <label htmlFor="guestName" className="required">
               Your Name
             </label>
-            <input
+      <input
               type="text"
               id="guestName"
               name="guestName"
@@ -227,19 +225,18 @@ const GuestMemorySubmission = ({
               maxLength="100"
               required
               aria-describedby={errors.guestName ? 'guestName-error' : undefined}
-            />
+      />
             {errors.guestName && (
               <span id="guestName-error" className="error-message" role="alert">
                 {errors.guestName}
               </span>
             )}
           </div>
-
-          <div className="form-group">
-            <label htmlFor="email" className="required">
+      <div className="form-group">
+      <label htmlFor="email" className="required">
               Email Address
             </label>
-            <input
+      <input
               type="email"
               id="email"
               name="email"
@@ -248,8 +245,8 @@ const GuestMemorySubmission = ({
               className={errors.email ? 'error' : ''}
               required
               aria-describedby={errors.email ? 'email-error' : 'email-help'}
-            />
-            <small id="email-help" className="help-text">
+      />
+      <small id="email-help" className="help-text">
               We'll only use this to contact you about your submission
             </small>
             {errors.email && (
@@ -258,11 +255,10 @@ const GuestMemorySubmission = ({
               </span>
             )}
           </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="relationshipToBride">Relationship to Bride</label>
-              <input
+      <div className="form-row">
+      <div className="form-group">
+      <label htmlFor="relationshipToBride">Relationship to Bride</label>
+      <input
                 type="text"
                 id="relationshipToBride"
                 name="relationshipToBride"
@@ -270,12 +266,11 @@ const GuestMemorySubmission = ({
                 onChange={handleInputChange}
                 placeholder="e.g., Sister, College Friend, Coworker"
                 maxLength="100"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="relationshipToGroom">Relationship to Groom</label>
-              <input
+      />
+      </div>
+      <div className="form-group">
+      <label htmlFor="relationshipToGroom">Relationship to Groom</label>
+      <input
                 type="text"
                 id="relationshipToGroom"
                 name="relationshipToGroom"
@@ -283,20 +278,19 @@ const GuestMemorySubmission = ({
                 onChange={handleInputChange}
                 placeholder="e.g., Brother, High School Friend, Teammate"
                 maxLength="100"
-              />
-            </div>
-          </div>
-        </fieldset>
+      />
+      </div>
+      </div>
+      </fieldset>
 
         {/* Memory Details */}
         <fieldset className="form-section">
-          <legend>Share Your Treasured Memory</legend>
-
-          <div className="form-group">
-            <label htmlFor="favoriteMemoryType" className="required">
+      <legend>Share Your Treasured Memory</legend>
+      <div className="form-group">
+      <label htmlFor="favoriteMemoryType" className="required">
               What Kind of Precious Memory?
             </label>
-            <select
+      <select
               id="favoriteMemoryType"
               name="favoriteMemoryType"
               value={formData.favoriteMemoryType}
@@ -305,7 +299,7 @@ const GuestMemorySubmission = ({
               required
               aria-describedby={errors.favoriteMemoryType ? 'memoryType-error' : undefined}
             >
-              <option value="">Select memory type...</option>
+      <option value="">Select memory type...</option>
               {memoryTypes.map((type) => (
                 <option key={type.value} value={type.value}>
                   {type.label}
@@ -318,12 +312,11 @@ const GuestMemorySubmission = ({
               </span>
             )}
           </div>
-
-          <div className="form-group">
-            <label htmlFor="memoryTitle" className="required">
+      <div className="form-group">
+      <label htmlFor="memoryTitle" className="required">
               A Beautiful Title for Your Memory
             </label>
-            <input
+      <input
               type="text"
               id="memoryTitle"
               name="memoryTitle"
@@ -334,19 +327,18 @@ const GuestMemorySubmission = ({
               maxLength="200"
               required
               aria-describedby={errors.memoryTitle ? 'memoryTitle-error' : undefined}
-            />
+      />
             {errors.memoryTitle && (
               <span id="memoryTitle-error" className="error-message" role="alert">
                 {errors.memoryTitle}
               </span>
             )}
           </div>
-
-          <div className="form-group">
-            <label htmlFor="memoryText" className="required">
+      <div className="form-group">
+      <label htmlFor="memoryText" className="required">
               Paint Your Memory in Words
             </label>
-            <textarea
+      <textarea
               id="memoryText"
               name="memoryText"
               value={formData.memoryText}
@@ -357,27 +349,26 @@ const GuestMemorySubmission = ({
               maxLength="2000"
               required
               aria-describedby={errors.memoryText ? 'memoryText-error' : 'memoryText-count'}
-            />
-            <div className="char-count">
-              <span id="memoryText-count" className="char-counter">
+      />
+      <div className="char-count">
+      <span id="memoryText-count" className="char-counter">
                 {formData.memoryText.length}/2000 characters
               </span>
-            </div>
+      </div>
             {errors.memoryText && (
               <span id="memoryText-error" className="error-message" role="alert">
                 {errors.memoryText}
               </span>
             )}
           </div>
-        </fieldset>
+      </fieldset>
 
         {/* Photo Upload */}
         <fieldset className="form-section">
-          <legend>Captured Moments (Optional)</legend>
-
-          <div className="form-group">
-            <label htmlFor="photos">Share Your Captured Magic</label>
-            <input
+      <legend>Captured Moments (Optional)</legend>
+      <div className="form-group">
+      <label htmlFor="photos">Share Your Captured Magic</label>
+      <input
               type="file"
               id="photos"
               name="photos"
@@ -387,8 +378,8 @@ const GuestMemorySubmission = ({
               accept={allowedImageTypes.join(',')}
               className={errors.photos ? 'error' : ''}
               aria-describedby={errors.photos ? 'photos-error' : 'photos-help'}
-            />
-            <small id="photos-help" className="help-text">
+      />
+      <small id="photos-help" className="help-text">
               Share the moments you captured through your lens (JPEG, PNG, WebP). Max{' '}
               {maxPhotoSize / 1024 / 1024}MB per precious photo.
             </small>
@@ -401,13 +392,13 @@ const GuestMemorySubmission = ({
 
           {selectedFiles.length > 0 && (
             <div className="selected-files">
-              <h3>Your Selected Treasures:</h3>
-              <ul className="file-list">
+      <h3>Your Selected Treasures:</h3>
+      <ul className="file-list">
                 {selectedFiles.map((file, index) => (
                   <li key={`${file.name}-${file.size}-${file.lastModified}`} className="file-item">
-                    <span className="file-name">{file.name}</span>
-                    <span className="file-size">({(file.size / 1024 / 1024).toFixed(1)}MB)</span>
-                    <button
+      <span className="file-name">{file.name}</span>
+      <span className="file-size">({(file.size / 1024 / 1024).toFixed(1)}MB)</span>
+      <button
                       type="button"
                       onClick={() => removeFile(index)}
                       className="remove-file"
@@ -415,38 +406,37 @@ const GuestMemorySubmission = ({
                     >
                       ×
                     </button>
-                  </li>
+      </li>
                 ))}
               </ul>
-            </div>
+      </div>
           )}
         </fieldset>
 
         {/* Privacy Settings */}
         <fieldset className="form-section">
-          <legend>How Would You Like to Share?</legend>
-
-          <div className="form-group checkbox-group">
-            <label className="checkbox-label">
-              <input
+      <legend>How Would You Like to Share?</legend>
+      <div className="form-group checkbox-group">
+      <label className="checkbox-label">
+      <input
                 type="checkbox"
                 name="sharePublicly"
                 checked={formData.sharePublicly}
                 onChange={handleInputChange}
-              />
-              <span className="checkbox-text">
+      />
+      <span className="checkbox-text">
                 Let this beautiful memory grace our public celebration
               </span>
-            </label>
-            <small className="help-text">
+      </label>
+      <small className="help-text">
               Uncheck if you prefer to share this precious memory privately with just the couple
             </small>
-          </div>
-        </fieldset>
+      </div>
+      </fieldset>
 
         {/* Submit Button */}
         <div className="form-actions">
-          <button
+      <button
             type="submit"
             className="submit-button"
             disabled={!isFormValid || isSubmitting}
@@ -454,19 +444,19 @@ const GuestMemorySubmission = ({
           >
             {isSubmitting ? (
               <>
-                <span className="loading-spinner" aria-hidden="true"></span> Weaving your memory
+      <span className="loading-spinner" aria-hidden="true"></span> Weaving your memory
                 into our story...
               </>
             ) : (
               'Gift Your Memory'
             )}
           </button>
-          <small id="submit-help" className="help-text">
+      <small id="submit-help" className="help-text">
             Your treasured memory will be lovingly reviewed before gracing our celebration
           </small>
-        </div>
+      </div>
       </form>
-    </div>
+      </div>
   );
 };
 

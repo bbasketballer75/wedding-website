@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('AlbumPage accessibility', () => {
   it('should have no accessibility violations on load', async () => {
-    const { container } = render(<AlbumPage />);
+    const { container } = render(<AlbumPage
+      />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

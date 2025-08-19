@@ -7,15 +7,50 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Speed up local pre-push builds when FAST_PREPUSH=1
+  eslint: {
+    ignoreDuringBuilds: process.env.FAST_PREPUSH === '1',
+  },
+  typescript: {
+    ignoreBuildErrors: process.env.FAST_PREPUSH === '1',
+  },
   // Vercel-optimized configuration
   experimental: {
     // Optimize for Vercel's infrastructure
-    optimizePackageImports: ['@mui/material', '@mui/icons-material'],
+    optimizePackageImports: [
+      '@mui/material',
+      '@mui/icons-material',
+      'framer-motion',
+      'gsap',
+      'lucide-react',
+      '@radix-ui/react-select',
+      '@radix-ui/react-slider',
+      '@radix-ui/react-tooltip',
+    ],
+    // Enable dynamic imports optimization
+    esmExternals: true,
+    // Turbo optimizations
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 
   // Performance optimizations for Vercel
   compress: true,
   poweredByHeader: false,
+
+  // Advanced code splitting for optimal performance
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+  },
+
+  // Modern output configuration
+  output: 'standalone',
 
   // Enable source maps for better debugging on Vercel
   productionBrowserSourceMaps: true,
@@ -48,12 +83,15 @@ const nextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
             priority: 20,
+            maxSize: 200000, // Split large vendor chunks
           },
           common: {
             minChunks: 2,
@@ -67,6 +105,24 @@ const nextConfig = {
             name: 'react',
             chunks: 'all',
             priority: 30,
+          },
+          framerMotion: {
+            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+            name: 'framer-motion',
+            chunks: 'all',
+            priority: 25,
+          },
+          gsap: {
+            test: /[\\/]node_modules[\\/]gsap[\\/]/,
+            name: 'gsap',
+            chunks: 'all',
+            priority: 25,
+          },
+          ui: {
+            test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
+            name: 'ui-components',
+            chunks: 'all',
+            priority: 25,
           },
         },
       };

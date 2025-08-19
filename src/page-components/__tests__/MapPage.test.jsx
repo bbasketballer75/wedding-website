@@ -9,7 +9,8 @@ vi.mock('../../services/api', () => ({
 describe('MapPage', () => {
   it('shows loading and then error message', async () => {
     await act(async () => {
-      render(<MapPage />);
+      render(<MapPage
+      />);
     });
 
     // Wait for loading to finish and error to appear
@@ -23,7 +24,8 @@ describe('MapPage', () => {
 
   it('renders map container with heading', async () => {
     await act(async () => {
-      render(<MapPage />);
+      render(<MapPage
+      />);
     });
     await waitFor(() =>
       expect(screen.queryByText(/Mapping all the love/i)).not.toBeInTheDocument()

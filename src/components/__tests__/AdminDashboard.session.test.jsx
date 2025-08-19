@@ -6,7 +6,8 @@ describe('AdminDashboard Session', () => {
   it('persists admin session after refresh', async () => {
     sessionStorage.setItem('adminKey', 'test-key');
     await act(async () => {
-      render(<AdminDashboard adminKey={sessionStorage.getItem('adminKey')} />);
+      render(<AdminDashboard adminKey={sessionStorage.getItem('adminKey')}
+      />);
     });
     expect(await screen.findByLabelText('Admin moderation dashboard')).toBeInTheDocument();
   });

@@ -8,7 +8,7 @@ import '../PostWeddingAnalytics.css';
  */
 const MetricCard = ({ title, value, subtitle, trend, color = 'blue' }) => (
   <div className={`metric-card ${color}`}>
-    <div className="metric-header">
+      <div className="metric-header">
       <h3>{title}</h3>
       {trend && (
         <span className={`trend ${trend.direction}`}>
@@ -16,7 +16,7 @@ const MetricCard = ({ title, value, subtitle, trend, color = 'blue' }) => (
         </span>
       )}
     </div>
-    <div className="metric-value">{value}</div>
+      <div className="metric-value">{value}</div>
     {subtitle && <div className="metric-subtitle">{subtitle}</div>}
   </div>
 );
@@ -162,8 +162,8 @@ const PostWeddingAnalytics = ({
   if (loading && !analyticsData.visitors.total) {
     return (
       <div className="analytics-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading analytics...</p>
+      <div className="loading-spinner"></div>
+      <p>Loading analytics...</p>
       </div>
     );
   }
@@ -171,9 +171,9 @@ const PostWeddingAnalytics = ({
   if (error) {
     return (
       <div className="analytics-error">
-        <h3>Unable to load analytics</h3>
-        <p>{error}</p>
-        <button onClick={fetchAnalytics} className="retry-button">
+      <h3>Unable to load analytics</h3>
+      <p>{error}</p>
+      <button onClick={fetchAnalytics} className="retry-button">
           Try Again
         </button>
       </div>
@@ -183,15 +183,14 @@ const PostWeddingAnalytics = ({
   return (
     <div className="post-wedding-analytics">
       <div className="analytics-header">
-        <div className="header-content">
-          <h2>Wedding Website Analytics</h2>
-          <p>Comprehensive insights into post-wedding engagement</p>
-        </div>
-
-        <div className="analytics-controls">
-          <div className="time-range-selector">
-            <label htmlFor="timeRange">Time Range:</label>
-            <select
+      <div className="header-content">
+      <h2>Wedding Website Analytics</h2>
+      <p>Comprehensive insights into post-wedding engagement</p>
+      </div>
+      <div className="analytics-controls">
+      <div className="time-range-selector">
+      <label htmlFor="timeRange">Time Range:</label>
+      <select
               id="timeRange"
               value={selectedTimeRange}
               onChange={(e) => handleTimeRangeChange(e.target.value)}
@@ -202,9 +201,8 @@ const PostWeddingAnalytics = ({
                 </option>
               ))}
             </select>
-          </div>
-
-          <button
+      </div>
+      <button
             onClick={fetchAnalytics}
             className="refresh-button"
             disabled={loading}
@@ -212,7 +210,7 @@ const PostWeddingAnalytics = ({
           >
             🔄 {loading ? 'Refreshing...' : 'Refresh'}
           </button>
-        </div>
+      </div>
       </div>
 
       {lastUpdated && (
@@ -221,80 +219,80 @@ const PostWeddingAnalytics = ({
 
       {/* Key Metrics Overview */}
       <section className="metrics-overview">
-        <h3>Key Metrics</h3>
-        <div className="metrics-grid">
-          <MetricCard
+      <h3>Key Metrics</h3>
+      <div className="metrics-grid">
+      <MetricCard
             title="Total Visitors"
             value={formatNumber(analyticsData.visitors.total)}
             subtitle={`${formatNumber(analyticsData.visitors.unique)} unique`}
             color="blue"
-          />
-          <MetricCard
+      />
+      <MetricCard
             title="Guest Memories"
             value={formatNumber(analyticsData.memories.approved)}
             subtitle={`${analyticsData.memories.pending} pending approval`}
             color="green"
-          />
-          <MetricCard
+      />
+      <MetricCard
             title="Photo Tags"
             value={formatNumber(analyticsData.photos.tags)}
             subtitle={`${analyticsData.photos.tagged} photos tagged`}
             color="purple"
-          />
-          <MetricCard
+      />
+      <MetricCard
             title="Guestbook Entries"
             value={formatNumber(analyticsData.guestbook.approved)}
             subtitle={`${formatNumber(analyticsData.guestbook.entries)} total`}
             color="orange"
-          />
-        </div>
+      />
+      </div>
       </section>
 
       {/* Engagement Metrics */}
       <section className="engagement-section">
-        <h3>Engagement Insights</h3>
-        <div className="engagement-grid">
-          <MetricCard
+      <h3>Engagement Insights</h3>
+      <div className="engagement-grid">
+      <MetricCard
             title="Avg. Session Time"
             value={formatDuration(analyticsData.engagement.avgSessionTime)}
             color="teal"
-          />
-          <MetricCard
+      />
+      <MetricCard
             title="Page Views"
             value={formatNumber(analyticsData.engagement.pageViews)}
             color="indigo"
-          />
-          <MetricCard
+      />
+      <MetricCard
             title="Bounce Rate"
             value={formatPercentage(analyticsData.engagement.bounceRate)}
             color="red"
-          />
-        </div>
+      />
+      </div>
       </section>
 
       {/* Top Pages */}
       <section className="top-pages-section">
-        <h3>Most Popular Pages</h3>
-        <div className="top-pages-list">
+      <h3>Most Popular Pages</h3>
+      <div className="top-pages-list">
           {analyticsData.topPages.length > 0 ? (
             analyticsData.topPages.map((page, index) => (
               <div key={page.path} className="page-item">
-                <div className="page-rank">#{index + 1}</div>
-                <div className="page-info">
-                  <div className="page-path">{page.path}</div>
-                  <div className="page-stats">
+      <div className="page-rank">#{index + 1}</div>
+      <div className="page-info">
+      <div className="page-path">{page.path}</div>
+      <div className="page-stats">
                     {formatNumber(page.views)} views •{formatDuration(page.avgTime)} avg. time
                   </div>
-                </div>
-                <div className="page-chart">
-                  <div
+      </div>
+      <div className="page-chart">
+      <div
                     className="page-bar"
                     style={{
                       width: `${(page.views / analyticsData.topPages[0]?.views || 1) * 100}%`,
                     }}
                   ></div>
-                </div>
-              </div>
+      </div>
+      </div>
             ))
           ) : (
             <p className="no-data">No page data available for selected time range</p>
@@ -304,25 +302,25 @@ const PostWeddingAnalytics = ({
 
       {/* Recent Activity */}
       <section className="recent-activity-section">
-        <h3>Recent Activity</h3>
-        <div className="activity-feed">
+      <h3>Recent Activity</h3>
+      <div className="activity-feed">
           {analyticsData.recentActivity.length > 0 ? (
             analyticsData.recentActivity.map((activity) => (
               <div
                 key={`${activity.type}-${activity.timestamp}-${activity.description.slice(0, 20)}`}
                 className="activity-item"
               >
-                <div className="activity-icon">
+      <div className="activity-icon">
                   {activity.type === 'memory' && '💭'}
                   {activity.type === 'tag' && '🏷️'}
                   {activity.type === 'guestbook' && '📝'}
                   {activity.type === 'visit' && '👁️'}
                 </div>
-                <div className="activity-content">
-                  <div className="activity-description">{activity.description}</div>
-                  <div className="activity-time">{activity.timestamp}</div>
-                </div>
-              </div>
+      <div className="activity-content">
+      <div className="activity-description">{activity.description}</div>
+      <div className="activity-time">{activity.timestamp}</div>
+      </div>
+      </div>
             ))
           ) : (
             <p className="no-data">No recent activity</p>
@@ -332,49 +330,49 @@ const PostWeddingAnalytics = ({
 
       {/* Demographics */}
       <section className="demographics-section">
-        <h3>Visitor Demographics</h3>
-        <div className="demographics-grid">
+      <h3>Visitor Demographics</h3>
+      <div className="demographics-grid">
           {/* Device Types */}
           <div className="demo-chart">
-            <h4>Device Types</h4>
-            <div className="chart-data">
+      <h4>Device Types</h4>
+      <div className="chart-data">
               {Object.entries(analyticsData.demographics.devices).map(([device, count]) => (
                 <div key={device} className="chart-item">
-                  <span className="chart-label">{device}</span>
-                  <span className="chart-value">{formatNumber(count)}</span>
-                </div>
+      <span className="chart-label">{device}</span>
+      <span className="chart-value">{formatNumber(count)}</span>
+      </div>
               ))}
             </div>
-          </div>
+      </div>
 
           {/* Browsers */}
           <div className="demo-chart">
-            <h4>Browsers</h4>
-            <div className="chart-data">
+      <h4>Browsers</h4>
+      <div className="chart-data">
               {Object.entries(analyticsData.demographics.browsers).map(([browser, count]) => (
                 <div key={browser} className="chart-item">
-                  <span className="chart-label">{browser}</span>
-                  <span className="chart-value">{formatNumber(count)}</span>
-                </div>
+      <span className="chart-label">{browser}</span>
+      <span className="chart-value">{formatNumber(count)}</span>
+      </div>
               ))}
             </div>
-          </div>
+      </div>
 
           {/* Top Locations */}
           <div className="demo-chart">
-            <h4>Top Locations</h4>
-            <div className="chart-data">
+      <h4>Top Locations</h4>
+      <div className="chart-data">
               {Object.entries(analyticsData.demographics.locations).map(([location, count]) => (
                 <div key={location} className="chart-item">
-                  <span className="chart-label">{location}</span>
-                  <span className="chart-value">{formatNumber(count)}</span>
-                </div>
+      <span className="chart-label">{location}</span>
+      <span className="chart-value">{formatNumber(count)}</span>
+      </div>
               ))}
             </div>
-          </div>
-        </div>
+      </div>
+      </div>
       </section>
-    </div>
+      </div>
   );
 };
 

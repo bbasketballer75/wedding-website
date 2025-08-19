@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useRef, useState } from 'react';
 import { uploadMedia } from '../../services/api';
-import './UploadForm.css';
 
 const MAX_FILE_SIZE_MB = 100;
 const ACCEPTED_TYPES = [
@@ -83,10 +82,10 @@ const UploadForm = ({ onUploadSuccess }) => {
       <h2>Contribute to Our Album</h2>
       <p>Share your favorite moments from our special day!</p>
       <form onSubmit={handleSubmit} aria-label="Upload media form">
-        <label htmlFor="media-upload" className="sr-only">
+      <label htmlFor="media-upload" className="sr-only">
           Select image or video to upload
         </label>
-        <input
+      <input
           type="file"
           id="media-upload"
           ref={fileInputRef}
@@ -96,8 +95,8 @@ const UploadForm = ({ onUploadSuccess }) => {
           aria-required="true"
           aria-label="Select image or video to upload"
           disabled={isUploading}
-        />
-        <button
+      />
+      <button
           type="submit"
           disabled={isUploading}
           className="upload-button"

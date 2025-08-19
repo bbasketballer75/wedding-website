@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import PropTypes from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Advanced Image Component with lazy loading, blur placeholder, and error handling
@@ -53,18 +54,11 @@ export function OptimizedImage({
     onError?.(e);
   };
 
-  // Generate responsive image sources
-  const generateSrcSet = (src) => {
-    const sizes = [640, 750, 828, 1080, 1200, 1920];
-    const ext = src.split('.').pop();
-    const baseName = src.replace(`.${ext}`, '');
-
-    return sizes.map((size) => `${baseName}_${size}w.webp ${size}w`).join(', ');
-  };
+  // Removed unused generateSrcSet helper (Next.js handles srcset internally)
 
   // Blur placeholder (base64 encoded tiny image)
   const blurDataURL =
-    'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+Rp';
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmM2Y0ZjY7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZTVlN2ViO3N0b3Atb3BhY2l0eToxIiAvPjwvTGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiIC8+PC9zdmc+';
 
   if (hasError) {
     return (
@@ -80,35 +74,21 @@ export function OptimizedImage({
 
   return (
     <div ref={imgRef} className={`relative ${className}`}>
-      {/* Blur placeholder */}
-      {!isLoaded && isVisible && (
-        <img
-          src={blurDataURL}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm"
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Main image */}
       {isVisible && (
-        <img
+        <Image
           src={src}
-          srcSet={generateSrcSet(src)}
-          sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
           alt={alt}
+          fill
+          sizes={Array.isArray(sizes) ? sizes.join(', ') : sizes}
+          placeholder="blur"
+          blurDataURL={blurDataURL}
           onLoad={handleLoad}
           onError={handleError}
+          style={{ objectFit: 'cover' }}
           loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
           {...props}
         />
       )}
-
-      {/* Loading indicator */}
       {!isLoaded && isVisible && (
         <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
           <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
@@ -168,3 +148,5 @@ OptimizedImage.defaultProps = {
   onLoad: undefined,
   onError: undefined,
 };
+
+export default OptimizedImage;

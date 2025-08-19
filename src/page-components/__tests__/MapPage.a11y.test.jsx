@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('MapPage accessibility', () => {
   it('should have no accessibility violations on load', async () => {
-    const { container } = render(<MapPage />);
+    const { container } = render(<MapPage
+      />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

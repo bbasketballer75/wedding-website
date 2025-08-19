@@ -19,9 +19,6 @@ const crossDirectoryMappings = {
   // From organized components to services (need to go up more levels)
   '../services/api': '../../services/api',
 
-  // From page-components to services (different depth)
-  '../services/api': '../../services/api',
-
   // From organized page-components to components (need updated paths)
   '../components/LoadingScreen': '../../components/ui/LoadingScreen',
   '../components/AdminDashboard': '../../components/admin/AdminDashboard',
@@ -49,9 +46,6 @@ const crossDirectoryMappings = {
   '../page-components/HomePage': '../page-components/core/HomePage',
   '../page-components/AlbumPage.jsx': '../page-components/gallery/AlbumPage.jsx',
   '../page-components/GuestbookPage.jsx': '../page-components/interactive/GuestbookPage.jsx',
-
-  // Dynamic imports in root tests
-  '../page-components/AlbumPage.jsx': '../page-components/gallery/AlbumPage.jsx',
 };
 
 // Path depth adjustments for different source locations

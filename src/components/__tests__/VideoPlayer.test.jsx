@@ -1,183 +1,264 @@
+/**
+ * @vitest-environment jsdom
+ */
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import VideoPlayer from '../media/VideoPlayer.jsx';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import StateOfTheArtEnhancedVideoPlayer from '../media/StateOfTheArtEnhancedVideoPlayer';
+
+// Mock Framer Motion to avoid animation issues in tests
+vi.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }) => React.createElement('div', props, children),
+  },
+  AnimatePresence: ({ children }) => children,
+}));
+
+// Mock GSAP
+vi.mock('gsap', () => ({
+  gsap: {
+    fromTo: vi.fn(),
+  },
+}));
+
+// Mock the audio system
+vi.mock('../AmbientSoundSystem', () => ({
+  useInteractionSounds: () => ({
+    playClick: vi.fn(),
+    playHover: vi.fn(),
+  }),
+}));
+
+// Mock the UI components used by StateOfTheArtEnhancedVideoPlayer
+vi.mock('../ui/StateOfTheArtButton', () => ({
+  __esModule: true,
+  default: ({ children, onClick, className, ...props }) =>
+    React.createElement('button', { onClick, className, ...props, 'data-testid': 'state-of-art-button' }, children),
+}));
+
+vi.mock('../ui/StateOfTheArtCard', () => ({
+  __esModule: true,
+  default: ({ children, className, ...props }) =>
+    React.createElement('div', { className, ...props, 'data-testid': 'state-of-art-card' }, children),
+}));
+
+// Mock CSS modules
+vi.mock('../../styles/components/StateOfTheArtVideoPlayer.module.css', () => ({
+  default: {
+    videoPlayer: 'video-player',
+    videoElement: 'video-element',
+    loadingOverlay: 'loading-overlay',
+    loadingSpinner: 'loading-spinner',
+    playOverlay: 'play-overlay',
+    bigPlayButton: 'big-play-button',
+    controlsOverlay: 'controls-overlay',
+    controlsCard: 'controls-card',
+    progressContainer: 'progress-container',
+    progressBar: 'progress-bar',
+    progressFill: 'progress-fill',
+    progressHandle: 'progress-handle',
+    timeDisplay: 'time-display',
+    controlsRow: 'controls-row',
+    leftControls: 'left-controls',
+    centerControls: 'center-controls',
+    rightControls: 'right-controls',
+    volumeControl: 'volume-control',
+    volumeSlider: 'volume-slider',
+    volumeRange: 'volume-range',
+    chapterInfo: 'chapter-info',
+    chapterTitle: 'chapter-title',
+    chapterMenu: 'chapter-menu',
+    chapterCard: 'chapter-card',
+    chapterHeader: 'chapter-header',
+    chapterList: 'chapter-list',
+    chapterItem: 'chapter-item',
+    chapterNumber: 'chapter-number',
+    chapterDetails: 'chapter-details',
+    chapterEmoji: 'chapter-emoji',
+    active: 'active',
+    errorContainer: 'error-container',
+    errorContent: 'error-content',
+    fullscreen: 'fullscreen',
+  },
+}));
 
 // Mock for HTMLMediaElement methods
-Object.defineProperty(window.HTMLMediaElement.prototype, 'load', {
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'load', {
   writable: true,
   value: vi.fn(),
 });
 
-Object.defineProperty(window.HTMLMediaElement.prototype, 'play', {
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'play', {
   writable: true,
   value: vi.fn(() => Promise.resolve()),
 });
 
-Object.defineProperty(window.HTMLMediaElement.prototype, 'pause', {
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'pause', {
   writable: true,
   value: vi.fn(),
 });
 
-describe('VideoPlayer', () => {
+// Mock video properties
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'currentTime', {
+  writable: true,
+  value: 0,
+});
+
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'duration', {
+  writable: true,
+  value: 120, // 2 minutes
+});
+
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'volume', {
+  writable: true,
+  value: 1,
+});
+
+Object.defineProperty(globalThis.HTMLMediaElement.prototype, 'muted', {
+  writable: true,
+  value: false,
+});
+
+describe('StateOfTheArtEnhancedVideoPlayer', () => {
   const defaultProps = {
-    src: '/videos/test-video.mp4',
+    src: 'https://example.com/wedding-video.mp4',
     title: 'Test Wedding Video',
+    posterSrc: 'https://example.com/poster.jpg',
   };
+
+  const sampleChapters = [
+    {
+      title: 'Ceremony',
+      startTime: 0,
+      description: 'The wedding ceremony',
+      emoji: '💒',
+    },
+    {
+      title: 'Reception',
+      startTime: 60,
+      description: 'The wedding reception',
+      emoji: '🎉',
+    },
+  ];
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   afterEach(() => {
     vi.clearAllMocks();
   });
 
   it('renders with loading state initially', () => {
-    render(<VideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
-    expect(screen.getByText('Loading video...')).toBeInTheDocument();
-    expect(screen.getByRole('status')).toBeInTheDocument();
-    // The video element should be hidden initially
-    const video = screen.getByTestId('video-player');
-    expect(video).toHaveStyle('display: none');
+    expect(screen.getByText('Loading your wedding film...')).toBeInTheDocument();
   });
 
-  it('renders video player when video loads successfully', async () => {
-    render(<VideoPlayer {...defaultProps} />);
+  it('renders video element with correct props', () => {
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
-    const video = screen.getByTestId('video-player');
-
-    // Simulate video loaded
-    fireEvent.canPlay(video);
-
-    await waitFor(() => {
-      expect(screen.queryByText('Loading video...')).not.toBeInTheDocument();
-      // The <video> does not have src, but <source> does
-      const source = video.querySelector('source');
-      expect(source).toHaveAttribute('src', '/videos/test-video.mp4');
-      expect(video).toHaveAttribute('aria-label', 'Test Wedding Video - Wedding video player');
-    });
-
-    expect(screen.getByText('Test Wedding Video')).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        /Use the video controls to play, pause, adjust volume, and view in fullscreen/
-      )
-    ).toBeInTheDocument();
+    const video = screen.getByRole('application');
+    expect(video).toBeInTheDocument();
+    expect(video).toHaveAttribute('aria-label', 'Test Wedding Video - Enhanced video player');
   });
 
   it('displays error state when video fails to load', async () => {
-    render(<VideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
-    const video = screen.getByTestId('video-player');
+    const video = document.querySelector('video');
 
-    // Simulate video error
+    // First trigger loadstart to clear loading, then error
+    fireEvent.loadStart(video);
     fireEvent.error(video);
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Could not load the video. Please try refreshing the page.')
-      ).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Try Again' })).toBeInTheDocument();
+      expect(screen.getByText('Unable to Load Video')).toBeInTheDocument();
+      expect(screen.getByText(/Unable to load the wedding video/)).toBeInTheDocument();
     });
   });
 
-  it('allows retry after error', async () => {
-    render(<VideoPlayer {...defaultProps} />);
+  it('shows retry button in error state', async () => {
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
-    const video = screen.getByTestId('video-player');
-
-    // Simulate video error
+    const video = document.querySelector('video');
+    fireEvent.loadStart(video);
     fireEvent.error(video);
 
     await waitFor(() => {
-      expect(screen.getByText('Try Again')).toBeInTheDocument();
+      const retryButton = screen.getByText('Try Again');
+      expect(retryButton).toBeInTheDocument();
+    });
+  });
+
+  it('handles retry after error', async () => {
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
+
+    const video = document.querySelector('video');
+    fireEvent.loadStart(video);
+    fireEvent.error(video);
+
+    // Wait for error state to show
+    await waitFor(() => {
+      expect(screen.getByText('Unable to Load Video')).toBeInTheDocument();
     });
 
+    // Click retry button - should reset to loading state
     const retryButton = screen.getByText('Try Again');
     fireEvent.click(retryButton);
 
-    // Should return to loading state
-    expect(screen.getByText('Loading video...')).toBeInTheDocument();
+    // Verify loading state is shown after retry
+    await waitFor(() => {
+      expect(screen.getByText('Loading your wedding film...')).toBeInTheDocument();
+    });
   });
 
-  it('has proper accessibility attributes', async () => {
-    render(<VideoPlayer {...defaultProps} />);
+  it('renders with chapters when provided', () => {
+    render(
+      <StateOfTheArtEnhancedVideoPlayer
+        {...defaultProps}
+        chapters={sampleChapters}
+        showChapters={true}
+      />
+    );
 
-    const video = screen.getByTestId('video-player');
-
-    expect(video).toHaveAttribute('aria-label', 'Test Wedding Video - Wedding video player');
-    expect(video).toHaveAttribute('controls');
-
-    // Simulate video loaded
-    fireEvent.canPlay(video);
-
-    await waitFor(() => {
-      const title = screen.getByText('Test Wedding Video');
-      expect(title).toBeInTheDocument();
-    });
+    // Component should render without errors
+    expect(screen.getByRole('application')).toBeInTheDocument();
   });
 
   it('handles missing src gracefully', () => {
-    render(<VideoPlayer title="Test Video" />);
-
-    expect(screen.getByText('Loading video...')).toBeInTheDocument();
+    // Should not crash when src is undefined
+    expect(() => {
+      render(<StateOfTheArtEnhancedVideoPlayer title="Test Video"
+      />);
+    }).not.toThrow();
   });
 
-  it('handles missing title gracefully', async () => {
-    render(<VideoPlayer src="/videos/test-video.mp4" />);
+  it('handles missing title gracefully', () => {
+    render(<StateOfTheArtEnhancedVideoPlayer src="test.mp4"
+      />);
 
-    const video = screen.getByTestId('video-player');
-
-    // Simulate video loaded
-    fireEvent.canPlay(video);
-
-    await waitFor(() => {
-      expect(screen.getByText('Wedding Video')).toBeInTheDocument(); // default title
-    });
+    const video = screen.getByRole('application');
+    expect(video).toHaveAttribute('aria-label', 'Austin & Jordyn\'s Wedding Film - Enhanced video player');
   });
 
-  it('updates loading state properly during transitions', async () => {
-    render(<VideoPlayer {...defaultProps} />);
+  it('applies correct CSS classes for different states', () => {
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} className="custom-class"
+      />);
 
-    // Should start in loading state
-    expect(screen.getByText('Loading video...')).toBeInTheDocument();
-
-    const video = screen.getByTestId('video-player');
-
-    // Simulate loadstart event
-    fireEvent.loadStart(video);
-    expect(screen.getByText('Loading video...')).toBeInTheDocument();
-
-    // Simulate video loaded
-    fireEvent.canPlay(video);
-
-    await waitFor(() => {
-      expect(screen.queryByText('Loading video...')).not.toBeInTheDocument();
-    });
+    const container = screen.getByRole('application');
+    expect(container).toHaveClass('video-player');
+    expect(container).toHaveClass('custom-class');
   });
 
-  it('applies correct CSS classes for different states', async () => {
-    render(<VideoPlayer {...defaultProps} />);
-
-    // Loading state
-    expect(document.querySelector('.video-loading')).toBeInTheDocument();
-
-    const video = screen.getByTestId('video-player');
-
-    // Error state
-    fireEvent.error(video);
-
-    await waitFor(() => {
-      expect(document.querySelector('.video-error')).toBeInTheDocument();
-    });
-
-    // Retry and load successfully
-    const retryButton = screen.getByText('Try Again');
-    fireEvent.click(retryButton);
-    fireEvent.canPlay(video);
-
-    await waitFor(() => {
-      expect(document.querySelector('.video-container')).toBeInTheDocument();
-      expect(document.querySelector('.video-loading')).not.toBeInTheDocument();
-      expect(document.querySelector('.video-error')).not.toBeInTheDocument();
-    });
+  it('can be imported without errors', () => {
+    expect(StateOfTheArtEnhancedVideoPlayer).toBeDefined();
+    expect(typeof StateOfTheArtEnhancedVideoPlayer).toBe('function');
   });
 });

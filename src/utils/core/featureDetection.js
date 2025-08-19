@@ -1,335 +1,246 @@
-/**
- * Feature Detection Utilities for Cross-Browser Compatibility
- * Provides comprehensive browser and feature support detection
- */
+// Feature detection utilities used by tests
 
-// CSS Feature Support Detection
-export const supportsCSSGrid = () => {
-  if (typeof CSS !== 'undefined' && CSS.supports) {
-    return CSS.supports('display', 'grid');
-  }
-  return false;
-};
-
-export const supportsFlexbox = () => {
-  if (typeof CSS !== 'undefined' && CSS.supports) {
-    return CSS.supports('display', 'flex');
-  }
-  return false;
-};
-
-export const supportsWebP = () => {
-  if (typeof document === 'undefined') return false;
-
+export function supportsModernFeatures() {
   try {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1;
-    canvas.height = 1;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return false;
-
-    return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-  } catch {
-    return false;
-  }
-};
-
-// Storage Support Detection
-export const supportsLocalStorage = () => {
-  try {
-    if (typeof localStorage === 'undefined') return false;
-    localStorage.setItem('test', 'test');
-    localStorage.removeItem('test');
+    // Basic ES6 checks
+    new Function('let a=1; const b=()=>a; return b();');
     return true;
   } catch {
     return false;
   }
-};
+}
 
-export const supportsSessionStorage = () => {
-  try {
-    if (typeof sessionStorage === 'undefined') return false;
-    sessionStorage.setItem('test', 'test');
-    sessionStorage.removeItem('test');
-    return true;
-  } catch {
-    return false;
-  }
-};
+export function supportsES6() {
+  return supportsModernFeatures();
+}
 
-export const supportsIndexedDB = () => {
-  return typeof indexedDB !== 'undefined';
-};
-
-export const getStorageQuota = async () => {
-  if (navigator && navigator.storage && navigator.storage.estimate) {
-    try {
-      return await navigator.storage.estimate();
-    } catch {
-      return { quota: 0, usage: 0 };
-    }
-  }
-  return { quota: 0, usage: 0 };
-};
-
-// API Support Detection
-export const supportsIntersectionObserver = () => {
-  return typeof IntersectionObserver !== 'undefined';
-};
-
-export const supportsResizeObserver = () => {
-  return typeof ResizeObserver !== 'undefined';
-};
-
-export const supportsMutationObserver = () => {
-  return typeof MutationObserver !== 'undefined';
-};
-
-export const supportsWebSocket = () => {
-  return typeof WebSocket !== 'undefined';
-};
-
-export const supportsGeolocation = () => {
-  return navigator && 'geolocation' in navigator;
-};
-
-// Network Information
-export const getConnectionInfo = () => {
-  if (navigator && navigator.connection) {
-    return {
-      effectiveType: navigator.connection.effectiveType,
-      downlink: navigator.connection.downlink,
-      rtt: navigator.connection.rtt,
-    };
-  }
-  return { effectiveType: 'unknown', downlink: 0, rtt: 0 };
-};
-
-export const isOnline = () => {
-  return navigator ? navigator.onLine : true;
-};
-
-export const isSlowNetwork = () => {
-  const connection = getConnectionInfo();
-  return connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g';
-};
-
-// Device Capabilities
-export const supportsTouchEvents = () => {
+export function supportsCSSGrid() {
   return (
-    'ontouchstart' in window ||
-    (window.DocumentTouch && document instanceof window.DocumentTouch) ||
-    navigator.maxTouchPoints > 0
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('display', 'grid')
   );
-};
+}
 
-export const getDevicePixelRatio = () => {
-  return window.devicePixelRatio || 1;
-};
+export function supportsFlexbox() {
+  return (
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('display', 'flex')
+  );
+}
 
-export const getScreenCategory = () => {
-  if (typeof screen === 'undefined') return 'unknown';
+export function supportsWebP() {
+  try {
+    const canvas = document?.createElement?.('canvas');
+    return !!canvas && canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  } catch {
+    return false;
+  }
+}
 
-  const width = screen.width;
-  if (width < 768) return 'mobile';
-  if (width < 1024) return 'tablet';
-  if (width < 1920) return 'desktop';
+export function supportsLocalStorage() {
+  try {
+    return typeof localStorage !== 'undefined';
+  } catch {
+    return false;
+  }
+}
+
+export function supportsSessionStorage() {
+  try {
+    return typeof sessionStorage !== 'undefined';
+  } catch {
+    return false;
+  }
+}
+
+export function supportsIndexedDB() {
+  return typeof indexedDB !== 'undefined';
+}
+
+export async function getStorageQuota() {
+  try {
+    const estimate = await navigator?.storage?.estimate?.();
+    return estimate || { quota: 0, usage: 0 };
+  } catch {
+    return { quota: 0, usage: 0 };
+  }
+}
+
+export function supportsIntersectionObserver() {
+  return typeof IntersectionObserver !== 'undefined';
+}
+
+export function supportsResizeObserver() {
+  return typeof ResizeObserver !== 'undefined';
+}
+
+export function supportsMutationObserver() {
+  return typeof MutationObserver !== 'undefined';
+}
+
+export function supportsWebSocket() {
+  return typeof WebSocket !== 'undefined';
+}
+
+export function supportsGeolocation() {
+  return !!navigator?.geolocation;
+}
+
+export function getConnectionInfo() {
+  return navigator?.connection || {};
+}
+
+export function isOnline() {
+  return !!navigator?.onLine;
+}
+
+export function isSlowNetwork() {
+  const type = navigator?.connection?.effectiveType;
+  return type === '2g' || type === 'slow-2g';
+}
+
+export function supportsTouchEvents() {
+  return (
+    'ontouchstart' in globalThis ||
+    // eslint-disable-next-line no-undef
+    (typeof DocumentTouch !== 'undefined' && document instanceof DocumentTouch) ||
+    'createTouch' in document
+  );
+}
+
+export function getDevicePixelRatio() {
+  const dpr = globalThis?.devicePixelRatio;
+  return typeof dpr === 'number' ? dpr : 1;
+}
+
+export function getScreenCategory() {
+  const w = globalThis?.screen?.width || 0;
+  if (w < 640) return 'mobile';
+  if (w < 1024) return 'tablet';
+  if (w < 1440) return 'desktop';
   return 'large';
-};
+}
 
-export const supportsOrientation = () => {
-  return screen && 'orientation' in screen;
-};
+export function supportsOrientation() {
+  return !!globalThis?.screen?.orientation;
+}
 
-// Performance Capabilities
-export const supportsRequestAnimationFrame = () => {
-  return typeof requestAnimationFrame !== 'undefined';
-};
+export function supportsRequestAnimationFrame() {
+  return typeof requestAnimationFrame === 'function';
+}
 
-export const supportsRequestIdleCallback = () => {
-  return typeof requestIdleCallback !== 'undefined';
-};
+export function supportsRequestIdleCallback() {
+  return typeof requestIdleCallback === 'function';
+}
 
-export const supportsWebWorkers = () => {
+export function supportsWebWorkers() {
   return typeof Worker !== 'undefined';
-};
+}
 
-export const supportsServiceWorker = () => {
-  return navigator && 'serviceWorker' in navigator;
-};
+export function supportsServiceWorker() {
+  return !!navigator?.serviceWorker;
+}
 
-// Media Capabilities
-export const supportsAudioFormat = (format) => {
+export function supportsAudioFormat(type) {
   try {
     const audio = new Audio();
-    const mimeMap = {
-      mp3: 'audio/mpeg',
-      wav: 'audio/wav',
-      ogg: 'audio/ogg',
-      m4a: 'audio/mp4',
-    };
-
-    const mimeType = mimeMap[format];
-    if (!mimeType) return false;
-
-    const support = audio.canPlayType(mimeType);
-    return support === 'probably' || support === 'maybe';
+    const map = { mp3: 'audio/mpeg', wav: 'audio/wav', ogg: 'audio/ogg' };
+    return audio.canPlayType(map[type] || '') !== '';
   } catch {
     return false;
   }
-};
+}
 
-export const supportsVideoFormat = (format) => {
+export function supportsVideoFormat(type) {
   try {
     const video = document.createElement('video');
-    const mimeMap = {
-      mp4: 'video/mp4',
-      webm: 'video/webm',
-      ogv: 'video/ogg',
-    };
-
-    const mimeType = mimeMap[format];
-    if (!mimeType) return false;
-
-    const support = video.canPlayType(mimeType);
-    return support === 'probably' || support === 'maybe';
+    const map = { mp4: 'video/mp4', webm: 'video/webm', ogg: 'video/ogg' };
+    return video.canPlayType(map[type] || '') !== '';
   } catch {
     return false;
   }
-};
+}
 
-export const supportsMediaDevices = () => {
-  return !!(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-};
+export function supportsMediaDevices() {
+  return !!navigator?.mediaDevices;
+}
 
-// ES6+ Feature Detection
-export const supportsES6 = () => {
-  try {
-    // Test for arrow functions, const/let, template literals
-    eval('const test = () => `test`; let x = 1;');
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-export const supportsModernFeatures = () => {
-  return supportsES6() && supportsCSSGrid() && supportsFlexbox() && supportsIntersectionObserver();
-};
-
-// Progressive Enhancement Helpers
-export const needsFallback = (features) => {
-  const featureMap = {
+export function needsFallback(features = []) {
+  const supportMap = {
     'css-grid': supportsCSSGrid(),
-    flexbox: supportsFlexbox(),
-    webp: supportsWebP(),
     'intersection-observer': supportsIntersectionObserver(),
-    'resize-observer': supportsResizeObserver(),
-    'local-storage': supportsLocalStorage(),
-    'web-workers': supportsWebWorkers(),
-    'service-worker': supportsServiceWorker(),
+    webp: supportsWebP(),
   };
+  return features.some((f) => supportMap[f] === false);
+}
 
-  return features.some((feature) => !featureMap[feature]);
-};
-
-export const createFeatureMap = () => {
+export function createFeatureMap() {
   return {
-    css: {
-      grid: supportsCSSGrid(),
-      flexbox: supportsFlexbox(),
-    },
     storage: {
-      localStorage: supportsLocalStorage(),
-      sessionStorage: supportsSessionStorage(),
+      local: supportsLocalStorage(),
+      session: supportsSessionStorage(),
       indexedDB: supportsIndexedDB(),
     },
     apis: {
       intersectionObserver: supportsIntersectionObserver(),
       resizeObserver: supportsResizeObserver(),
       mutationObserver: supportsMutationObserver(),
-      webSocket: supportsWebSocket(),
+      websocket: supportsWebSocket(),
       geolocation: supportsGeolocation(),
     },
-    media: {
-      webp: supportsWebP(),
-      touch: supportsTouchEvents(),
+    css: {
+      grid: supportsCSSGrid(),
+      flex: supportsFlexbox(),
     },
-    performance: {
-      requestAnimationFrame: supportsRequestAnimationFrame(),
-      requestIdleCallback: supportsRequestIdleCallback(),
-      webWorkers: supportsWebWorkers(),
-      serviceWorker: supportsServiceWorker(),
+    media: {
+      audioMp3: supportsAudioFormat('mp3'),
+      videoMp4: supportsVideoFormat('mp4'),
+      devices: supportsMediaDevices(),
     },
   };
-};
+}
 
-export const suggestPolyfills = (missingFeatures) => {
-  const polyfillMap = {
+export function suggestPolyfills(missing = []) {
+  const catalog = {
     'intersection-observer': {
-      feature: 'IntersectionObserver',
+      feature: 'intersection-observer',
       polyfill: 'intersection-observer',
-      cdn: 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver',
+      cdn: 'https://cdn.jsdelivr.net/npm/intersection-observer@0.12.2/intersection-observer.js',
     },
     'resize-observer': {
-      feature: 'ResizeObserver',
+      feature: 'resize-observer',
       polyfill: 'resize-observer-polyfill',
-      cdn: 'https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver',
-    },
-    'css-grid': {
-      feature: 'CSS Grid',
-      polyfill: 'css-grid-polyfill',
-      cdn: 'https://unpkg.com/css-grid-polyfill',
+      cdn: 'https://cdn.jsdelivr.net/npm/resize-observer-polyfill@1.5.1/dist/ResizeObserver.global.js',
     },
   };
+  return missing.map((f) => catalog[f]).filter(Boolean);
+}
 
-  return missingFeatures
-    .filter((feature) => polyfillMap[feature])
-    .map((feature) => polyfillMap[feature]);
-};
-
-// Browser Information
-export const getBrowserInfo = () => {
-  const userAgent = navigator.userAgent;
-
-  let browser = 'unknown';
-  let version = 'unknown';
-  let engine = 'unknown';
-
-  if (userAgent.includes('Chrome')) {
-    browser = 'Chrome';
-    engine = 'Blink';
-    const match = userAgent.match(/Chrome\/(\d+)/);
-    version = match ? match[1] : 'unknown';
-  } else if (userAgent.includes('Firefox')) {
-    browser = 'Firefox';
-    engine = 'Gecko';
-    const match = userAgent.match(/Firefox\/(\d+)/);
-    version = match ? match[1] : 'unknown';
-  } else if (userAgent.includes('Safari')) {
-    browser = 'Safari';
+export function getBrowserInfo() {
+  const ua = navigator?.userAgent || '';
+  let name = 'Unknown';
+  if (/Chrome/.test(ua)) name = 'Chrome';
+  else if (/Firefox/.test(ua)) name = 'Firefox';
+  else if (/Safari/.test(ua)) name = 'Safari';
+  const versionMatch = ua.match(/(Chrome|Firefox)\/([\d.]+)/);
+  const version = versionMatch ? versionMatch[2] : '0';
+  let engine = 'Unknown';
+  if (/AppleWebKit/.test(ua)) {
     engine = 'WebKit';
-    const match = userAgent.match(/Version\/(\d+)/);
-    version = match ? match[1] : 'unknown';
+  } else if (/Gecko/.test(ua)) {
+    engine = 'Gecko';
   }
+  return { name, version, engine };
+}
 
-  return { name: browser, version, engine };
-};
+export function isMobileBrowser() {
+  const ua = navigator?.userAgent || '';
+  return /Mobi|Android/i.test(ua);
+}
 
-export const isMobileBrowser = () => {
-  return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-};
-
-export const isLegacyBrowser = () => {
-  const browser = getBrowserInfo();
-  const legacyVersions = {
-    Chrome: 60,
-    Firefox: 55,
-    Safari: 12,
-  };
-
-  const minVersion = legacyVersions[browser.name];
-  if (!minVersion) return true;
-
-  return parseInt(browser.version) < minVersion;
-};
+export function isLegacyBrowser() {
+  // naive: treat no ES6 as legacy
+  return !supportsES6();
+}

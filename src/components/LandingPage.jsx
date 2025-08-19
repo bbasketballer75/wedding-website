@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import PropTypes from 'prop-types';
 import './LandingPage.css';
 
@@ -16,24 +17,16 @@ const LandingPage = ({ onEnter }) => {
           <p className="landing-subtitle">Our Wedding Celebration</p>
           <p className="landing-date">Thank you for celebrating with us</p>
         </div>
-
-        <div className="landing-photo">
-          <picture>
-            <source srcSet="/images/wedding-hero.webp" type="image/webp" />
-            <source srcSet="/images/wedding-hero.jpg" type="image/jpeg" />
-            <img
-              src="/images/wedding-hero.jpg"
-              alt="Austin & Jordyn Wedding"
-              className="landing-hero-image"
-              loading="eager"
-              width="1000"
-              height="600"
-              style={{ maxWidth: '100%', height: 'auto' }}
-              fetchPriority="high"
-            />
-          </picture>
+        <div className="landing-photo" style={{ position: 'relative', minHeight: 300 }}>
+          <Image
+            src="/images/wedding-hero.jpg"
+            alt="Austin & Jordyn Wedding"
+            fill
+            sizes="(max-width: 768px) 100vw, 1200px"
+            priority
+            style={{ objectFit: 'cover' }}
+          />
         </div>
-
         <button
           className="enter-button"
           onClick={handleEnter}

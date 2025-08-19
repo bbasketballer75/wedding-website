@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import './VideoModal.css';
+import { useEffect, useRef, useState } from 'react';
 
 function VideoModal({ videoUrl, onClose }) {
   const [loading, setLoading] = useState(true);
@@ -60,10 +59,10 @@ function VideoModal({ videoUrl, onClose }) {
       ref={modalRef}
     >
       <div className="video-modal-content scale-in">
-        <h2 id="video-modal-title" className="sr-only">
+      <h2 id="video-modal-title" className="sr-only">
           Video Player
         </h2>
-        <button
+      <button
           className="video-modal-close"
           onClick={onClose}
           aria-label="Close video"
@@ -73,8 +72,8 @@ function VideoModal({ videoUrl, onClose }) {
         </button>
         {loading && (
           <output className="video-modal-spinner loading-spinner" aria-live="polite">
-            <span className="sr-only">Loading video</span>
-          </output>
+      <span className="sr-only">Loading video</span>
+      </output>
         )}
         <iframe
           src={videoUrl + '?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0'}
@@ -85,9 +84,9 @@ function VideoModal({ videoUrl, onClose }) {
           className="video-modal-iframe"
           style={loading ? { visibility: 'hidden' } : {}}
           onLoad={handleIframeLoad}
-        />
+      />
       </div>
-    </dialog>
+      </dialog>
   );
 }
 

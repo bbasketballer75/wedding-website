@@ -1,6 +1,7 @@
 // Accessibility Deep-Dive Test
 
 import React from 'react';
+import { OptimizedImage as OptimizedImageComponent } from '../utils/optimization/ImageOptimizer';
 import { render, screen, act, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import PhotoGallery from '../components/media/PhotoGallery.jsx';
@@ -23,7 +24,8 @@ global.fetch = vi.fn(() =>
 describe('Enhanced Guest Accessibility', () => {
   it('should support screen reader navigation with PhotoGallery', async () => {
     await act(async () => {
-      render(<PhotoGallery />);
+      render(<PhotoGallery
+      />);
     });
 
     // Test basic accessibility features of PhotoGallery
@@ -48,8 +50,8 @@ describe('Enhanced Guest Accessibility', () => {
     // Test with a simple component that definitely has images
     render(
       <div>
-        <img src="test.jpg" alt="Wedding ceremony moment" />
-        <img src="test2.jpg" alt="Reception celebration" />
+      <img src="test.jpg" alt="Wedding ceremony moment" className=" w-full h-auto object-cover" loading="lazy" />
+      <img src="test2.jpg" alt="Reception celebration" className=" w-full h-auto object-cover" loading="lazy" />
       </div>
     );
 
@@ -63,7 +65,8 @@ describe('Enhanced Guest Accessibility', () => {
 
   it('should support keyboard-only navigation after entering site', async () => {
     await act(async () => {
-      render(<Navbar />);
+      render(<Navbar
+      />);
     });
 
     // Wait for navbar to load with Austin & Jordyn text

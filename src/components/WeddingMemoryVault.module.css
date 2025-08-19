@@ -1,0 +1,445 @@
+.weddingMemoryVault {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e8 100%);
+}
+
+.vaultHeader {
+  background: linear-gradient(135deg, #9caf88 0%, #7a8b6c 100%);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.headerContent h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+}
+
+.vaultNavigation {
+  display: flex;
+  background: white;
+  border-bottom: 2px solid #9caf88;
+  padding: 0 2rem;
+  overflow-x: auto;
+}
+
+.navTab {
+  padding: 1rem 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.navTab:hover {
+  color: #9caf88;
+  background: #f8f9fa;
+}
+
+.navTab.active {
+  color: #9caf88;
+  border-bottom-color: #9caf88;
+  background: #f8f9fa;
+}
+
+.vaultContent {
+  padding: 2rem;
+}
+
+.vaultStatsBanner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.statIcon {
+  font-size: 3rem;
+}
+
+.statContent {
+  flex: 1;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #9caf88;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  color: #666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.categoryOverviewCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.categoryOverviewCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.categoryIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.categoryOverviewCard h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.categoryStats {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.subcategoriesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subcategoryItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.subcategoryItem .count {
+  color: #9caf88;
+  font-weight: bold;
+}
+
+.categoryBrowser {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.browserHeader {
+  margin-bottom: 2rem;
+}
+
+.categoryNavigation h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subcategoryTabs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.subcategoryTab {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.subcategoryTab:hover {
+  border-color: #9caf88;
+  color: #9caf88;
+}
+
+.subcategoryTab.active {
+  background: #9caf88;
+  border-color: #9caf88;
+  color: white;
+}
+
+.browserControls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.searchContainer {
+  flex: 1;
+  min-width: 250px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.searchInput:focus {
+  border-color: #9caf88;
+  outline: none;
+}
+
+.viewControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.viewBtn {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.viewBtn:hover {
+  border-color: #9caf88;
+  color: #9caf88;
+}
+
+.viewBtn.active {
+  background: #9caf88;
+  border-color: #9caf88;
+  color: white;
+}
+
+.uploadBtn,
+.uploadFirstBtn {
+  padding: 0.75rem 1.5rem;
+  background: #9caf88;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadFirstBtn:hover {
+  background: #7a8b6c;
+}
+
+.itemsContainer {
+  margin-top: 2rem;
+}
+
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.itemsTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.memoryItem {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.memoryItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.itemThumbnail {
+  height: 150px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderContent {
+  font-size: 3rem;
+  color: #9caf88;
+}
+
+.itemInfo {
+  padding: 1rem;
+}
+
+.itemInfo h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.itemInfo p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.emptyIcon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  color: #9caf88;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.emptyState p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.uploadModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.uploadModal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: none;
+}
+
+.uploadForm {
+  margin: 2rem 0;
+}
+
+.uploadForm input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px dashed #9caf88;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.uploadForm button {
+  background: #9caf88;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.uploadModal button {
+  background: #666;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .vaultHeader {
+    padding: 2rem 0;
+  }
+
+  .headerContent h1 {
+    font-size: 2rem;
+  }
+
+  .vaultContent {
+    padding: 1rem;
+  }
+
+  .vaultStatsBanner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .categoriesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navTab {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .browserControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .viewControls {
+    justify-content: center;
+  }
+
+  .itemsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}

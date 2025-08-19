@@ -1,4 +1,5 @@
 // Global test mocks for network requests
+import React from 'react';
 import { vi } from 'vitest';
 
 // Set up environment variables for tests
@@ -35,6 +36,19 @@ vi.mock('axios', () => ({
     post: vi.fn().mockResolvedValue({ data: { success: true } }),
     put: vi.fn().mockResolvedValue({ data: { success: true } }),
     delete: vi.fn().mockResolvedValue({ data: { success: true } }),
+  },
+}));
+
+// Mock next/image for Vitest to render a simple img in jsdom
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: (props) => {
+    const { src, alt, ...rest } = props;
+    return React.createElement('img', {
+      src: typeof src === 'string' ? src : '',
+      alt: alt || '',
+      ...rest,
+    });
   },
 }));
 

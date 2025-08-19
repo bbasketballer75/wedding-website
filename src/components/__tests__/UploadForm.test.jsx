@@ -3,9 +3,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import UploadForm from '../forms/UploadForm.jsx';
 
-// Mock CSS imports to prevent issues in tests
-vi.mock('../forms/UploadForm.css', () => ({}));
-
 // Mock the API service - this will override the global mock for this test file
 vi.mock('../../services/api.js', () => ({
   uploadMedia: vi.fn(),
@@ -20,14 +17,16 @@ describe('UploadForm', () => {
   });
 
   it('renders upload form fields', () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     // The input uses aria-label and placeholder, not a visible label
     expect(screen.getByLabelText(/Select image or video to upload/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Upload File/i })).toBeInTheDocument();
   });
 
   it('renders the upload form', () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     expect(screen.getByText('Contribute to Our Album')).toBeInTheDocument();
     expect(
       screen.getByText('Share your favorite moments from our special day!')
@@ -37,13 +36,15 @@ describe('UploadForm', () => {
   });
 
   it('shows error if no file is selected on submit', async () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     fireEvent.click(screen.getByRole('button', { name: /upload file/i }));
     expect(await screen.findByRole('alert')).toHaveTextContent('Please select a file first.');
   });
 
   it('shows error for invalid file type', async () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     const file = new File(['dummy'], 'test.txt', { type: 'text/plain' });
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -51,7 +52,8 @@ describe('UploadForm', () => {
   });
 
   it('shows error for file too large', async () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     // Create a smaller mock file to speed up the test
     const file = new File(['test'], 'big.mp4', { type: 'video/mp4' });
@@ -63,7 +65,8 @@ describe('UploadForm', () => {
   it('calls uploadMedia and shows success on valid upload', async () => {
     const mockUploadMedia = uploadMedia;
     mockUploadMedia.mockResolvedValue({});
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     const file = new File(['dummy'], 'photo.jpg', { type: 'image/jpeg' });
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -81,7 +84,8 @@ describe('UploadForm', () => {
     mockUploadMedia.mockRejectedValue({
       response: { data: { message: 'Server error' } },
     });
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     const file = new File(['dummy'], 'photo.jpg', { type: 'image/jpeg' });
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -98,7 +102,8 @@ describe('UploadForm', () => {
           resolveUpload = resolve;
         })
     );
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     const file = new File(['dummy'], 'photo.jpg', { type: 'image/jpeg' });
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -116,7 +121,8 @@ describe('UploadForm', () => {
     const mockUploadMedia = uploadMedia;
     mockUploadMedia.mockResolvedValue({});
     const onUploadSuccess = vi.fn();
-    render(<UploadForm onUploadSuccess={onUploadSuccess} />);
+    render(<UploadForm onUploadSuccess={onUploadSuccess}
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     const file = new File(['dummy'], 'photo.jpg', { type: 'image/jpeg' });
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -127,7 +133,8 @@ describe('UploadForm', () => {
   });
 
   it('has proper accessibility attributes', () => {
-    render(<UploadForm />);
+    render(<UploadForm
+      />);
     const fileInput = screen.getByLabelText('Select image or video to upload');
     expect(fileInput).toHaveAttribute('aria-required', 'true');
     expect(fileInput).toHaveAttribute('aria-label', 'Select image or video to upload');

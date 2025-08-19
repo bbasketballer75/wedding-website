@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
 import OrientationOverlay from '../accessibility/OrientationOverlay.jsx';
 
