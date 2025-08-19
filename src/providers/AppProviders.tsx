@@ -20,7 +20,12 @@ import { ToastProvider } from '@/providers/ToastProvider';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { WebVitalsReporter } from '@/components/performance/WebVitalsReporter';
 import { AnalyticsProvider } from '@/providers/AnalyticsProvider';
-import { PWAProvider, PWAInstallBanner, OfflineStatusIndicator, NotificationManager } from '@/components/pwa/PWAManager';
+import {
+  PWAProvider,
+  PWAInstallBanner,
+  OfflineStatusIndicator,
+  NotificationManager,
+} from '@/components/pwa/PWAManager';
 import { AIWeddingProvider } from '@/components/ai/AIWeddingFeatures';
 
 interface AppProvidersProps {
@@ -31,31 +36,27 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
       <PWAProvider>
-      <AIWeddingProvider>
-      <AnalyticsProvider>
-      <AudioProvider>
-      <AmbientAudioProvider>
-      <ToastProvider>
-                {children}
+        <AIWeddingProvider>
+          <AnalyticsProvider>
+            <AudioProvider>
+              <AmbientAudioProvider>
+                <ToastProvider>
+                  {children}
 
-                {/* PWA Components */}
-                <PWAInstallBanner
-      />
-      <OfflineStatusIndicator
-      />
-      <NotificationManager
-      />
+                  {/* PWA Components */}
+                  <PWAInstallBanner />
+                  <OfflineStatusIndicator />
+                  <NotificationManager />
 
-                {/* Performance Monitoring */}
-                <WebVitalsReporter
-      />
-      </ToastProvider>
-      </AmbientAudioProvider>
-      </AudioProvider>
-      </AnalyticsProvider>
-      </AIWeddingProvider>
+                  {/* Performance Monitoring */}
+                  <WebVitalsReporter />
+                </ToastProvider>
+              </AmbientAudioProvider>
+            </AudioProvider>
+          </AnalyticsProvider>
+        </AIWeddingProvider>
       </PWAProvider>
-      </ErrorBoundary>
+    </ErrorBoundary>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Allura, Cormorant_Garamond, Inter } from 'next/font/google';
@@ -191,8 +190,7 @@ export default function RootLayout({
         <Script src="/analytics.js" strategy="afterInteractive" />
         <Script src="/utils/performanceMonitor.js" strategy="afterInteractive" />
 
-        {/* Vercel Analytics & Speed Insights */}
-        <Analytics />
+        {/* Vercel Speed Insights (Analytics handled by AnalyticsProvider) */}
         <SpeedInsights />
 
         {/* Enhanced Phase 2D: Modern AI & PWA Architecture */}
