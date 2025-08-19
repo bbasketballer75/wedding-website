@@ -27,10 +27,9 @@ export async function GET(_request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
-    const body = await request.json();
-    console.log("Request body:", body);
+    // In the future we may accept body; ignoring for now
     // Return success response
     return NextResponse.json({
       success: true,

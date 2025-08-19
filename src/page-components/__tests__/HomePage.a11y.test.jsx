@@ -7,7 +7,8 @@ expect.extend(toHaveNoViolations);
 
 describe('HomePage accessibility', () => {
   it('should have no accessibility violations on load', async () => {
-    const { container } = render(<HomePage />);
+    const { container } = render(<HomePage
+      />);
     try {
       const results = await axe(container, {
         rules: {
@@ -20,7 +21,7 @@ describe('HomePage accessibility', () => {
       // Gracefully handle known axe/JSDOM errors, only fail for real issues
       if (err && err.message && err.message.includes('Respondable target must be a frame')) {
         // Warn but do not fail the test
-        // eslint-disable-next-line no-console
+         
         console.warn('Axe-core limitation in JSDOM:', err.message);
         return;
       }

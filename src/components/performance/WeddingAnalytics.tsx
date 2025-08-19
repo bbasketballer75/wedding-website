@@ -12,7 +12,6 @@ interface WeddingEvent {
 declare global {
   interface Window {
     weddingAnalytics?: WeddingAnalyticsManager;
-    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -81,11 +80,19 @@ class WeddingAnalyticsManager {
     // Track photo gallery interactions
     document.addEventListener('click', (e) => {
       const target = e.target;
-      if (!target) return;
+      if (!target || typeof target !== 'object' || !('closest' in target)) return;
+
+      const element = target as {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        closest: (selector: string) => any;
+        tagName?: string;
+        textContent?: string;
+        getAttribute?: (_name: string) => string | null;
+      };
 
       // Photo clicks
-      if ((target as any).closest?.('[data-photo-id]')) {
-        const photoElement = (target as any).closest('[data-photo-id]');
+      if (element.closest('[data-photo-id]')) {
+        const photoElement = element.closest('[data-photo-id]');
         this.trackEvent('photo_view', {
           photoId: photoElement?.getAttribute('data-photo-id'),
           gallery: photoElement?.getAttribute('data-gallery') || 'unknown',
@@ -94,8 +101,8 @@ class WeddingAnalyticsManager {
       }
 
       // Guestbook interactions
-      if ((target as any).closest?.('[data-guestbook-action]')) {
-        const action = (target as any).closest('[data-guestbook-action]');
+      if (element.closest('[data-guestbook-action]')) {
+        const action = element.closest('[data-guestbook-action]');
         this.trackEvent('guestbook_interaction', {
           action: action?.getAttribute('data-guestbook-action'),
           timestamp: Date.now(),
@@ -103,9 +110,10 @@ class WeddingAnalyticsManager {
       }
 
       // Navigation tracking
-      if ((target as any).closest?.('nav a') || (target as any).tagName === 'A') {
-        const link = (target as any).closest?.('a') || target;
-        if (link?.getAttribute('href')) {
+      if (element.closest('nav a') || element.tagName === 'A') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const link = element.closest('a') || (element.tagName === 'A' ? (element as any) : null);
+        if (link?.getAttribute?.('href')) {
           this.trackEvent('navigation_click', {
             href: link.getAttribute('href'),
             text: link.textContent?.trim(),
@@ -117,12 +125,12 @@ class WeddingAnalyticsManager {
 
     // Track form submissions
     document.addEventListener('submit', (e) => {
-      const form = e.target;
-      if (form) {
+      const form = e.target as { getAttribute?: (_name: string) => string | null } | null;
+      if (form?.getAttribute) {
         this.trackEvent('form_submit', {
-          formId: (form as any).getAttribute?.('id') || 'unknown',
-          action: (form as any).getAttribute?.('action'),
-          method: (form as any).getAttribute?.('method'),
+          formId: form.getAttribute('id') || 'unknown',
+          action: form.getAttribute('action'),
+          method: form.getAttribute('method'),
         });
       }
     });
@@ -202,7 +210,7 @@ export function WeddingAnalytics() {
   useEffect(() => {
     if (typeof window !== 'undefined' && !weddingAnalytics) {
       weddingAnalytics = new WeddingAnalyticsManager();
-      (window as any).weddingAnalytics = weddingAnalytics;
+      window.weddingAnalytics = weddingAnalytics;
 
       // Track initial page load
       weddingAnalytics.trackEvent('page_load', {
@@ -225,7 +233,7 @@ export function WeddingAnalytics() {
 export default WeddingAnalytics;
 
 // Export the analytics instance for manual tracking
-export function trackWeddingEvent(event: string, data: Record<string, any> = {}) {
+export function trackWeddingEvent(event: string, data: Record<string, unknown> = {}) {
   if (weddingAnalytics) {
     weddingAnalytics.trackEvent(event, data);
   }

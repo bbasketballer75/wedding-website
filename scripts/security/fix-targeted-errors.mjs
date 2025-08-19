@@ -67,8 +67,8 @@ function fixVideoHomePage() {
     "import { useCallback } from 'react';"
   );
 
-  // Fix spacing issues
-  content = content.replace(/<span>([📸💌🗺️])<\/span>(\s*)</g, '<span>$1</span> ');
+  // Fix spacing issues with Unicode emoji
+  content = content.replace(/<span>(📸|💌|🗺️)<\/span>(\s*)/g, '<span>$1</span> ');
 
   fs.writeFileSync(filePath, content, 'utf8');
   console.log('✅ Fixed VideoHomePage.jsx');

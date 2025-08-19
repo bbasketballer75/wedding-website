@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import VideoModal from '../../components/media/VideoModal';
 
@@ -64,7 +65,6 @@ const FamilyTreePage = () => {
           moment in our lives.
         </p>
       </div>
-
       <div className="family-tree-container">
         {/* Bride's Side */}
         <div className="family-side bride-side">
@@ -92,7 +92,17 @@ const FamilyTreePage = () => {
               >
                 <div className="card-inner">
                   <div className="family-member-image-container">
-                    <img src={parent.image} alt={parent.display} className="family-member-image" />
+                    <div className="relative w-full h-0 pb-[66%]">
+                      <Image
+                        src={parent.image}
+                        alt={parent.display}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                        unoptimized
+                      />
+                    </div>
                     <div className="image-overlay">
                       <span className="family-member-play-btn" aria-hidden="true">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -156,7 +166,17 @@ const FamilyTreePage = () => {
               >
                 <div className="card-inner">
                   <div className="family-member-image-container">
-                    <img src={parent.image} alt={parent.display} className="family-member-image" />
+                    <div className="relative w-full h-0 pb-[66%]">
+                      <Image
+                        src={parent.image}
+                        alt={parent.display}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                        unoptimized
+                      />
+                    </div>
                     <div className="image-overlay">
                       <span className="family-member-play-btn" aria-hidden="true">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

@@ -169,7 +169,6 @@ export default function GuestStoriesPage() {
         <h1>📖 Our Story Collection</h1>
         <p>Beautiful memories shared by our loved ones</p>
       </div>
-
       <div className="stories-actions">
         <div className="category-filters">
           <button
@@ -188,7 +187,6 @@ export default function GuestStoriesPage() {
             </button>
           ))}
         </div>
-
         <button
           className="submit-story-btn"
           onClick={() => setShowSubmissionForm(!showSubmissionForm)}
@@ -210,7 +208,6 @@ export default function GuestStoriesPage() {
             <h2>✨ Featured Stories</h2>
             <p>Heartwarming tales that captured our hearts</p>
           </div>
-
           <div className="featured-grid">
             {featuredStories.map((story) => (
               <div key={story.id} className="featured-story">
@@ -221,7 +218,6 @@ export default function GuestStoriesPage() {
                     <span className="story-category">{story.category.replace('_', ' ')}</span>
                   </div>
                 </div>
-
                 <div className="story-content">{story.content}</div>
 
                 {story.tags.length > 0 && (
@@ -244,7 +240,6 @@ export default function GuestStoriesPage() {
           <h2>All Stories</h2>
           <p>Every story is special and cherished</p>
         </div>
-
         <div className="stories-grid">
           {stories.map((story) => (
             <div key={story.id} className="story-card">
@@ -255,9 +250,7 @@ export default function GuestStoriesPage() {
                   <span className="story-category">{story.category.replace('_', ' ')}</span>
                 </div>
               </div>
-
               <div className="story-preview">{story.content}</div>
-
               <a href="#" className="read-more">
                 Read Full Story →
               </a>
@@ -326,7 +319,6 @@ function StorySubmissionForm({
         <h3>Share Your Story</h3>
         <p>Tell us about a special memory with Austin & Jordyn</p>
       </div>
-
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label" htmlFor="story-title-1">
@@ -342,7 +334,6 @@ function StorySubmissionForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="your-name-2">
             Your Name *
@@ -357,7 +348,6 @@ function StorySubmissionForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="email-3">
             Email *
@@ -372,7 +362,6 @@ function StorySubmissionForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="relationship-to-couple-4">
             Relationship to Couple
@@ -391,7 +380,6 @@ function StorySubmissionForm({
             <option value="other">Other</option>
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="story-category-5">
             Story Category
@@ -410,7 +398,6 @@ function StorySubmissionForm({
             <option value="heartfelt">Heartfelt</option>
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="your-story-6">
             Your Story *
@@ -424,7 +411,6 @@ function StorySubmissionForm({
             required
           />
         </div>
-
         <div className="form-actions">
           <button type="submit" className="form-btn primary">
             Submit Story

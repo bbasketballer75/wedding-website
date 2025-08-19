@@ -5,7 +5,8 @@ import WeddingPartyPage from '../interactive/WeddingPartyPage.jsx';
 
 describe('WeddingPartyPage', () => {
   it('renders wedding party heading', () => {
-    render(<WeddingPartyPage />);
+    render(<WeddingPartyPage
+      />);
     expect(screen.getByRole('heading', { name: /Wedding Party/i })).toBeInTheDocument();
   });
 });

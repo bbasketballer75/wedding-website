@@ -4,7 +4,8 @@ import LoadingScreen from '../ui/LoadingScreen.jsx';
 
 describe('LoadingScreen', () => {
   it('renders loading message', () => {
-    render(<LoadingScreen />);
+    render(<LoadingScreen
+      />);
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   });
 });

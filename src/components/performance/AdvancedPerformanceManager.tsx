@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * ⚡ Advanced Performance Manager (Simplified)
  *
@@ -7,9 +9,7 @@
  * - Smart caching
  */
 
-'use client';
-
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 interface PerformanceMetrics {
   fcp?: number;
@@ -23,15 +23,15 @@ interface PerformanceContextType {
   metrics: PerformanceMetrics;
   preloadResource: (href: string, type?: string) => void;
   preloadResources: (hrefs: string[], type?: string) => void;
-  measurePerformance: (event: string, data?: any) => void;
-  cacheData: (key: string, data: any) => Promise<void>;
+  measurePerformance: (event: string, data?: unknown) => void;
+  cacheData: (key: string, data: unknown) => Promise<void>;
   getCachedData: (key: string) => Promise<any>;
 }
 
 const PerformanceContext = createContext<PerformanceContextType | null>(null);
 
 export const AdvancedPerformanceManager: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const [metrics, setMetrics] = useState<PerformanceMetrics>({});
 
@@ -55,37 +55,40 @@ export const AdvancedPerformanceManager: React.FC<{ children: React.ReactNode }>
   }, []);
 
   // Preload multiple resources
-  const preloadResources = useCallback((hrefs: string[], type: string = 'script') => {
-    hrefs.forEach(href => preloadResource(href, type));
-  }, [preloadResource]);
+  const preloadResources = useCallback(
+    (hrefs: string[], type: string = 'script') => {
+      hrefs.forEach((href) => preloadResource(href, type));
+    },
+    [preloadResource]
+  );
 
   // Measure performance events
-  const measurePerformance = useCallback((event: string, data?: any) => {
+  const measurePerformance = useCallback((event: string, data?: unknown) => {
     if (typeof window === 'undefined') return;
 
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.log(`Performance Event: ${event}`, data);
+      console.error(`Performance Event: ${event}`, data);
     }
 
     // Send to analytics in production
     if (typeof window.gtag !== 'undefined') {
       window.gtag('event', event, {
         custom_parameter: JSON.stringify(data),
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
     }
   }, []);
 
   // Simple cache implementation using localStorage
-  const cacheData = useCallback(async (key: string, data: any) => {
+  const cacheData = useCallback(async (key: string, data: unknown) => {
     if (typeof window === 'undefined') return;
 
     try {
       const cacheEntry = {
         data,
         timestamp: Date.now(),
-        ttl: 3600000 // 1 hour
+        ttl: 3600000, // 1 hour
       };
       localStorage.setItem(`performance_cache_${key}`, JSON.stringify(cacheEntry));
     } catch (error) {
@@ -128,14 +131,14 @@ export const AdvancedPerformanceManager: React.FC<{ children: React.ReactNode }>
           entries.forEach((entry) => {
             if (entry.entryType === 'navigation') {
               // Simple fallback for navigation timing
-              setMetrics(prev => ({
+              setMetrics((prev) => ({
                 ...prev,
-                ttfb: Date.now() - performance.timeOrigin
+                ttfb: Date.now() - performance.timeOrigin,
               }));
             } else if (entry.entryType === 'largest-contentful-paint') {
-              setMetrics(prev => ({
+              setMetrics((prev) => ({
                 ...prev,
-                lcp: entry.startTime
+                lcp: entry.startTime,
               }));
             }
           });
@@ -150,46 +153,47 @@ export const AdvancedPerformanceManager: React.FC<{ children: React.ReactNode }>
     }
 
     // Web Vitals integration
-    import('web-vitals').then((vitals) => {
-      if (vitals.onCLS) {
-        vitals.onCLS((metric: any) => {
-          setMetrics(prev => ({ ...prev, cls: metric.value }));
-        });
-      }
-      if (vitals.onINP) {
-        vitals.onINP((metric: any) => {
-          setMetrics(prev => ({ ...prev, fid: metric.value }));
-        });
-      }
-      if (vitals.onFCP) {
-        vitals.onFCP((metric: any) => {
-          setMetrics(prev => ({ ...prev, fcp: metric.value }));
-        });
-      }
-      if (vitals.onLCP) {
-        vitals.onLCP((metric: any) => {
-          setMetrics(prev => ({ ...prev, lcp: metric.value }));
-        });
-      }
-    }).catch(() => {
-      console.warn('Web Vitals not available');
-    });
+    import('web-vitals')
+      .then((vitals) => {
+        if (vitals.onCLS) {
+          vitals.onCLS((metric: unknown) => {
+            setMetrics((prev) => ({ ...prev, cls: (metric as any).value }));
+          });
+        }
+        if (vitals.onINP) {
+          vitals.onINP((metric: unknown) => {
+            setMetrics((prev) => ({ ...prev, fid: (metric as any).value }));
+          });
+        }
+        if (vitals.onFCP) {
+          vitals.onFCP((metric: unknown) => {
+            setMetrics((prev) => ({ ...prev, fcp: (metric as any).value }));
+          });
+        }
+        if (vitals.onLCP) {
+          vitals.onLCP((metric: unknown) => {
+            setMetrics((prev) => ({ ...prev, lcp: (metric as any).value }));
+          });
+        }
+      })
+      .catch(() => {
+        console.warn('Web Vitals not available');
+      });
   }, []);
 
-  return (
-    <PerformanceContext.Provider
-      value={{
-        metrics,
-        preloadResource,
-        preloadResources,
-        measurePerformance,
-        cacheData,
-        getCachedData
-      }}
-    >
-      {children}
-    </PerformanceContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      metrics,
+      preloadResource,
+      preloadResources,
+      measurePerformance,
+      cacheData,
+      getCachedData,
+    }),
+    [metrics, preloadResource, preloadResources, measurePerformance, cacheData, getCachedData]
   );
+
+  return <PerformanceContext.Provider value={contextValue}>{children}</PerformanceContext.Provider>;
 };
 
 export const usePerformance = () => {

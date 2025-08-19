@@ -5,9 +5,11 @@
  * Enhanced photo gallery with incredible UX features
  */
 
+import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ConfettiCelebration, TouchMagic } from '../../utils/features/magicalInteractions.js';
+import { OptimizedImage as OptimizedImageComponent } from '../../utils/optimization/ImageOptimizer';
 
 const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,18 +21,36 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
 
   // Initialize touch gestures
   useEffect(() => {
-    if (galleryRef.current) {
-      touchRef.current = new TouchMagic(galleryRef.current);
+    const currentGalleryRef = galleryRef.current;
+    if (currentGalleryRef) {
+      touchRef.current = new TouchMagic(currentGalleryRef);
 
       // Add swipe navigation
-      galleryRef.current.addEventListener('swipeleft', () => nextPhoto());
-      galleryRef.current.addEventListener('swiperight', () => prevPhoto());
-    }
+      const handleSwipeLeft = () => nextPhoto();
+      const handleSwipeRight = () => prevPhoto();
 
-    return () => {
-      // Cleanup touch listeners
+      currentGalleryRef.addEventListener('swipeleft', handleSwipeLeft);
+      currentGalleryRef.addEventListener('swiperight', handleSwipeRight);
+
+      return () => {
+        currentGalleryRef.removeEventListener('swipeleft', handleSwipeLeft);
+        currentGalleryRef.removeEventListener('swiperight', handleSwipeRight);
+      };
+    }
+  }, [nextPhoto, prevPhoto]);
+
+  // Global keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'Escape') setIsFullscreen(false);
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
     };
-  }, []);
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [nextPhoto, prevPhoto, toggleFullscreen]);
 
   // Helper function to handle successful image load
   const handleImageLoad = (index) => {
@@ -42,33 +62,51 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
     // Continue even if image fails to load
   };
 
+  // Standalone helpers to avoid nested function declarations inside effects
+  const createPreloadPromise = useCallback(
+    (photo, index) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          handleImageLoad(index);
+          resolve();
+        };
+        img.onerror = () => {
+          handleImageError();
+          resolve();
+        };
+        img.src = photo.url;
+      }),
+    []
+  );
+
   // Preload images for smooth experience
   useEffect(() => {
+    let active = true;
     const preloadImages = async () => {
+      // Respect Save-Data or constrained networks
+      try {
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (conn && (conn.saveData || (conn.effectiveType && /2g/i.test(conn.effectiveType)))) {
+          setIsLoading(false);
+          return;
+        }
+      } catch {
+        // ignore network info access issues
+      }
+
       setIsLoading(true);
-      const imagePromises = photos.slice(0, 5).map((photo, index) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => {
-            handleImageLoad(index);
-            resolve();
-          };
-          img.onerror = () => {
-            handleImageError();
-            resolve();
-          };
-          img.src = photo.url;
-        });
-      });
-
+      const imagePromises = photos.slice(0, 5).map(createPreloadPromise);
       await Promise.all(imagePromises);
-      setIsLoading(false);
+      if (active) setIsLoading(false);
     };
-
     if (photos.length > 0) {
       preloadImages();
     }
-  }, [photos]);
+    return () => {
+      active = false;
+    };
+  }, [photos, createPreloadPromise]);
 
   const nextPhoto = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % photos.length);
@@ -79,38 +117,28 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
     setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
   }, [photos.length]);
 
-  const handlePhotoClick = (photo, index) => {
-    setCurrentIndex(index);
-    ConfettiCelebration.trigger(galleryRef.current, 20);
-    if (onPhotoClick) onPhotoClick(photo, index);
-  };
+  const handlePhotoClick = useCallback(
+    (photo, index) => {
+      setCurrentIndex(index);
+      ConfettiCelebration.trigger(galleryRef.current, 20);
+      if (onPhotoClick) onPhotoClick(photo, index);
+    },
+    [onPhotoClick]
+  );
 
-  const toggleFullscreen = () => {
+  const toggleFullscreen = useCallback(() => {
     setIsFullscreen(!isFullscreen);
     if (!isFullscreen) {
       ConfettiCelebration.trigger(document.body, 30);
     }
-  };
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.key === 'ArrowLeft') prevPhoto();
-      if (e.key === 'ArrowRight') nextPhoto();
-      if (e.key === 'Escape') setIsFullscreen(false);
-      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [nextPhoto, prevPhoto]);
+  }, [isFullscreen]);
 
   if (isLoading) {
     return (
       <div className={`magical-gallery-loading ${className}`}>
         <div className="skeleton-grid">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={`skeleton-loading-${i}`} className="skeleton photo-skeleton" />
+          {Array.from({ length: 6 }, (_, i) => (
+            <div key={`skeleton-${i}`} className="skeleton photo-skeleton" />
           ))}
         </div>
       </div>
@@ -122,13 +150,34 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
       {/* Main Featured Photo */}
       <div className="featured-photo-container">
         <div className="featured-photo-wrapper">
-          <img
-            src={photos[currentIndex]?.url}
-            alt={photos[currentIndex]?.caption || `Wedding photo ${currentIndex + 1}`}
-            className="featured-photo photo-magic elegant-lift"
-             role="button" tabIndex={0} onClick={toggleFullscreen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFullscreen(e); } }}
-            onLoad={() => setLoadedImages((prev) => new Set([...prev, currentIndex]))}
-          />
+          {(() => {
+            const currentPhoto = photos[currentIndex];
+            const photoLabel = currentPhoto?.caption || `Wedding photo ${currentIndex + 1}`;
+            return (
+              <button
+                className="featured-photo-button"
+                onClick={toggleFullscreen}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFullscreen();
+                  }
+                }}
+                aria-label={`View fullscreen: ${photoLabel}`}
+              >
+                <OptimizedImageComponent
+                  src={currentPhoto?.url || currentPhoto?.src || ''}
+                  alt={photoLabel}
+                  width={1200}
+                  height={800}
+                  className="featured-photo"
+                  priority={false}
+                  quality={85}
+                  onLoad={() => setLoadedImages((prev) => new Set([...prev, currentIndex]))}
+                />
+              </button>
+            );
+          })()}
 
           {/* Navigation Arrows */}
           <button
@@ -162,19 +211,35 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
       <div className="thumbnail-grid">
         {photos.map((photo, index) => (
           <div
-            key={photo.url || photo.src || `photo-${index}`}
+            key={photo.url || photo.src || `photo-${Date.now()}-${index}`}
             className={`thumbnail-wrapper stagger-animation ${
               index === currentIndex ? 'active' : ''
             }`}
             style={{ '--delay': `${index * 0.1}s` }}
           >
-            <img
-              src={photo.url}
-              alt={photo.caption || `Wedding photo ${index + 1}`}
-              className="thumbnail photo-magic ripple"
-               role="button" tabIndex={0} onClick={() => handlePhotoClick(photo, index)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();  => handlePhotoClickphoto, index(e); } }}
-              loading="lazy"
-            />
+            <button
+              className="thumbnail-button"
+              onClick={() => handlePhotoClick(photo, index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handlePhotoClick(photo, index);
+                }
+              }}
+              aria-label={`Select photo ${index + 1}: ${photo.caption || 'Wedding photo'}`}
+            >
+              <div className="relative w-full h-0 pb-[66%]">
+                <Image
+                  src={photo.url || photo.src || ''}
+                  alt={photo.caption || `Wedding photo ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 33vw, 200px"
+                  loading="lazy"
+                  style={{ objectFit: 'cover' }}
+                  unoptimized
+                />
+              </div>
+            </button>
             {loadedImages.has(index) && (
               <div className="thumbnail-overlay">
                 <span className="heart-pulse">💖</span>
@@ -186,14 +251,19 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
 
       {/* Fullscreen Modal */}
       {isFullscreen && (
-        <button className="fullscreen-modal"  role="button" tabIndex={0} onClick={toggleFullscreen} onKeyDown={(e) = role="button"> { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFullscreen(e); } }}>
+        <dialog className="fullscreen-modal" aria-label="Photo fullscreen view" open={isFullscreen}>
           <div className="fullscreen-content">
-            <img
-              src={photos[currentIndex]?.url}
-              alt={photos[currentIndex]?.caption}
-              className="fullscreen-image"
-               role="button" tabIndex={0} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e => e.stopPropagation(e); } }}
-            />
+            <div className="relative w-full h-0 pb-[66%]">
+              <Image
+                src={photos[currentIndex]?.url || photos[currentIndex]?.src || ''}
+                alt={photos[currentIndex]?.caption || `Wedding photo ${currentIndex + 1}`}
+                fill
+                sizes="100vw"
+                loading="lazy"
+                style={{ objectFit: 'contain', backgroundColor: '#000' }}
+                unoptimized
+              />
+            </div>
             <button
               className="close-fullscreen btn-magical"
               onClick={toggleFullscreen}
@@ -201,8 +271,14 @@ const MagicalPhotoGallery = ({ photos = [], onPhotoClick, className = '' }) => {
             >
               ✕
             </button>
+            <button
+              className="fullscreen-backdrop"
+              onClick={toggleFullscreen}
+              aria-label="Close fullscreen view"
+              style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+            />
           </div>
-        </div>
+        </dialog>
       )}
 
       {/* Touch Instructions for Mobile */}

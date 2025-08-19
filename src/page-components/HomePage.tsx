@@ -4,25 +4,23 @@ const HomePage: React.FC = () => {
   return (
     <div className="home-page">
       <header className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Austin & Jordyn</h1>
-          <p className="hero-subtitle">May 10, 2025</p>
-          <p className="hero-description">
+      <div className="hero-content">
+      <h1 className="hero-title">Austin & Jordyn</h1>
+      <p className="hero-subtitle">May 10, 2025</p>
+      <p className="hero-description">
             Join us as we celebrate our love story and begin our journey as husband and wife.
           </p>
-        </div>
+      </div>
       </header>
-
       <section className="welcome-section">
-        <div className="container">
-          <h2>Welcome to Our Wedding Website</h2>
-          <p>
+      <div className="container">
+      <h2>Welcome to Our Wedding Website</h2>
+      <p>
             We&apos;re so excited to share our special day with you! Here you&apos;ll find all the
             information you need about our wedding celebration.
           </p>
-        </div>
+      </div>
       </section>
-
       <style>{`
         .home-page {
           min-height: 100vh;
@@ -103,7 +101,7 @@ const HomePage: React.FC = () => {
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

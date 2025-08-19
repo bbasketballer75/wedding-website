@@ -1,5 +1,7 @@
 'use client';
 
+
+
 import { useCallback, useEffect, useState } from 'react';
 
 /**
@@ -373,9 +375,8 @@ export default function AccessibilityMonitor() {
           border-radius: 4px;
         }
       `}</style>
-
       <div className={`a11y-monitor ${report ? '' : 'collapsed'}`}>
-        <button
+      <button
           className="a11y-toggle"
           onClick={runAccessibilityScan}
           disabled={isMonitoring}
@@ -386,9 +387,9 @@ export default function AccessibilityMonitor() {
 
         {report && (
           <>
-            <div className="a11y-status">
-              <div className="a11y-violations">🚨 {report.violations.length} issues</div>
-              <div className="a11y-passes">✅ {report.passes} checks passed</div>
+      <div className="a11y-status">
+      <div className="a11y-violations">🚨 {report.violations.length} issues</div>
+      <div className="a11y-passes">✅ {report.passes} checks passed</div>
               {autoFixes > 0 && (
                 <div className="a11y-auto-fixes">🔧 {autoFixes} auto-fixes applied</div>
               )}
@@ -396,8 +397,9 @@ export default function AccessibilityMonitor() {
 
             {report.violations.slice(0, 3).map((violation) => (
               <div key={violation.id} className={`a11y-issue ${violation.type}`}>
-                <strong>{violation.description}</strong>
-                <br />
+      <strong>{violation.description}</strong>
+      <br
+      />
                 {violation.element}
               </div>
             ))}
@@ -410,6 +412,6 @@ export default function AccessibilityMonitor() {
           </>
         )}
       </div>
-    </>
+      </>
   );
 }

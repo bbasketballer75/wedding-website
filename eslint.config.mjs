@@ -7,18 +7,18 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
-  js.configs.recommended,
+  // Global ignores (apply everywhere)
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
     ignores: [
-      // Test files and directories
+      // Tests and stories
       '**/__tests__/**',
       '**/*.test.{js,jsx,ts,tsx}',
       '**/*.spec.{js,jsx,ts,tsx}',
-      '**/test-*.{js,jsx,ts,tsx}',
-      '**/setupTests.{js,jsx,ts,tsx}',
-      '**/test-globals.{js,jsx,ts,tsx}',
       '**/*.stories.{js,jsx,ts,tsx}',
+      '**/*.cy.{js,jsx,ts,tsx}',
+      'jest.setup.js',
+      'src/setupTests.js',
+      'src/test-globals.js',
       'stories/**',
       'cypress/**',
       'coverage/**',
@@ -65,14 +65,16 @@ export default [
       '.tsbuildinfo',
       'tsconfig.tsbuildinfo',
     ],
+  },
+  js.configs.recommended,
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
+        ecmaFeatures: { jsx: true },
       },
       globals: {
         // Node globals
@@ -115,6 +117,18 @@ export default [
         Event: 'readonly',
         EventTarget: 'readonly',
 
+        // Modern Web APIs
+        WebSocket: 'readonly',
+        BroadcastChannel: 'readonly',
+        AudioContext: 'readonly',
+        SpeechSynthesisUtterance: 'readonly',
+        speechSynthesis: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLAnchorElement: 'readonly',
+        HTMLAudioElement: 'readonly',
+        PerformanceEntry: 'readonly',
+        NodeJS: 'readonly',
+
         // Performance APIs
         performance: 'readonly',
         PerformanceObserver: 'readonly',
@@ -141,18 +155,6 @@ export default [
 
         // Analytics (if using)
         gtag: 'readonly',
-
-        // Test globals (for jest/vitest)
-        describe: 'readonly',
-        it: 'readonly',
-        test: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
-        jest: 'readonly',
-        vi: 'readonly',
       },
     },
     plugins: {
@@ -185,11 +187,11 @@ export default [
       'jsx-a11y/aria-unsupported-elements': 'warn',
       'jsx-a11y/role-has-required-aria-props': 'warn',
       'jsx-a11y/role-supports-aria-props': 'warn',
-      'jsx-a11y/click-events-have-key-events': 'off', // Too strict for our use case
-      'jsx-a11y/no-static-element-interactions': 'off', // Too strict for our use case
+      'jsx-a11y/click-events-have-key-events': 'off',
+      'jsx-a11y/no-static-element-interactions': 'off',
 
       // General rules
-      'no-unused-vars': 'off', // Use TypeScript version instead
+      'no-unused-vars': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'warn',
       'no-var': 'error',
@@ -204,51 +206,5 @@ export default [
         version: 'detect',
       },
     },
-  },
-  {
-    files: ['**/*.test.{js,jsx,ts,tsx}', '**/__tests__/**/*.{js,jsx,ts,tsx}'],
-    rules: {
-      'react/prop-types': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      'no-unused-vars': 'off',
-    },
-  },
-  {
-    ignores: [
-      // Global ignore patterns - LEGACY CONFIG PREVENTION
-      '.eslintrc.json',
-      '.eslintrc.js',
-      '.eslintrc.yml',
-      '.eslintrc.yaml',
-      '.eslintrc',
-
-      // Standard ignores
-      'node_modules/**',
-      '.next/**',
-      'out/**',
-      'build/**',
-      'dist/**',
-      'coverage/**',
-      '.vercel/**',
-      'public/**',
-      'scripts/**',
-      'backend/**',
-      '.storybook/**',
-      'cypress/**',
-      'stories/**',
-      'logs/**',
-      '*.log',
-      '.eslintcache',
-      '.tsbuildinfo',
-      'tsconfig.tsbuildinfo',
-      '*.config.js',
-      '*.config.mjs',
-      '*.config.ts',
-      'babel.config.*',
-      'jest.config.*',
-      'vitest.config.*',
-      'cypress.config.*',
-      'postcss.config.*',
-    ],
   },
 ];

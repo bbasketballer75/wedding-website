@@ -1,16 +1,5 @@
 import express from 'express';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import { db } from '../config/firebase.js';
+import getDbPromise from '../config/firestore.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const router = express.Router();
@@ -27,9 +16,10 @@ router.get(
     const now = new Date();
 
     // Get all time capsules that are either public or have passed their open date
-    const capsulesQuery = query(collection(db, 'timeCapsules'), orderBy('createdAt', 'desc'));
+    const db = await getDbPromise();
+    const capsulesQuery = db.collection('timeCapsules').orderBy('createdAt', 'desc');
 
-    const snapshot = await getDocs(capsulesQuery);
+    const snapshot = await capsulesQuery.get();
     const capsules = [];
 
     snapshot.forEach((doc) => {
@@ -70,8 +60,9 @@ router.get(
     const { capsuleId } = req.params;
     const now = new Date();
 
-    const capsuleRef = doc(db, 'timeCapsules', capsuleId);
-    const capsuleSnap = await getDoc(capsuleRef);
+    const db = await getDbPromise();
+    const capsuleRef = db.collection('timeCapsules').doc(capsuleId);
+    const capsuleSnap = await capsuleRef.get();
 
     if (!capsuleSnap.exists()) {
       return res.status(404).json({
@@ -174,7 +165,8 @@ router.post(
       },
     };
 
-    const docRef = await addDoc(collection(db, 'timeCapsules'), capsuleData);
+    const db = await getDbPromise();
+    const docRef = await db.collection('timeCapsules').add(capsuleData);
 
     res.status(201).json({
       success: true,
@@ -213,8 +205,9 @@ router.post(
       });
     }
 
-    const capsuleRef = doc(db, 'timeCapsules', capsuleId);
-    const capsuleSnap = await getDoc(capsuleRef);
+    const db = await getDbPromise();
+    const capsuleRef = db.collection('timeCapsules').doc(capsuleId);
+    const capsuleSnap = await capsuleRef.get();
 
     if (!capsuleSnap.exists()) {
       return res.status(404).json({
@@ -244,7 +237,7 @@ router.post(
 
     const updatedContents = [...(capsuleData.contents || []), newContent];
 
-    await updateDoc(capsuleRef, {
+    await capsuleRef.update({
       contents: updatedContents,
       lastModifiedAt: new Date(),
     });
@@ -269,8 +262,9 @@ router.post(
     const { capsuleId } = req.params;
     const { viewerName } = req.body;
 
-    const capsuleRef = doc(db, 'timeCapsules', capsuleId);
-    const capsuleSnap = await getDoc(capsuleRef);
+    const db = await getDbPromise();
+    const capsuleRef = db.collection('timeCapsules').doc(capsuleId);
+    const capsuleSnap = await capsuleRef.get();
 
     if (!capsuleSnap.exists()) {
       return res.status(404).json({
@@ -304,7 +298,7 @@ router.post(
       ].slice(-10), // Keep last 10 viewers
     };
 
-    await updateDoc(capsuleRef, {
+    await capsuleRef.update({
       openingStats: updatedStats,
     });
 
@@ -330,14 +324,14 @@ router.get(
     const futureDate = new Date();
     futureDate.setFullYear(futureDate.getFullYear() + 10); // Next 10 years
 
-    const upcomingQuery = query(
-      collection(db, 'timeCapsules'),
-      where('openDate', '>', now),
-      where('openDate', '<=', futureDate),
-      orderBy('openDate', 'asc')
-    );
+    const db = await getDbPromise();
+    const upcomingQuery = db
+      .collection('timeCapsules')
+      .where('openDate', '>', now)
+      .where('openDate', '<=', futureDate)
+      .orderBy('openDate', 'asc');
 
-    const snapshot = await getDocs(upcomingQuery);
+    const snapshot = await upcomingQuery.get();
     const upcomingCapsules = [];
 
     snapshot.forEach((doc) => {

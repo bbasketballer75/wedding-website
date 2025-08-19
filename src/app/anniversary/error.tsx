@@ -22,7 +22,6 @@ export default function AnniversaryError({ error, reset }: Readonly<ErrorProps>)
         We encountered an issue while loading your anniversary celebrations. This might be due to a
         temporary network issue or a problem with our servers.
       </p>
-
       <div className="error-actions">
         <button onClick={reset} className="error-button">
           🔄 Try Again
@@ -34,7 +33,6 @@ export default function AnniversaryError({ error, reset }: Readonly<ErrorProps>)
           📝 Visit Guestbook
         </Link>
       </div>
-
       <details className="error-details">
         <summary>Technical Details</summary>
         <p>

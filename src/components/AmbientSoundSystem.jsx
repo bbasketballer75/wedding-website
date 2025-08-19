@@ -555,24 +555,24 @@ export const AudioControls = ({ className = '' }) => {
   return (
     <div className={`audio-controls ${className}`}>
       <div className="audio-controls__header">
-        <button
+      <button
           className={`audio-toggle ${isEnabled ? 'audio-toggle--enabled' : ''}`}
           onClick={handleFirstInteraction}
           aria-label={isEnabled ? 'Disable ambient sounds' : 'Enable ambient sounds'}
           title={isEnabled ? 'Turn off ambient sounds' : 'Turn on ambient sounds'}
         >
-          <span className="audio-icon">{isEnabled ? '🔊' : '🔇'}</span>
-          <span className="audio-label">{isEnabled ? 'Audio On' : 'Audio Off'}</span>
-        </button>
+      <span className="audio-icon">{isEnabled ? '🔊' : '🔇'}</span>
+      <span className="audio-label">{isEnabled ? 'Audio On' : 'Audio Off'}</span>
+      </button>
       </div>
 
       {isEnabled && isInitialized && (
         <div className="audio-controls__options">
-          <div className="volume-control">
-            <label htmlFor="volume-slider" className="volume-label">
+      <div className="volume-control">
+      <label htmlFor="volume-slider" className="volume-label">
               🔊 Volume
             </label>
-            <input
+      <input
               id="volume-slider"
               type="range"
               min="0"
@@ -582,16 +582,15 @@ export const AudioControls = ({ className = '' }) => {
               onChange={(e) => setVolume(parseFloat(e.target.value))}
               className="volume-slider"
               aria-label="Audio volume"
-            />
-            <span className="volume-value">{Math.round(volume * 100)}%</span>
-          </div>
-
-          <div className="ambient-controls">
-            <label className="ambient-label" htmlFor="ambient-select">
+      />
+      <span className="volume-value">{Math.round(volume * 100)}%</span>
+      </div>
+      <div className="ambient-controls">
+      <label className="ambient-label" htmlFor="ambient-select">
               🎵 Ambient Sounds
             </label>
-            <div className="ambient-options">
-              <button
+      <div className="ambient-options">
+      <button
                 className={`ambient-btn ${!currentAmbient ? 'ambient-btn--active' : ''}`}
                 onClick={stopAmbient}
                 aria-pressed={!currentAmbient}
@@ -610,8 +609,8 @@ export const AudioControls = ({ className = '' }) => {
                 </button>
               ))}
             </div>
-          </div>
-        </div>
+      </div>
+      </div>
       )}
 
       <style>{`
@@ -819,7 +818,7 @@ export const AudioControls = ({ className = '' }) => {
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

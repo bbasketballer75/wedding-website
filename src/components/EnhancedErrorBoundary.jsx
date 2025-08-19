@@ -1,7 +1,7 @@
 'use client';
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Component } from 'react';
 
 // Enhanced error boundary with context
 export class EnhancedErrorBoundary extends Component {
@@ -10,7 +10,7 @@ export class EnhancedErrorBoundary extends Component {
     this.state = { hasError: false, errorInfo: null };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 

@@ -11,7 +11,8 @@ describe('AdminDashboard Unauthorized Access', () => {
 
   it('shows error if adminKey is missing or invalid', async () => {
     await act(async () => {
-      render(<AdminDashboard adminKey={null} />);
+      render(<AdminDashboard adminKey={null}
+      />);
     });
     expect(await screen.findByRole('alert')).toHaveTextContent(/Invalid admin key/i);
   });

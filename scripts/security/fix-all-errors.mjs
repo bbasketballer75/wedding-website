@@ -237,7 +237,7 @@ function removeUnusedCode(filePath, content) {
   // Remove unused imports
   const unusedImportPatterns = [
     {
-      pattern: /import\s+styles\s+from\s+['"'][^'"]*['"'];\s*/g,
+      pattern: /import\s+styles\s+from\s+['"][^'"]*['"];\s*/g,
       replacement: '',
       condition: (content) => !content.includes('styles.'),
     },

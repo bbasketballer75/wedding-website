@@ -50,7 +50,7 @@ function fixStyledJsx(filePath) {
 
     // Add CSS module import if not present
     if (!content.includes('import styles from')) {
-      const componentName = path.basename(filePath, path.extname(filePath));
+      // Component name could be used for CSS module import in the future
       const cssImport = `\n`;
       content = content.replace(/^import/m, cssImport + 'import');
     }

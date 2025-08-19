@@ -18,7 +18,7 @@ const SkipLinks: React.FC = () => {
           left: 6px;
           z-index: 1000;
         }
-        
+
         .skip-link {
           position: absolute;
           left: -10000px;
@@ -34,7 +34,7 @@ const SkipLinks: React.FC = () => {
           border-radius: 4px;
           transition: all 0.2s ease;
         }
-        
+
         .skip-link:focus {
           position: static;
           left: auto;
@@ -44,7 +44,7 @@ const SkipLinks: React.FC = () => {
           clip: auto;
           white-space: nowrap;
         }
-        
+
         .skip-link:hover {
           background: #333;
         }

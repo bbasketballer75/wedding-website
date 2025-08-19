@@ -46,6 +46,7 @@ const WeddingPartyPage = () => {
                 height={400}
                 sizes="(max-width: 768px) 150px, 300px"
                 priority={false}
+                unoptimized
               />
               <h4 className="party-member-name">{member.name}</h4>
             </div>
@@ -61,7 +62,15 @@ const WeddingPartyPage = () => {
         <div className="party-grid">
           {groomsmen.map((member) => (
             <div key={member.name} className="party-member-card">
-              <img src={member.image} alt={member.name} className="party-member-image" />
+              <Image
+                src={member.image}
+                alt={member.name}
+                className="party-member-image"
+                width={300}
+                height={400}
+                sizes="(max-width: 768px) 150px, 300px"
+                priority={false}
+              />
               <h4 className="party-member-name">{member.name}</h4>
             </div>
           ))}

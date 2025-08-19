@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 
 /**
@@ -71,148 +72,146 @@ const FamilyLegacyBuilder = () => {
   const renderOverview = () => (
     <div className="overview-section">
       <div className="main-couple-card">
-        <h2>💕 Austin & Jordyn Porada</h2>
-        <div className="wedding-info">
-          <p>
-            <strong>Wedding Date:</strong> June 14, 2025
+      <h2>💕 Austin & Jordyn Porada</h2>
+      <div className="wedding-info">
+      <p>
+      <strong>Wedding Date:</strong> June 14, 2025
           </p>
-          <p>
-            <strong>Anniversary:</strong>{' '}
+      <p>
+      <strong>Anniversary:</strong>{' '}
             {Math.floor((new Date() - new Date('2025-06-14')) / (1000 * 60 * 60 * 24))} days married
           </p>
-        </div>
-
-        <div className="family-stats">
-          <div className="stat">
-            <div className="stat-number">{familyData.stories.length}</div>
-            <div className="stat-label">Family Stories</div>
-          </div>
-          <div className="stat">
-            <div className="stat-number">{familyData.traditions.length}</div>
-            <div className="stat-label">Family Traditions</div>
-          </div>
-          <div className="stat">
-            <div className="stat-number">{familyData.timeline.length}</div>
-            <div className="stat-label">Timeline Events</div>
-          </div>
-        </div>
-
-        <div className="quick-actions">
-          <button onClick={() => setActiveSection('stories')}>📖 Add Family Story</button>
-          <button onClick={() => setActiveSection('traditions')}>🎋 Add Tradition</button>
-          <button onClick={() => setActiveSection('timeline')}>📅 Add Timeline Event</button>
-        </div>
       </div>
-    </div>
+      <div className="family-stats">
+      <div className="stat">
+      <div className="stat-number">{familyData.stories.length}</div>
+      <div className="stat-label">Family Stories</div>
+      </div>
+      <div className="stat">
+      <div className="stat-number">{familyData.traditions.length}</div>
+      <div className="stat-label">Family Traditions</div>
+      </div>
+      <div className="stat">
+      <div className="stat-number">{familyData.timeline.length}</div>
+      <div className="stat-label">Timeline Events</div>
+      </div>
+      </div>
+      <div className="quick-actions">
+      <button onClick={() => setActiveSection('stories')}>📖 Add Family Story</button>
+      <button onClick={() => setActiveSection('traditions')}>🎋 Add Tradition</button>
+      <button onClick={() => setActiveSection('timeline')}>📅 Add Timeline Event</button>
+      </div>
+      </div>
+      </div>
   );
 
   const renderFamilyTree = () => (
     <div className="family-tree-section">
       <h2>🌳 Porada Family Tree</h2>
-
       <div className="tree-container">
-        <div className="generation-label">Current Generation</div>
-        <div className="couple-node main-couple">
-          <div className="person austin">
-            <div className="person-photo">👨</div>
-            <div className="person-name">Austin Porada</div>
-            <div className="person-details">Groom</div>
-          </div>
-          <div className="heart">💕</div>
-          <div className="person jordyn">
-            <div className="person-photo">👩</div>
-            <div className="person-name">Jordyn Porada</div>
-            <div className="person-details">Bride</div>
-          </div>
-        </div>
-
-        <div className="add-family-section">
-          <button className="add-family-btn">➕ Add Family Members</button>
-          <p>Build your family tree by adding parents, siblings, and future children</p>
-        </div>
+      <div className="generation-label">Current Generation</div>
+      <div className="couple-node main-couple">
+      <div className="person austin">
+      <div className="person-photo">👨</div>
+      <div className="person-name">Austin Porada</div>
+      <div className="person-details">Groom</div>
       </div>
-    </div>
+      <div className="heart">💕</div>
+      <div className="person jordyn">
+      <div className="person-photo">👩</div>
+      <div className="person-name">Jordyn Porada</div>
+      <div className="person-details">Bride</div>
+      </div>
+      </div>
+      <div className="add-family-section">
+      <button className="add-family-btn">➕ Add Family Members</button>
+      <p>Build your family tree by adding parents, siblings, and future children</p>
+      </div>
+      </div>
+      </div>
   );
 
   const renderStories = () => (
     <div className="stories-section">
       <div className="section-header">
-        <h2>📖 Family Stories</h2>
-        <button className="add-btn" onClick={() => setIsEditing('story')}>
+      <h2>📖 Family Stories</h2>
+      <button className="add-btn" onClick={() => setIsEditing('story')}>
           ➕ Add Story
         </button>
       </div>
 
       {isEditing === 'story' && (
         <div className="add-form">
-          <h3>Add New Family Story</h3>
-          <StoryForm onSubmit={addFamilyStory} onCancel={() => setIsEditing(false)} />
-        </div>
+      <h3>Add New Family Story</h3>
+      <StoryForm onSubmit={addFamilyStory} onCancel={() => setIsEditing(false)}
+      />
+      </div>
       )}
 
       <div className="stories-grid">
         {familyData.stories.map((story) => (
           <div key={story.id} className="story-card">
-            <h3>{story.title}</h3>
-            <div className="story-meta">
+      <h3>{story.title}</h3>
+      <div className="story-meta">
               By {story.author} • {new Date(story.date).toLocaleDateString()}
             </div>
-            <p>{story.content}</p>
-            <div className="story-category">{story.category}</div>
-          </div>
+      <p>{story.content}</p>
+      <div className="story-category">{story.category}</div>
+      </div>
         ))}
 
         {familyData.stories.length === 0 && (
           <div className="empty-state">
-            <p>Start building your family's story collection!</p>
-            <button onClick={() => setIsEditing('story')}>📖 Add First Story</button>
-          </div>
+      <p>Start building your family's story collection!</p>
+      <button onClick={() => setIsEditing('story')}>📖 Add First Story</button>
+      </div>
         )}
       </div>
-    </div>
+      </div>
   );
 
   const renderTraditions = () => (
     <div className="traditions-section">
       <div className="section-header">
-        <h2>🎋 Family Traditions</h2>
-        <button className="add-btn" onClick={() => setIsEditing('tradition')}>
+      <h2>🎋 Family Traditions</h2>
+      <button className="add-btn" onClick={() => setIsEditing('tradition')}>
           ➕ Add Tradition
         </button>
       </div>
 
       {isEditing === 'tradition' && (
         <div className="add-form">
-          <h3>Add New Family Tradition</h3>
-          <TraditionForm onSubmit={addTradition} onCancel={() => setIsEditing(false)} />
-        </div>
+      <h3>Add New Family Tradition</h3>
+      <TraditionForm onSubmit={addTradition} onCancel={() => setIsEditing(false)}
+      />
+      </div>
       )}
 
       <div className="traditions-grid">
         {familyData.traditions.map((tradition) => (
           <div key={tradition.id} className="tradition-card">
-            <h3>{tradition.name}</h3>
-            <p>
-              <strong>Origin:</strong> {tradition.origin}
+      <h3>{tradition.name}</h3>
+      <p>
+      <strong>Origin:</strong> {tradition.origin}
             </p>
-            <p>
-              <strong>When:</strong> {tradition.whenPracticed}
+      <p>
+      <strong>When:</strong> {tradition.whenPracticed}
             </p>
-            <p>{tradition.description}</p>
-            <div className="participants">
-              <strong>Participants:</strong> {tradition.participants.join(', ')}
+      <p>{tradition.description}</p>
+      <div className="participants">
+      <strong>Participants:</strong> {tradition.participants.join(', ')}
             </div>
-          </div>
+      </div>
         ))}
 
         {familyData.traditions.length === 0 && (
           <div className="empty-state">
-            <p>Document your family traditions and customs!</p>
-            <button onClick={() => setIsEditing('tradition')}>🎋 Add First Tradition</button>
-          </div>
+      <p>Document your family traditions and customs!</p>
+      <button onClick={() => setIsEditing('tradition')}>🎋 Add First Tradition</button>
+      </div>
         )}
       </div>
-    </div>
+      </div>
   );
 
   return (
@@ -504,12 +503,10 @@ const FamilyLegacyBuilder = () => {
           margin-top: 1rem;
         }
       `}</style>
-
       <div className="legacy-header">
-        <h1>🌳 Porada Family Legacy</h1>
-        <p>Building a digital legacy for future generations</p>
+      <h1>🌳 Porada Family Legacy</h1>
+      <p>Building a digital legacy for future generations</p>
       </div>
-
       <div className="navigation">
         {sections.map((section) => (
           <button
@@ -517,19 +514,18 @@ const FamilyLegacyBuilder = () => {
             className={`nav-btn ${activeSection === section.id ? 'active' : ''}`}
             onClick={() => setActiveSection(section.id)}
           >
-            <span>{section.icon}</span>
-            <span>{section.label.split(' ').slice(1).join(' ')}</span>
-          </button>
+      <span>{section.icon}</span>
+      <span>{section.label.split(' ').slice(1).join(' ')}</span>
+      </button>
         ))}
       </div>
-
       <div className="content-area">
         {activeSection === 'overview' && renderOverview()}
         {activeSection === 'tree' && renderFamilyTree()}
         {activeSection === 'stories' && renderStories()}
         {activeSection === 'traditions' && renderTraditions()}
       </div>
-    </div>
+      </div>
   );
 };
 
@@ -568,10 +564,10 @@ const StoryForm = ({ onSubmit, onCancel }) => {
         value={story.category}
         onChange={(e) => setStory((prev) => ({ ...prev, category: e.target.value }))}
       >
-        <option value="memory">Memory</option>
-        <option value="milestone">Milestone</option>
-        <option value="funny">Funny Story</option>
-        <option value="achievement">Achievement</option>
+      <option value="memory">Memory</option>
+      <option value="milestone">Milestone</option>
+      <option value="funny">Funny Story</option>
+      <option value="achievement">Achievement</option>
       </select>
       <textarea
         placeholder="Tell your story..."
@@ -581,12 +577,12 @@ const StoryForm = ({ onSubmit, onCancel }) => {
         required
       />
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <button type="submit">Add Story</button>
-        <button type="button" onClick={onCancel}>
+      <button type="submit">Add Story</button>
+      <button type="button" onClick={onCancel}>
           Cancel
         </button>
       </div>
-    </form>
+      </form>
   );
 };
 
@@ -635,12 +631,12 @@ const TraditionForm = ({ onSubmit, onCancel }) => {
         required
       />
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <button type="submit">Add Tradition</button>
-        <button type="button" onClick={onCancel}>
+      <button type="submit">Add Tradition</button>
+      <button type="button" onClick={onCancel}>
           Cancel
         </button>
       </div>
-    </form>
+      </form>
   );
 };
 

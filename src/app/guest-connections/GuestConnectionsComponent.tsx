@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface ConnectionProfile {
   id: string;
@@ -86,7 +86,6 @@ export default function GuestConnectionsPage() {
   const [activeTab, setActiveTab] = useState<'discover' | 'connections' | 'events' | 'profile'>(
     'discover'
   );
-  const [_showProfileForm, setShowProfileForm] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState<ConnectionMatch | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<NetworkingEvent | null>(null);
 
@@ -211,7 +210,6 @@ export default function GuestConnectionsPage() {
       }
 
       await loadConnectionsData();
-      setShowProfileForm(false);
       alert('Profile created successfully!');
     } catch (err) {
       alert('Failed to create profile. Please try again.');
@@ -738,12 +736,10 @@ export default function GuestConnectionsPage() {
           }
         }
       `}</style>
-
       <div className="connections-header">
         <h1>🤝 Guest Connections</h1>
         <p>Connect with fellow guests and build lasting friendships</p>
       </div>
-
       <div className="navigation-tabs">
         <button
           className={`nav-tab ${activeTab === 'discover' ? 'active' : ''}`}
@@ -770,7 +766,6 @@ export default function GuestConnectionsPage() {
           👤 Profile
         </button>
       </div>
-
       <div className="stats-overview">
         <div className="stat-card">
           <div className="stat-number">{data.stats.totalConnections}</div>
@@ -811,7 +806,6 @@ export default function GuestConnectionsPage() {
                   <div className="match-score">{match.matchScore}% match</div>
                 </div>
               </div>
-
               <div className="match-details">
                 <div style={{ fontSize: '0.9rem', color: '#666', marginBottom: '0.5rem' }}>
                   {match.profile2.relationshipToCouple} • {match.profile2.location}
@@ -832,8 +826,8 @@ export default function GuestConnectionsPage() {
                       Common Interests:
                     </div>
                     <div className="common-interests">
-                      {match.commonInterests.map((interest, index) => (
-                        <span key={index} className="interest-tag">
+                      {match.commonInterests.map((interest) => (
+                        <span key={interest} className="interest-tag">
                           {interest}
                         </span>
                       ))}
@@ -845,7 +839,6 @@ export default function GuestConnectionsPage() {
                   {match.reason}
                 </div>
               </div>
-
               <div className="match-actions">
                 <button className="match-btn primary" onClick={() => setSelectedMatch(match)}>
                   Connect
@@ -886,9 +879,7 @@ export default function GuestConnectionsPage() {
                   <span className="event-type">{event.type}</span>
                 </div>
               </div>
-
               <div className="event-description">{event.description}</div>
-
               <div style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
                 Hosted by {event.host.name}
                 {event.maxParticipants && (
@@ -901,8 +892,8 @@ export default function GuestConnectionsPage() {
 
               {event.tags.length > 0 && (
                 <div className="event-tags">
-                  {event.tags.map((tag, index) => (
-                    <span key={index} className="event-tag">
+                  {event.tags.map((tag) => (
+                    <span key={tag} className="event-tag">
                       {tag}
                     </span>
                   ))}
@@ -946,10 +937,10 @@ export default function GuestConnectionsPage() {
 function ProfileForm({
   profile,
   onSubmit,
-}: {
+}: Readonly<{
   profile: ConnectionProfile | null;
   onSubmit: (data: ConnectionProfile) => void;
-}) {
+}>) {
   const [formData, setFormData] = useState({
     name: profile?.name || '',
     email: profile?.email || '',
@@ -1003,10 +994,10 @@ function ProfileForm({
         </h3>
         <p>Help other guests find and connect with you!</p>
       </div>
-
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
         <div>
           <label
+            htmlFor="profile-name"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1017,6 +1008,7 @@ function ProfileForm({
             Name *
           </label>
           <input
+            id="profile-name"
             type="text"
             value={formData.name}
             onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
@@ -1031,9 +1023,9 @@ function ProfileForm({
             required
           />
         </div>
-
         <div>
           <label
+            htmlFor="profile-email"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1044,6 +1036,7 @@ function ProfileForm({
             Email *
           </label>
           <input
+            id="profile-email"
             type="email"
             value={formData.email}
             onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
@@ -1058,9 +1051,9 @@ function ProfileForm({
             required
           />
         </div>
-
         <div>
           <label
+            htmlFor="profile-bio"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1071,6 +1064,7 @@ function ProfileForm({
             Bio
           </label>
           <textarea
+            id="profile-bio"
             value={formData.bio}
             onChange={(e) => setFormData((prev) => ({ ...prev, bio: e.target.value }))}
             placeholder="Tell other guests about yourself..."
@@ -1085,9 +1079,9 @@ function ProfileForm({
             }}
           />
         </div>
-
         <div>
           <label
+            htmlFor="profile-interests"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1098,6 +1092,7 @@ function ProfileForm({
             Interests (comma-separated)
           </label>
           <input
+            id="profile-interests"
             type="text"
             value={formData.interests}
             onChange={(e) => setFormData((prev) => ({ ...prev, interests: e.target.value }))}
@@ -1111,9 +1106,9 @@ function ProfileForm({
             }}
           />
         </div>
-
         <div>
           <label
+            htmlFor="profile-location"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1124,6 +1119,7 @@ function ProfileForm({
             Location
           </label>
           <input
+            id="profile-location"
             type="text"
             value={formData.location}
             onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
@@ -1137,9 +1133,9 @@ function ProfileForm({
             }}
           />
         </div>
-
         <div>
           <label
+            htmlFor="profile-relationship"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1150,6 +1146,7 @@ function ProfileForm({
             Relationship to Couple
           </label>
           <select
+            id="profile-relationship"
             value={formData.relationshipToCouple}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, relationshipToCouple: e.target.value }))
@@ -1171,7 +1168,6 @@ function ProfileForm({
             <option value="other">Other</option>
           </select>
         </div>
-
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <input
@@ -1181,7 +1177,6 @@ function ProfileForm({
             />
             Make profile public
           </label>
-
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <input
               type="checkbox"
@@ -1199,7 +1194,6 @@ function ProfileForm({
             Allow direct contact
           </label>
         </div>
-
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
           <button
             type="submit"
@@ -1226,44 +1220,53 @@ function ConnectionModal({
   match,
   onConnect,
   onClose,
-}: {
+}: Readonly<{
   match: ConnectionMatch;
   onConnect: (profileId: string, message?: string) => void;
   onClose: () => void;
-}) {
+}>) {
   const [message, setMessage] = useState(
     'Hi! I&apos;d love to connect with you after seeing we have so much in common!'
   );
 
   return (
-    <div
-      className="modal-overlay"
-      onClick={onClose}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
-    >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <dialog className="modal-overlay" aria-labelledby="connection-modal-title" open>
+      <button
+        className="modal-backdrop"
+        onClick={onClose}
+        onKeyDown={(e) => e.key === 'Escape' && onClose()}
+        aria-label="Close modal"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+      />
+      <div className="modal-content">
         <div className="modal-header">
-          <h3>Connect with {match.profile2.name}</h3>
+          <h3 id="connection-modal-title">Connect with {match.profile2.name}</h3>
           <p>Send a connection request</p>
-        </div>
-
+        </div>{' '}
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: '#8B7A8A' }}>
             Common Interests:
           </div>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {match.commonInterests.map((interest, index) => (
-              <span key={index} className="interest-tag">
+            {match.commonInterests.map((interest) => (
+              <span key={interest} className="interest-tag">
                 {interest}
               </span>
             ))}
           </div>
         </div>
-
         <div style={{ marginBottom: '1.5rem' }}>
           <label
+            htmlFor="connection-message"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -1274,6 +1277,7 @@ function ConnectionModal({
             Personal Message
           </label>
           <textarea
+            id="connection-message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             style={{
@@ -1287,7 +1291,6 @@ function ConnectionModal({
             }}
           />
         </div>
-
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
           <button
             onClick={() => onConnect(match.profile2.id, message)}
@@ -1319,7 +1322,7 @@ function ConnectionModal({
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }
 
@@ -1327,29 +1330,37 @@ function EventModal({
   event,
   onRSVP,
   onClose,
-}: {
+}: Readonly<{
   event: NetworkingEvent;
   onRSVP: (eventId: string, attending: boolean) => void;
   onClose: () => void;
-}) {
+}>) {
   return (
-    <div
-      className="modal-overlay"
-      onClick={onClose}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
-    >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <dialog className="modal-overlay" aria-labelledby="event-modal-title" open>
+      <button
+        className="modal-backdrop"
+        onClick={onClose}
+        onKeyDown={(e) => e.key === 'Escape' && onClose()}
+        aria-label="Close modal"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+      />
+      <div className="modal-content">
         <div className="modal-header">
-          <h3>{event.title}</h3>
+          <h3 id="event-modal-title">{event.title}</h3>
           <p>{new Date(event.datetime).toLocaleString()}</p>
         </div>
-
         <div style={{ marginBottom: '1.5rem' }}>
           <p style={{ color: '#666', lineHeight: 1.6 }}>{event.description}</p>
         </div>
-
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: '#8B7A8A' }}>
             Event Details:
@@ -1366,7 +1377,6 @@ function EventModal({
             )}
           </div>
         </div>
-
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
           <button
             onClick={() => onRSVP(event.id, true)}
@@ -1398,6 +1408,6 @@ function EventModal({
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

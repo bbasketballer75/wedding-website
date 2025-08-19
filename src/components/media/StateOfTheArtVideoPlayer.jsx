@@ -19,6 +19,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import { gsap } from 'gsap';
+import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { designTokens, getColor } from '../../styles/core/design-tokens';
 import { StateOfTheArtButton } from '../ui/StateOfTheArtButton';
@@ -124,6 +125,22 @@ export const StateOfTheArtVideoPlayer = ({
     if (videoRef.current) {
       setDuration(videoRef.current.duration);
       setIsLoading(false);
+      if (autoplay) {
+        const playPromise = videoRef.current.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+              setShowPlayButton(false);
+            })
+            .catch(() => {
+              // Autoplay might be blocked; keep overlay visible
+            });
+        } else {
+          setIsPlaying(true);
+          setShowPlayButton(false);
+        }
+      }
     }
   };
 
@@ -237,19 +254,7 @@ export const StateOfTheArtVideoPlayer = ({
         animateOnScroll={true}
         className="video-container-card"
       >
-        <div
-          ref={containerRef}
-          className="video-container"
-          onMouseEnter={() => {
-            setIsHovering(true);
-            resetControlsTimeout();
-          }}
-          onMouseLeave={() => {
-            setIsHovering(false);
-            resetControlsTimeout();
-          }}
-          onMouseMove={resetControlsTimeout}
-        >
+        <div ref={containerRef} className="video-container" aria-label={`${title} video player`}>
           {/* Video Element */}
           <video
             ref={videoRef}
@@ -259,17 +264,27 @@ export const StateOfTheArtVideoPlayer = ({
             onTimeUpdate={handleTimeUpdate}
             onPlay={handlePlay}
             onPause={handlePause}
+            onMouseEnter={() => {
+              setIsHovering(true);
+              resetControlsTimeout();
+            }}
+            onMouseLeave={() => {
+              setIsHovering(false);
+              resetControlsTimeout();
+            }}
+            onMouseMove={resetControlsTimeout}
             muted={isMuted}
             playsInline
             preload="metadata"
             className="video-element"
+            aria-label={title}
           />
 
           {/* Loading State */}
           {isLoading && (
             <div className="loading-overlay">
               <div className="loading-spinner" />
-            <p>Loading your wedding memories...</p>
+              <p>Loading your wedding memories...</p>
             </div>
           )}
 
@@ -309,21 +324,30 @@ export const StateOfTheArtVideoPlayer = ({
               >
                 {/* Progress Bar */}
                 <div className="progress-container">
-                  <div
+                  <button
+                    type="button"
                     className="progress-track"
-                     role="button" tabIndex={0} onClick={(e) => {
+                    aria-label="Seek video timeline"
+                    onClick={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const percent = (e.clientX - rect.left) / rect.width;
-                      handleSeek(percent * duration);
-                    } onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e => {
-                      const rect = e.currentTarget.getBoundingClientRect;
-                      const percent = e.clientX - rect.left / rect.width;
-                      handleSeekpercent * duration;
-                    (e); } }}}
+                      handleSeek(Math.max(0, Math.min(duration, percent * duration)));
+                    }}
+                    onKeyDown={(e) => {
+                      // Arrow navigation for accessibility
+                      const step = Math.max(1, duration * 0.05);
+                      if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        handleSeek(Math.min(duration, currentTime + step));
+                      } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        handleSeek(Math.max(0, currentTime - step));
+                      }
+                    }}
                   >
                     <div ref={progressRef} className="progress-fill" />
-            <div className="progress-glow" />
-            </div>
+                    <div className="progress-glow" />
+                  </button>
                 </div>
 
                 {/* Control Buttons */}
@@ -341,7 +365,6 @@ export const StateOfTheArtVideoPlayer = ({
                         <PlayIcon className="control-icon" />
                       )}
                     </StateOfTheArtButton>
-
                     <StateOfTheArtButton
                       variant="ghost"
                       size="medium"
@@ -354,7 +377,6 @@ export const StateOfTheArtVideoPlayer = ({
                         <SpeakerWaveIcon className="control-icon" />
                       )}
                     </StateOfTheArtButton>
-
                     <div className="volume-slider-container">
                       <input
                         type="range"
@@ -365,19 +387,16 @@ export const StateOfTheArtVideoPlayer = ({
                         onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
                         className="volume-slider"
                       />
-            </div>
-
+                    </div>
                     <div className="time-display">
                       {formatTime(currentTime)} / {formatTime(duration)}
                     </div>
                   </div>
-
                   <div className="center-controls">
                     {currentChapter && (
                       <div className="current-chapter">{currentChapter.title}</div>
                     )}
                   </div>
-
                   <div className="right-controls">
                     {showChapters && chapters.length > 0 && (
                       <StateOfTheArtButton
@@ -400,7 +419,6 @@ export const StateOfTheArtVideoPlayer = ({
                       <HeartIcon className="control-icon" />
                       {likes > 0 && <span className="like-count">{likes}</span>}
                     </StateOfTheArtButton>
-
                     <StateOfTheArtButton
                       variant="ghost"
                       size="medium"
@@ -434,7 +452,7 @@ export const StateOfTheArtVideoPlayer = ({
                   <div className="chapter-list">
                     {chapters.map((chapter, index) => (
                       <StateOfTheArtButton
-                        key={index}
+                        key={`${chapter?.title || 'chapter'}-${chapter?.time ?? index}`}
                         variant={currentChapter === chapter ? 'primary' : 'ghost'}
                         size="medium"
                         onClick={() => jumpToChapter(chapter)}
@@ -453,13 +471,23 @@ export const StateOfTheArtVideoPlayer = ({
           </AnimatePresence>
         </div>
       </StateOfTheArtCard>
-
+      {/* Optional inline heading for context; hidden on small screens */}
+      <div className="video-title" aria-hidden="true">
+        {title}
+      </div>
       <style>{`
         .state-of-the-art-video-player {
           width: 100%;
           max-width: 1200px;
           margin: 0 auto;
           position: relative;
+        }
+
+        .video-title {
+          margin: 0.5rem 0 0.25rem 0.25rem;
+          color: ${getColor('neutral.100')};
+          font-weight: 600;
+          font-size: 1rem;
         }
 
         .video-container-card {
@@ -764,10 +792,19 @@ export const StateOfTheArtVideoPlayer = ({
   );
 };
 
-
 StateOfTheArtVideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
-  posterSrc: PropTypes.string
+  posterSrc: PropTypes.string,
+  title: PropTypes.string,
+  chapters: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      time: PropTypes.number,
+    })
+  ),
+  autoplay: PropTypes.bool,
+  showChapters: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default StateOfTheArtVideoPlayer;

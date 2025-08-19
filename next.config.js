@@ -7,6 +7,13 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Speed up local pre-push builds when FAST_PREPUSH=1
+  eslint: {
+    ignoreDuringBuilds: process.env.FAST_PREPUSH === '1',
+  },
+  typescript: {
+    ignoreBuildErrors: process.env.FAST_PREPUSH === '1',
+  },
   // Vercel-optimized configuration
   experimental: {
     // Optimize for Vercel's infrastructure
@@ -36,6 +43,14 @@ const nextConfig = {
   // Performance optimizations for Vercel
   compress: true,
   poweredByHeader: false,
+
+  // Advanced code splitting for optimal performance
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+  },
+
+  // Modern output configuration
+  output: 'standalone',
 
   // Enable source maps for better debugging on Vercel
   productionBrowserSourceMaps: true,

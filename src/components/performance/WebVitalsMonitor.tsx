@@ -91,7 +91,7 @@ class WebVitalsMonitor {
       // Development logging
       if (process.env.NODE_ENV === 'development') {
         console.warn(`🔍 Web Vital: ${metric.name}`, {
-          value: `${metric.value}ms`,
+          value: `${(metric as any).value}ms`,
           rating: metric.rating,
           id: metric.id,
         });
@@ -123,14 +123,24 @@ class WebVitalsMonitor {
       const { onCLS, onFCP, onLCP, onTTFB, onINP } = await import('web-vitals');
 
       // Track Core Web Vitals
-      onLCP((metric) => this.trackMetric('LCP', metric.value, metric.id));
-      onCLS((metric) => this.trackMetric('CLS', metric.value * 1000, metric.id)); // Convert to ms
-      onFCP((metric) => this.trackMetric('FCP', metric.value, metric.id));
-      onTTFB((metric) => this.trackMetric('TTFB', metric.value, metric.id));
+      onLCP((metric: { value: number; id: string }) =>
+        this.trackMetric('LCP', metric.value, metric.id)
+      );
+      onCLS((metric: { value: number; id: string }) =>
+        this.trackMetric('CLS', metric.value * 1000, metric.id)
+      ); // Convert to ms
+      onFCP((metric: { value: number; id: string }) =>
+        this.trackMetric('FCP', metric.value, metric.id)
+      );
+      onTTFB((metric: { value: number; id: string }) =>
+        this.trackMetric('TTFB', metric.value, metric.id)
+      );
 
       // Track INP if supported (modern browsers)
       if (onINP) {
-        onINP((metric) => this.trackMetric('INP', metric.value, metric.id));
+        onINP((metric: { value: number; id: string }) =>
+          this.trackMetric('INP', metric.value, metric.id)
+        );
       }
 
       // Track custom metrics
@@ -142,9 +152,7 @@ class WebVitalsMonitor {
   private trackCustomMetrics(): void {
     // Track Navigation Timing (modern API)
     if (window.performance?.getEntriesByType) {
-      const navigationEntries = window.performance.getEntriesByType(
-        'navigation'
-      ) as PerformanceNavigationTiming[];
+      const navigationEntries = window.performance.getEntriesByType('navigation');
 
       if (navigationEntries.length > 0) {
         const navigation = navigationEntries[0];
@@ -162,9 +170,7 @@ class WebVitalsMonitor {
 
     // Track Resource Timing
     if (window.performance?.getEntriesByType) {
-      const resources = window.performance.getEntriesByType(
-        'resource'
-      ) as PerformanceResourceTiming[];
+      const resources = window.performance.getEntriesByType('resource');
       const totalResourceSize = resources.reduce((total, resource) => {
         return total + (resource.transferSize || 0);
       }, 0);

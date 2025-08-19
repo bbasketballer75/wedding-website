@@ -4,7 +4,8 @@ import GuestbookPage from '../interactive/GuestbookPage.jsx';
 
 describe('GuestbookPage Empty State', () => {
   it('shows empty state when no entries are available', async () => {
-    render(<GuestbookPage />);
+    render(<GuestbookPage
+      />);
     await waitFor(() =>
       expect(
         screen.getByText(

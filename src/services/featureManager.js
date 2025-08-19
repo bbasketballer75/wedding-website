@@ -29,7 +29,7 @@ class FeatureManager {
       await this.initializeSecurity();
 
       this.isInitialized = true;
-      console.log('🚀 Wedding Website Features Initialized:', {
+      console.error('🚀 Wedding Website Features Initialized:', {
         features: Array.from(this.features.keys()),
         timestamp: new Date().toISOString(),
       });

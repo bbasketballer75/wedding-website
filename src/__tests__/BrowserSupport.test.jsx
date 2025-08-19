@@ -9,12 +9,14 @@ describe('Cross-Browser Guest Experience', () => {
     // Simulate missing window.fetch
     const origFetch = global.fetch;
     delete global.fetch;
-    expect(() => render(<PhotoGallery />)).not.toThrow();
+    expect(() => render(<PhotoGallery
+      />)).not.toThrow();
     global.fetch = origFetch;
   });
 
   it('should provide fallbacks for unsupported media formats', async () => {
-    render(<PhotoGallery refreshKey={0} />);
+    render(<PhotoGallery refreshKey={0}
+      />);
     // Find an image rendered by the component (simulate at least one image in mock)
     // If no images, skip test
     const imgs = screen.queryAllByRole('img');

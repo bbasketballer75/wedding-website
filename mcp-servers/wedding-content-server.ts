@@ -33,15 +33,7 @@ interface GuestStory {
   isFeatured?: boolean;
 }
 
-interface GuestbookEntry {
-  id: string;
-  name: string;
-  message: string;
-  email?: string;
-  approved: boolean;
-  timestamp: string;
-  photo?: string;
-}
+// Removed unused GuestbookEntry interface
 
 interface TimelineEvent {
   id: string;

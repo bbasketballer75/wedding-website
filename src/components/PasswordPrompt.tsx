@@ -21,19 +21,19 @@ const PasswordPrompt: React.FC<PasswordPromptProps> = ({
   return (
     <div className="password-prompt">
       <div className="prompt-content">
-        <h2 className="prompt-title">Access Required</h2>
-        <p className="prompt-message">{message}</p>
+      <h2 className="prompt-title">Access Required</h2>
+      <p className="prompt-message">{message}</p>
         {isError && (
           <div className="error-message" role="alert">
             Incorrect password. Please try again.
           </div>
         )}
         <form onSubmit={handleSubmit} className="password-form">
-          <div className="input-group">
-            <label htmlFor="password" className="sr-only">
+      <div className="input-group">
+      <label htmlFor="password" className="sr-only">
               Password
             </label>
-            <input
+      <input
               id="password"
               type="password"
               value={password}
@@ -42,12 +42,12 @@ const PasswordPrompt: React.FC<PasswordPromptProps> = ({
               className="password-input"
               required
               autoFocus
-            />
-          </div>
-          <button type="submit" className="submit-button">
+      />
+      </div>
+      <button type="submit" className="submit-button">
             Continue
           </button>
-        </form>
+      </form>
       </div>
       <style>{`
         .password-prompt {
@@ -147,7 +147,7 @@ const PasswordPrompt: React.FC<PasswordPromptProps> = ({
           border: 0;
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

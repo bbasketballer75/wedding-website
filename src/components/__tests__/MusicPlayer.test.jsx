@@ -14,25 +14,29 @@ describe('MusicPlayer', () => {
   });
 
   test('does not render when isEnabled is false', () => {
-    render(<MusicPlayer isEnabled={false} />);
+    render(<MusicPlayer isEnabled={false}
+      />);
     expect(screen.queryByText('🎵')).not.toBeInTheDocument();
   });
 
   test('renders music player when enabled', () => {
-    render(<MusicPlayer isEnabled={true} />);
+    render(<MusicPlayer isEnabled={true}
+      />);
     expect(screen.getByText('First Time (Acoustic)')).toBeInTheDocument();
     expect(screen.getByText('Custom Upload')).toBeInTheDocument();
   });
 
   test('displays play/pause controls', () => {
-    render(<MusicPlayer isEnabled={true} />);
+    render(<MusicPlayer isEnabled={true}
+      />);
     expect(screen.getByRole('button', { name: /play/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /previous track/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /next track/i })).toBeInTheDocument();
   });
 
   test('can minimize and expand player', () => {
-    render(<MusicPlayer isEnabled={true} />);
+    render(<MusicPlayer isEnabled={true}
+      />);
 
     // Should show full player initially
     expect(screen.getByText('First Time (Acoustic)')).toBeInTheDocument();
@@ -54,7 +58,8 @@ describe('MusicPlayer', () => {
   });
 
   test('has volume control', () => {
-    render(<MusicPlayer isEnabled={true} />);
+    render(<MusicPlayer isEnabled={true}
+      />);
     const volumeSlider = screen.getByRole('slider', { name: /volume control/i });
     expect(volumeSlider).toBeInTheDocument();
     expect(volumeSlider).toHaveAttribute('min', '0');
@@ -62,7 +67,8 @@ describe('MusicPlayer', () => {
   });
 
   test('applies correct position class', () => {
-    const { container } = render(<MusicPlayer isEnabled={true} position="bottom-right" />);
+    const { container } = render(<MusicPlayer isEnabled={true} position="bottom-right"
+      />);
     expect(container.querySelector('.music-player.bottom-right')).toBeInTheDocument();
   });
 });

@@ -1,4 +1,6 @@
 import { Camera, Heart, MessageCircle, Upload } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
 const GuestPhotoUpload = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -117,7 +119,6 @@ const GuestPhotoUpload = () => {
           Help us build a complete collection of our special day by sharing the photos you took!
         </p>
       </div>
-
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Personal Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -204,11 +205,17 @@ const GuestPhotoUpload = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {preview.map((item, index) => (
                 <div key={`${item.name}-${index}`} className="relative group">
-                  <img
-                    src={item.url}
-                    alt={item.name}
-                    className="w-full h-24 object-cover rounded-lg"
-                  />
+                  <div className="relative w-full h-0 pb-[66%]">
+                    <Image
+                      src={item.url}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 200px"
+                      style={{ objectFit: 'cover' }}
+                      loading="lazy"
+                      unoptimized
+                    />
+                  </div>
                   <button
                     type="button"
                     onClick={() => removeFile(index)}

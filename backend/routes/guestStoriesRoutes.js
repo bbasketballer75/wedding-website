@@ -1,15 +1,5 @@
 import express from 'express';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import { db } from '../config/firebase.js';
+import getDbPromise from '../config/firestore.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const router = express.Router();
@@ -25,22 +15,21 @@ router.get(
   asyncHandler(async (req, res) => {
     const { category, limit = 20, offset = 0 } = req.query;
 
-    let storiesQuery = query(
-      collection(db, 'guestStories'),
-      where('approved', '==', true),
-      orderBy('submittedAt', 'desc')
-    );
+    const db = await getDbPromise();
+    let storiesQuery = db
+      .collection('guestStories')
+      .where('approved', '==', true)
+      .orderBy('submittedAt', 'desc');
 
     if (category && category !== 'all') {
-      storiesQuery = query(
-        collection(db, 'guestStories'),
-        where('approved', '==', true),
-        where('category', '==', category),
-        orderBy('submittedAt', 'desc')
-      );
+      storiesQuery = db
+        .collection('guestStories')
+        .where('approved', '==', true)
+        .where('category', '==', category)
+        .orderBy('submittedAt', 'desc');
     }
 
-    const snapshot = await getDocs(storiesQuery);
+    const snapshot = await storiesQuery.get();
     const stories = [];
 
     snapshot.forEach((doc) => {
@@ -111,7 +100,8 @@ router.post(
       tags: extractTags(storyContent, favoriteMemory),
     };
 
-    const docRef = await addDoc(collection(db, 'guestStories'), storyData);
+    const db = await getDbPromise();
+    const docRef = await db.collection('guestStories').add(storyData);
 
     res.status(201).json({
       success: true,
@@ -145,14 +135,14 @@ router.get(
 router.get(
   '/featured',
   asyncHandler(async (req, res) => {
-    const featuredQuery = query(
-      collection(db, 'guestStories'),
-      where('approved', '==', true),
-      where('featured', '==', true),
-      orderBy('submittedAt', 'desc')
-    );
+    const db = await getDbPromise();
+    const featuredQuery = db
+      .collection('guestStories')
+      .where('approved', '==', true)
+      .where('featured', '==', true)
+      .orderBy('submittedAt', 'desc');
 
-    const snapshot = await getDocs(featuredQuery);
+    const snapshot = await featuredQuery.get();
     const stories = [];
 
     snapshot.forEach((doc) => {
@@ -177,9 +167,10 @@ router.get(
   asyncHandler(async (req, res) => {
     // In a real app, add admin authentication middleware here
 
-    const allStoriesQuery = query(collection(db, 'guestStories'), orderBy('submittedAt', 'desc'));
+    const db = await getDbPromise();
+    const allStoriesQuery = db.collection('guestStories').orderBy('submittedAt', 'desc');
 
-    const snapshot = await getDocs(allStoriesQuery);
+    const snapshot = await allStoriesQuery.get();
     const stories = [];
 
     snapshot.forEach((doc) => {
@@ -212,8 +203,9 @@ router.patch(
       });
     }
 
-    const storyRef = doc(db, 'guestStories', storyId);
-    await updateDoc(storyRef, {
+    const db = await getDbPromise();
+    const storyRef = db.collection('guestStories').doc(storyId);
+    await storyRef.update({
       approved,
       featured: approved ? featured : false,
       reviewedAt: new Date(),
@@ -233,8 +225,9 @@ router.patch(
 
 // Helper Functions
 async function getStoryCategories() {
-  const categoriesQuery = query(collection(db, 'guestStories'), where('approved', '==', true));
-  const snapshot = await getDocs(categoriesQuery);
+  const db = await getDbPromise();
+  const categoriesQuery = db.collection('guestStories').where('approved', '==', true);
+  const snapshot = await categoriesQuery.get();
 
   const categoryCounts = {};
   snapshot.forEach((doc) => {

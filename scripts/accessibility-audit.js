@@ -194,7 +194,7 @@ function scanForFormLabels() {
 }
 
 function generateReport() {
-  console.log('🔍 Running Accessibility Audit...\n');
+  console.error('🔍 Running Accessibility Audit...\n');
 
   const imageIssues = scanForImages();
   const headingIssues = scanForHeadings();
@@ -225,8 +225,8 @@ function generateReport() {
   }
 
   // Generate report
-  console.log('📊 ACCESSIBILITY AUDIT REPORT');
-  console.log('================================\n');
+  console.error('📊 ACCESSIBILITY AUDIT REPORT');
+  console.error('================================\n');
 
   Object.entries(ACCESSIBILITY_CHECKLIST).forEach(([check, details]) => {
     const status = details.status;
@@ -242,34 +242,34 @@ function generateReport() {
       icon = '⚠️';
     }
 
-    console.log(`${icon} ${check}`);
-    console.log(`   ${details.description}`);
-    console.log(`   Status: ${status.toUpperCase()}\n`);
+    console.error(`${icon} ${check}`);
+    console.error(`   ${details.description}`);
+    console.error(`   Status: ${status.toUpperCase()}\n`);
   });
 
   // Report specific issues
   if (imageIssues.length > 0) {
-    console.log('🖼️  IMAGE ACCESSIBILITY ISSUES:');
+    console.error('🖼️  IMAGE ACCESSIBILITY ISSUES:');
     imageIssues.forEach((issue) => {
-      console.log(`   ❌ ${issue.file}: ${issue.issue}`);
+      console.error(`   ❌ ${issue.file}: ${issue.issue}`);
     });
-    console.log('');
+    console.error('');
   }
 
   if (headingIssues.length > 0) {
-    console.log('📝 HEADING STRUCTURE ISSUES:');
+    console.error('📝 HEADING STRUCTURE ISSUES:');
     headingIssues.forEach((issue) => {
-      console.log(`   ⚠️  ${issue.file}: ${issue.issue}`);
+      console.error(`   ⚠️  ${issue.file}: ${issue.issue}`);
     });
-    console.log('');
+    console.error('');
   }
 
   if (formIssues.length > 0) {
-    console.log('📋 FORM ACCESSIBILITY ISSUES:');
+    console.error('📋 FORM ACCESSIBILITY ISSUES:');
     formIssues.forEach((issue) => {
-      console.log(`   ❌ ${issue.file}: ${issue.issue}`);
+      console.error(`   ❌ ${issue.file}: ${issue.issue}`);
     });
-    console.log('');
+    console.error('');
   }
 
   // Summary
@@ -284,36 +284,36 @@ function generateReport() {
     (check) => check.status === 'manual-check-required'
   ).length;
 
-  console.log('📈 SUMMARY:');
-  console.log(`   ✅ Passed: ${passedChecks}/${totalChecks}`);
-  console.log(`   ❌ Failed: ${failedChecks}/${totalChecks}`);
-  console.log(`   🔍 Manual Review Needed: ${manualChecks}/${totalChecks}`);
+  console.error('📈 SUMMARY:');
+  console.error(`   ✅ Passed: ${passedChecks}/${totalChecks}`);
+  console.error(`   ❌ Failed: ${failedChecks}/${totalChecks}`);
+  console.error(`   🔍 Manual Review Needed: ${manualChecks}/${totalChecks}`);
 
   const score = Math.round((passedChecks / (totalChecks - manualChecks)) * 100);
-  console.log(`   📊 Automated Score: ${score}%\n`);
+  console.error(`   📊 Automated Score: ${score}%\n`);
 
   // Recommendations
-  console.log('💡 RECOMMENDATIONS:');
+  console.error('💡 RECOMMENDATIONS:');
 
   if (failedChecks > 0) {
-    console.log('   1. Fix all automated accessibility issues listed above');
-    console.log('   2. Add proper alt text to all images');
-    console.log('   3. Ensure proper form labeling');
-    console.log('   4. Review heading hierarchy');
+    console.error('   1. Fix all automated accessibility issues listed above');
+    console.error('   2. Add proper alt text to all images');
+    console.error('   3. Ensure proper form labeling');
+    console.error('   4. Review heading hierarchy');
   }
 
   if (manualChecks > 0) {
-    console.log('   5. Perform manual keyboard navigation testing');
-    console.log('   6. Test with screen reader (NVDA, JAWS, or VoiceOver)');
-    console.log('   7. Verify focus management and visible focus indicators');
-    console.log('   8. Test form error handling and messaging');
+    console.error('   5. Perform manual keyboard navigation testing');
+    console.error('   6. Test with screen reader (NVDA, JAWS, or VoiceOver)');
+    console.error('   7. Verify focus management and visible focus indicators');
+    console.error('   8. Test form error handling and messaging');
   }
 
-  console.log('\n🎯 Next Steps:');
-  console.log('   - Run automated accessibility tests: npm run test:a11y');
-  console.log('   - Use browser dev tools Lighthouse accessibility audit');
-  console.log('   - Test with actual assistive technologies');
-  console.log('   - Consider hiring accessibility consultant for comprehensive review');
+  console.error('\n🎯 Next Steps:');
+  console.error('   - Run automated accessibility tests: npm run test:a11y');
+  console.error('   - Use browser dev tools Lighthouse accessibility audit');
+  console.error('   - Test with actual assistive technologies');
+  console.error('   - Consider hiring accessibility consultant for comprehensive review');
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

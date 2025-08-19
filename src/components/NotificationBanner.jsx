@@ -9,7 +9,7 @@ const NotificationBanner = ({ message, onClose }) => {
       <button className="notification-close" onClick={onClose} aria-label="Close notification">
         ×
       </button>
-    </output>
+      </output>
   );
 };
 

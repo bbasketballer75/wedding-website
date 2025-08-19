@@ -15,8 +15,8 @@ const GuestConnectionsComponent = dynamic(
         minHeight: '50vh',
         fontFamily: 'Georgia, serif'
       }}>
-        <div className="loading-content" style={{ textAlign: 'center' }}>
-          <div 
+      <div className="loading-content" style={{ textAlign: 'center' }}>
+      <div 
             className="loading-spinner" 
             style={{
               width: '40px',
@@ -28,9 +28,9 @@ const GuestConnectionsComponent = dynamic(
               margin: '0 auto 1rem'
             }}
           ></div>
-          <p style={{ color: '#8b7a8a', margin: 0 }}>Loading Guest Connections...</p>
-        </div>
-        <style>{`
+      <p style={{ color: '#8b7a8a', margin: 0 }}>Loading Guest Connections...</p>
+      </div>
+      <style>{`
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -54,7 +54,8 @@ export default function GuestConnectionsPage() {
         Loading...
       </div>
     }>
-      <GuestConnectionsComponent />
-    </Suspense>
+      <GuestConnectionsComponent
+      />
+      </Suspense>
   );
 }

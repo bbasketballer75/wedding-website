@@ -1,9 +1,9 @@
+'use client';
+
 /**
  * 🧭 MODERN 2025 NAVIGATION
  * Glassmorphism + Smooth Animations
  */
-
-'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
@@ -55,7 +55,7 @@ const ModernNavigation = () => {
           transition: 'all 0.3s ease',
         }}
       >
-        <div
+      <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -66,7 +66,7 @@ const ModernNavigation = () => {
         >
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
+      <Link
               href="/"
               style={{
                 fontSize: '1.5rem',
@@ -80,11 +80,11 @@ const ModernNavigation = () => {
             >
               A & J
             </Link>
-          </motion.div>
+      </motion.div>
 
           {/* Desktop Navigation */}
           <div className="desktop-nav" style={{ display: 'none' }}>
-            <div
+      <div
               style={{
                 display: 'flex',
                 gap: '2rem',
@@ -98,7 +98,7 @@ const ModernNavigation = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
-                  <Link
+      <Link
                     href={item.href}
                     className={`nav-link ${pathname === item.href ? 'active' : ''}`}
                     style={{
@@ -116,8 +116,8 @@ const ModernNavigation = () => {
                         pathname === item.href ? 'rgba(143, 168, 118, 0.1)' : 'transparent',
                     }}
                   >
-                    <span style={{ fontSize: '1rem' }}>{item.icon}</span>
-                    <span>{item.label}</span>
+      <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+      <span>{item.label}</span>
                     {pathname === item.href && (
                       <motion.div
                         layoutId="activeIndicator"
@@ -131,13 +131,13 @@ const ModernNavigation = () => {
                           background: 'linear-gradient(90deg, var(--sage-500), var(--blush-500))',
                           borderRadius: '1px',
                         }}
-                      />
+      />
                     )}
                   </Link>
-                </motion.div>
+      </motion.div>
               ))}
             </div>
-          </div>
+      </div>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -158,7 +158,7 @@ const ModernNavigation = () => {
           >
             {isMobileMenuOpen ? '✕' : '☰'}
           </motion.button>
-        </div>
+      </div>
       </motion.nav>
 
       {/* Mobile Menu Overlay */}
@@ -184,7 +184,7 @@ const ModernNavigation = () => {
             }}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <motion.div
+      <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -201,7 +201,7 @@ const ModernNavigation = () => {
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div
+      <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -215,7 +215,7 @@ const ModernNavigation = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <Link
+      <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       style={{
@@ -237,17 +237,16 @@ const ModernNavigation = () => {
                         minHeight: '100px',
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }}>{item.icon}</span>
-                      <span>{item.label}</span>
-                    </Link>
-                  </motion.div>
+      <span style={{ fontSize: '2rem' }}>{item.icon}</span>
+      <span>{item.label}</span>
+      </Link>
+      </motion.div>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+      </motion.div>
+      </motion.div>
         )}
       </AnimatePresence>
-
       <style>{`
         @media (min-width: 768px) {
           .desktop-nav {
@@ -263,7 +262,7 @@ const ModernNavigation = () => {
           transform: translateY(-2px);
         }
       `}</style>
-    </>
+      </>
   );
 };
 

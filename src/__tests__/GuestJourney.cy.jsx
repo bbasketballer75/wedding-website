@@ -17,7 +17,8 @@ jest.mock('next/navigation', () => ({
 
 describe('Complete Guest Journey', () => {
   it('should allow a guest to view album, sign guestbook, and explore wedding party', async () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
 
     // Wait for landing page and enter site
     const enterButton = await screen.findByRole(

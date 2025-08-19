@@ -1,39 +1,205 @@
 {
-  "name": "Austin & Jordyn's Wedding Website",
-  "short_name": "The Poradas",
-  "description": "Austin & Jordyn's wedding celebration. Share memories, photos, and guest messages!",
+  "name": "Austin & Partner's Wedding",
+  "short_name": "Wedding",
+  "description": "Our magical wedding celebration - August 2025",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#f7f7f7",
   "theme_color": "#9caf88",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en-US",
-  "categories": ["lifestyle", "photo", "social"],
-  "screenshots": [
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "shortcuts": [
     {
-      "src": "/images/landing-bg.jpg",
-      "sizes": "1200x630",
-      "type": "image/jpeg",
-      "form_factor": "wide"
+      "name": "Photo Gallery",
+      "short_name": "Photos",
+      "description": "View wedding photos and memories",
+      "url": "/gallery",
+      "icons": [
+        {
+          "src": "/icons/shortcut-gallery.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Guestbook",
+      "short_name": "Guestbook",
+      "description": "Share your wishes and memories",
+      "url": "/guestbook",
+      "icons": [
+        {
+          "src": "/icons/shortcut-guestbook.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Story",
+      "short_name": "Our Story",
+      "description": "Read our love story",
+      "url": "/story",
+      "icons": [
+        {
+          "src": "/icons/shortcut-story.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "short_name": "Music",
+      "description": "Listen to our wedding playlist",
+      "url": "/music",
+      "icons": [
+        {
+          "src": "/icons/shortcut-music.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ],
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/monochrome-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/rings/PoradaProposal-255.webp",
-      "sizes": "192x192",
-      "type": "image/webp"
-    },
-    {
-      "src": "/images/rings/PoradaProposal-286.webp",
-      "sizes": "512x512",
-      "type": "image/webp"
+      "purpose": "monochrome"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home page on desktop"
+    },
+    {
+      "src": "/screenshots/mobile-gallery.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Photo gallery on mobile"
+    },
+    {
+      "src": "/screenshots/mobile-guestbook.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Guestbook on mobile"
+    }
+  ],
+  "categories": [
+    "lifestyle",
+    "photo",
+    "social"
+  ],
+  "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9",
+  "related_applications": [],
+  "protocol_handlers": [
+    {
+      "protocol": "web+wedding",
+      "url": "/share?url=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/api/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "photos",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/handle-photo",
+      "accept": {
+        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".heic"]
+      }
+    }
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "handle_links": "preferred",
+  "capture_links": "existing-client-navigate"
 }

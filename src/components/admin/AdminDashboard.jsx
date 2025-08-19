@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
 import { getAllAlbumMedia, moderateMedia } from '../../services/api';
-import PerformanceDashboard from '../performance/PerformanceDashboard';
+// import PerformanceDashboard from '../performance/PerformanceDashboard';
 import ModerationCard from './ModerationCard';
 
 const AdminDashboard = ({ adminKey }) => {
@@ -121,7 +121,6 @@ const AdminDashboard = ({ adminKey }) => {
           min-height: 200px;
         }
       `}</style>
-
       <div className="admin-tabs">
         <button
           className={`admin-tab ${activeTab === 'moderation' ? 'active' : ''}`}
@@ -136,7 +135,6 @@ const AdminDashboard = ({ adminKey }) => {
           📊 Performance Monitor
         </button>
       </div>
-
       <div className="tab-content">
         {activeTab === 'moderation' && (
           <>
@@ -162,7 +160,12 @@ const AdminDashboard = ({ adminKey }) => {
           </>
         )}
 
-        {activeTab === 'performance' && <PerformanceDashboard />}
+        {activeTab === 'performance' && (
+          <div className="performance-placeholder">
+            <h3>Performance Dashboard</h3>
+            <p>Performance monitoring temporarily disabled during build fixes.</p>
+          </div>
+        )}
       </div>
     </div>
   );

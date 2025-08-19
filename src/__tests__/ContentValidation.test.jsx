@@ -6,7 +6,8 @@ import GuestbookPage from '../page-components/interactive/GuestbookPage.jsx';
 
 describe('Guest Content Experience', () => {
   it('should sanitize and validate guestbook entries', async () => {
-    render(<GuestbookPage />);
+    render(<GuestbookPage
+      />);
     // Attempt to submit XSS content in placeholder text
     const messageField = await screen.findByPlaceholderText(
       /Pour your heart into words... share a magical memory, offer wisdom for our journey, or simply bless us with your love!/i

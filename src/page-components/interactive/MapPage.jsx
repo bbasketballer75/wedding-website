@@ -27,11 +27,12 @@ const MapPage = () => {
 
   return (
     <div className="map-page">
-      {isLoading && <LoadingScreen message="Mapping all the love that traveled to be with us..." />}
+      {isLoading && <LoadingScreen message="Mapping all the love that traveled to be with us..."
+      />}
       {!isLoading && (
         <>
-          <h2 className="section-title">Love Traveled Far & Wide</h2>
-          <p className="subheading">
+      <h2 className="section-title">Love Traveled Far & Wide</h2>
+      <p className="subheading">
             Our hearts are amazed by the distances our friends and family traveled to celebrate with
             us! See the beautiful map of love that shows where our wonderful guests came from to
             share in our special day.
@@ -42,15 +43,15 @@ const MapPage = () => {
             </div>
           ) : (
             <div className="simple-map-container">
-              <h3>Our Guest Love Map</h3>
-              <div>
-                <p>🌍 Celebrating love from around the world</p>
-                <p>📍 {pins.length} beautiful places our loved ones call home</p>
-                <div>
+      <h3>Our Guest Love Map</h3>
+      <div>
+      <p>🌍 Celebrating love from around the world</p>
+      <p>📍 {pins.length} beautiful places our loved ones call home</p>
+      <div>
                   {pins.length > 0 && (
                     <div>
-                      <h4>Locations:</h4>
-                      <ul>
+      <h4>Locations:</h4>
+      <ul>
                         {pins.slice(0, 5).map((pin, idx) => (
                           <li key={`${pin.lat}-${pin.lng}-${idx}`}>
                             📍 {pin.label || `Location ${idx + 1}`}
@@ -62,14 +63,14 @@ const MapPage = () => {
                           </li>
                         )}
                       </ul>
-                    </div>
+      </div>
                   )}
                 </div>
-                <p style={{ marginTop: '20px', fontSize: '14px', opacity: 0.8 }}>
+      <p style={{ marginTop: '20px', fontSize: '14px', opacity: 0.8 }}>
                   Interactive map functionality will be restored soon
                 </p>
-              </div>
-            </div>
+      </div>
+      </div>
           )}
         </>
       )}

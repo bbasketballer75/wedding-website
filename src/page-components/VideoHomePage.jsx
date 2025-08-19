@@ -15,7 +15,8 @@ import ModernNavigation from '../components/ui/ModernNavigation';
 
 const VideoHomePage = () => {
   const { playClick, playHover } = useInteractionSounds();
-  const [isVideoReady, setIsVideoReady] = useState(false);
+
+  // State for extended content
   const [showExtendedContent, setShowExtendedContent] = useState(false);
 
   // Wedding video chapters (loaded from VTT file data)
@@ -111,7 +112,6 @@ const VideoHomePage = () => {
   ];
 
   const handleVideoReady = useCallback(() => {
-    setIsVideoReady(true);
     setTimeout(() => {
       setShowExtendedContent(true);
     }, 2000);
@@ -132,7 +132,8 @@ const VideoHomePage = () => {
     <AudioProvider>
       <div className="video-homepage">
         {/* Modern Navigation */}
-        <ModernNavigation />
+        <ModernNavigation
+      />
 
         {/* Video Hero Section */}
         <VideoHero
@@ -142,7 +143,7 @@ const VideoHomePage = () => {
           showWelcomeOverlay={true}
           autoplay={true}
           onVideoReady={handleVideoReady}
-        />
+      />
 
         {/* Extended Content - appears after video interaction */}
         <AnimatePresence>
@@ -155,22 +156,21 @@ const VideoHomePage = () => {
             >
               {/* Chapter Overview Section */}
               <section id="chapters" className="chapters-section">
-                <div className="container">
-                  <motion.div
+      <div className="container">
+      <motion.div
                     className="section-header"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                   >
-                    <h2 className="section-title">Our Wedding Story</h2>
-                    <p className="section-subtitle">
+      <h2 className="section-title">Our Wedding Story</h2>
+      <p className="section-subtitle">
                       Discover the moments that made our day special, from getting ready to the last
                       dance
                     </p>
-                  </motion.div>
-
-                  <div className="chapters-grid">
+      </motion.div>
+      <div className="chapters-grid">
                     {weddingChapters.map((chapter, index) => (
                       <motion.div
                         key={chapter.id}
@@ -182,37 +182,36 @@ const VideoHomePage = () => {
                         whileHover={{ y: -5, scale: 1.02 }}
                         onMouseEnter={playHover}
                       >
-                        <div className="chapter-emoji">{chapter.emoji}</div>
-                        <h3 className="chapter-title">{chapter.title}</h3>
-                        <p className="chapter-description">{chapter.description}</p>
-                        <div className="chapter-duration">
+      <div className="chapter-emoji">{chapter.emoji}</div>
+      <h3 className="chapter-title">{chapter.title}</h3>
+      <p className="chapter-description">{chapter.description}</p>
+      <div className="chapter-duration">
                           {Math.floor((chapter.endTime - chapter.startTime) / 60)}m{' '}
                           {Math.floor((chapter.endTime - chapter.startTime) % 60)}s
                         </div>
-                      </motion.div>
+      </motion.div>
                     ))}
                   </div>
-                </div>
-              </section>
+      </div>
+      </section>
 
               {/* Video Features Section */}
               <section id="features" className="features-section">
-                <div className="container">
-                  <motion.div
+      <div className="container">
+      <motion.div
                     className="section-header"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                   >
-                    <h2 className="section-title">Film Features</h2>
-                    <p className="section-subtitle">
+      <h2 className="section-title">Film Features</h2>
+      <p className="section-subtitle">
                       An interactive viewing experience designed for sharing memories
                     </p>
-                  </motion.div>
-
-                  <div className="features-grid">
-                    <motion.div
+      </motion.div>
+      <div className="features-grid">
+      <motion.div
                       className="feature-card"
                       initial={{ opacity: 0, x: -30 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -221,14 +220,13 @@ const VideoHomePage = () => {
                       whileHover={{ scale: 1.03 }}
                       onMouseEnter={playHover}
                     >
-                      <div className="feature-icon">🎬</div>
-                      <h3 className="feature-title">Chapter Navigation</h3>
-                      <p className="feature-description">
+      <div className="feature-icon">🎬</div>
+      <h3 className="feature-title">Chapter Navigation</h3>
+      <p className="feature-description">
                         Jump to any moment in our wedding story with easy chapter navigation
                       </p>
-                    </motion.div>
-
-                    <motion.div
+      </motion.div>
+      <motion.div
                       className="feature-card"
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -237,14 +235,13 @@ const VideoHomePage = () => {
                       whileHover={{ scale: 1.03 }}
                       onMouseEnter={playHover}
                     >
-                      <div className="feature-icon">📱</div>
-                      <h3 className="feature-title">Mobile Optimized</h3>
-                      <p className="feature-description">
+      <div className="feature-icon">📱</div>
+      <h3 className="feature-title">Mobile Optimized</h3>
+      <p className="feature-description">
                         Watch seamlessly on any device with responsive video controls
                       </p>
-                    </motion.div>
-
-                    <motion.div
+      </motion.div>
+      <motion.div
                       className="feature-card"
                       initial={{ opacity: 0, x: 30 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -253,71 +250,67 @@ const VideoHomePage = () => {
                       whileHover={{ scale: 1.03 }}
                       onMouseEnter={playHover}
                     >
-                      <div className="feature-icon">🔗</div>
-                      <h3 className="feature-title">Share Moments</h3>
-                      <p className="feature-description">
+      <div className="feature-icon">🔗</div>
+      <h3 className="feature-title">Share Moments</h3>
+      <p className="feature-description">
                         Share specific moments with timestamps to relive favorite scenes
                       </p>
-                    </motion.div>
-                  </div>
-                </div>
-              </section>
+      </motion.div>
+      </div>
+      </div>
+      </section>
 
               {/* Call to Action Section */}
               <section id="explore" className="cta-section">
-                <div className="container">
-                  <motion.div
+      <div className="container">
+      <motion.div
                     className="cta-content"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                   >
-                    <h2 className="cta-title">Explore More Wedding Memories</h2>
-                    <p className="cta-subtitle">
+      <h2 className="cta-title">Explore More Wedding Memories</h2>
+      <p className="cta-subtitle">
                       Our wedding film is just the beginning. Discover photo galleries, guest
                       messages, and interactive features that keep our celebration alive.
                     </p>
-
-                    <div className="cta-buttons">
-                      <motion.button
+      <div className="cta-buttons">
+      <motion.button
                         className="cta-button primary"
                         onClick={() => scrollToSection('chapters')}
                         onMouseEnter={playHover}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>📸</span> Photo Gallery
+      <span>📸</span> Photo Gallery
                       </motion.button>
-
-                      <motion.button
+      <motion.button
                         className="cta-button secondary"
                         onClick={() => scrollToSection('chapters')}
                         onMouseEnter={playHover}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>💌</span> Guest Messages
+      <span>💌</span> Guest Messages
                       </motion.button>
-
-                      <motion.button
+      <motion.button
                         className="cta-button secondary"
                         onClick={() => scrollToSection('chapters')}
                         onMouseEnter={playHover}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>🗺️</span> Interactive Map
+      <span>🗺️</span> Interactive Map
                       </motion.button>
-                    </div>
-                  </motion.div>
-                </div>
-              </section>
-            </motion.div>
+      </div>
+      </motion.div>
+      </div>
+      </section>
+      </motion.div>
           )}
         </AnimatePresence>
-
-        <style>{`
+      <style>{`
           .video-homepage {
             min-height: 100vh;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -589,7 +582,7 @@ const VideoHomePage = () => {
           }
         `}</style>
       </div>
-    </AudioProvider>
+      </AudioProvider>
   );
 };
 

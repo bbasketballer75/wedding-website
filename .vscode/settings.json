@@ -4,6 +4,8 @@
   // 🤖 AI ASSISTANT SETTINGS
   "chat.tools.autoApprove": true,
   "chat.agent.maxRequests": 100,
+  "github.copilot.chat.alternateGptPrompt.enabled": true,
+  "github.copilot.chat.serializeSessionContext": true,
 
   "github.copilot.enable": {
     "*": true,

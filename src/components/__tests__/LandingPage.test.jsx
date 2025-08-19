@@ -6,7 +6,8 @@ import LandingPage from '../LandingPage.jsx';
 describe('LandingPage', () => {
   test('renders landing page with correct content', () => {
     const mockOnEnter = vi.fn();
-    render(<LandingPage onEnter={mockOnEnter} />);
+    render(<LandingPage onEnter={mockOnEnter}
+      />);
 
     expect(screen.getByText('Austin & Jordyn')).toBeInTheDocument();
     expect(screen.getByText('Our Wedding Celebration')).toBeInTheDocument();
@@ -18,7 +19,8 @@ describe('LandingPage', () => {
 
   test('calls onEnter when enter button is clicked', () => {
     const mockOnEnter = vi.fn();
-    render(<LandingPage onEnter={mockOnEnter} />);
+    render(<LandingPage onEnter={mockOnEnter}
+      />);
 
     const enterButton = screen.getByRole('button', {
       name: /enter wedding site with music and video/i,
@@ -30,7 +32,8 @@ describe('LandingPage', () => {
 
   test('displays wedding hero image', () => {
     const mockOnEnter = vi.fn();
-    render(<LandingPage onEnter={mockOnEnter} />);
+    render(<LandingPage onEnter={mockOnEnter}
+      />);
 
     const heroImage = screen.getByAltText('Austin & Jordyn Wedding');
     expect(heroImage).toBeInTheDocument();
@@ -39,7 +42,8 @@ describe('LandingPage', () => {
 
   test('has correct button text and subtitle', () => {
     const mockOnEnter = vi.fn();
-    render(<LandingPage onEnter={mockOnEnter} />);
+    render(<LandingPage onEnter={mockOnEnter}
+      />);
 
     expect(screen.getByText('Enter Our Celebration')).toBeInTheDocument();
     expect(screen.getByText('Click to enable music & video')).toBeInTheDocument();

@@ -24,6 +24,7 @@ const StateOfTheArtVideoHomePage = () => {
   const heroRef = useRef(null);
   const featuresRef = useRef(null);
   const ctaRef = useRef(null);
+  // Removed unused local state to reduce warnings
 
   // Wedding video chapters with enhanced data
   const weddingChapters = [
@@ -179,13 +180,7 @@ const StateOfTheArtVideoHomePage = () => {
     };
   }, []);
 
-  const handleVideoReady = () => {
-    setIsVideoReady(true);
-  };
-
   const handleExploreMore = () => {
-    setShowExtendedContent(true);
-
     // Smooth scroll to features
     if (featuresRef.current) {
       featuresRef.current.scrollIntoView({
@@ -221,7 +216,6 @@ const StateOfTheArtVideoHomePage = () => {
                 </div>
               </div>
             </div>
-
             <div className="video-container">
               <EnhancedVideoPlayer
                 src="/video/wedding-full.mp4"
@@ -230,7 +224,6 @@ const StateOfTheArtVideoHomePage = () => {
                 chapters={weddingChapters}
                 autoplay={false}
                 showChapters={true}
-                onReady={handleVideoReady}
               />
             </div>
           </div>
@@ -245,7 +238,6 @@ const StateOfTheArtVideoHomePage = () => {
             Discover the magic through different perspectives and moments
           </p>
         </div>
-
         <div className="features-grid">
           <StateOfTheArtCard variant="wedding" size="large" className="feature-card">
             <div className="feature-content">
@@ -264,7 +256,6 @@ const StateOfTheArtVideoHomePage = () => {
               </StateOfTheArtButton>
             </div>
           </StateOfTheArtCard>
-
           <StateOfTheArtCard variant="glass" size="large" className="feature-card">
             <div className="feature-content">
               <div className="feature-icon">📸</div>
@@ -282,7 +273,6 @@ const StateOfTheArtVideoHomePage = () => {
               </StateOfTheArtButton>
             </div>
           </StateOfTheArtCard>
-
           <StateOfTheArtCard variant="elevated" size="large" className="feature-card">
             <div className="feature-content">
               <div className="feature-icon">💌</div>
@@ -326,7 +316,6 @@ const StateOfTheArtVideoHomePage = () => {
           </div>
         </StateOfTheArtCard>
       </section>
-
       <style>{`
         .state-of-the-art-video-homepage {
           min-height: 100vh;

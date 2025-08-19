@@ -145,13 +145,13 @@ const RealTimeActivityFeed = ({ className = '' }) => {
     <div className={`real-time-activity-feed ${className}`} ref={feedRef}>
       {/* Header with Online Counter */}
       <div className="activity-header">
-        <div className="online-indicator">
-          <div className="pulse-dot"></div>
-          <span className="online-text">
-            <span className="online-count heart-pulse">{onlineCount}</span> guests online
+      <div className="online-indicator">
+      <div className="pulse-dot"></div>
+      <span className="online-text">
+      <span className="online-count heart-pulse">{onlineCount}</span> guests online
           </span>
-        </div>
-        <button
+      </div>
+      <button
           className="toggle-feed btn-magical"
           onClick={() => setIsVisible(!isVisible)}
           aria-label={isVisible ? 'Hide activity feed' : 'Show activity feed'}
@@ -163,7 +163,7 @@ const RealTimeActivityFeed = ({ className = '' }) => {
       {/* Activity Feed */}
       {isVisible && (
         <div className="activity-list fade-in-up">
-          <div className="activity-title text-shimmer">✨ Latest Guest Activity</div>
+      <div className="activity-title text-shimmer">✨ Latest Guest Activity</div>
 
           {activities.map((activity, index) => (
             <div
@@ -174,39 +174,39 @@ const RealTimeActivityFeed = ({ className = '' }) => {
                 '--activity-color': getActivityColor(activity.type),
               }}
             >
-              <div className="activity-icon sparkle">{activity.icon}</div>
-              <div className="activity-content">
-                <div className="activity-text">
-                  <span className="activity-user">{activity.user}</span>{' '}
+      <div className="activity-icon sparkle">{activity.icon}</div>
+      <div className="activity-content">
+      <div className="activity-text">
+      <span className="activity-user">{activity.user}</span>{' '}
                   <span className="activity-action">{activity.action}</span>
-                </div>
-                <div className="activity-time">{formatTimeAgo(activity.timestamp)}</div>
-              </div>
-              <div className="activity-celebration">
+      </div>
+      <div className="activity-time">{formatTimeAgo(activity.timestamp)}</div>
+      </div>
+      <div className="activity-celebration">
                 {activity.type === 'photo_upload' && <span className="celebration-icon">🎉</span>}
                 {activity.type === 'guestbook' && <span className="celebration-icon">✨</span>}
               </div>
-            </div>
+      </div>
           ))}
 
           {/* Encouragement Message */}
           <div className="encouragement-message fade-in-up">
-            <div className="encouragement-text">
+      <div className="encouragement-text">
               🌟 Be part of the magic! Upload your photos and sign our guestbook! 🌟
             </div>
-            <div className="action-buttons">
-              <button className="btn-magical gradient-magic ripple">📸 Upload Photos</button>
-              <button className="btn-magical gradient-magic ripple">✍️ Sign Guestbook</button>
-            </div>
-          </div>
-        </div>
+      <div className="action-buttons">
+      <button className="btn-magical gradient-magic ripple">📸 Upload Photos</button>
+      <button className="btn-magical gradient-magic ripple">✍️ Sign Guestbook</button>
+      </div>
+      </div>
+      </div>
       )}
 
       {/* Floating Activity Notifications */}
       <div className="floating-notifications">
         {/* These will be populated by JavaScript for new activities */}
       </div>
-    </div>
+      </div>
   );
 };
 

@@ -140,22 +140,22 @@ export const socialShare = {
     return `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(emailBody)}`;
   },
 
-  copyLink: async (url: string) => {
+  copyLink: async (_url: string) => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(_url);
       return true;
     } catch {
       // Fallback for older browsers - fallback to false for compatibility
       try {
         const textArea = document.createElement('textarea');
-        textArea.value = url;
+        textArea.value = _url;
         textArea.style.position = 'fixed';
         textArea.style.opacity = '0';
         document.body.appendChild(textArea);
         textArea.select();
         textArea.setSelectionRange(0, 99999); // For mobile devices
         // Use modern selection API instead of deprecated execCommand
-        const success = document.getSelection()?.toString() === url;
+        const success = document.getSelection()?.toString() === _url;
         document.body.removeChild(textArea);
         return success;
       } catch {

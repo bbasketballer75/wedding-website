@@ -688,12 +688,10 @@ export default function FamilyLegacyPage() {
           }
         }
       `}</style>
-
       <div className="legacy-header">
         <h1>🏗️ Family Legacy Builder</h1>
         <p>Preserving our heritage for future generations</p>
       </div>
-
       <div className="legacy-controls">
         <div className="view-mode-tabs">
           <button
@@ -715,7 +713,6 @@ export default function FamilyLegacyPage() {
             ⏰ Timeline
           </button>
         </div>
-
         <div className="filters">
           <select
             className="filter-select"
@@ -729,7 +726,6 @@ export default function FamilyLegacyPage() {
               </option>
             ))}
           </select>
-
           <select
             className="filter-select"
             value={selectedGeneration}
@@ -743,12 +739,10 @@ export default function FamilyLegacyPage() {
             ))}
           </select>
         </div>
-
         <button className="create-btn" onClick={() => setShowCreateForm(!showCreateForm)}>
           ✍️ Add Legacy Entry
         </button>
       </div>
-
       <div className="stats-overview">
         <div className="stat-card">
           <div className="stat-number">{stats.totalEntries}</div>
@@ -786,7 +780,6 @@ export default function FamilyLegacyPage() {
                   <span className="entry-category">{entry.category.replace('_', ' ')}</span>
                 </div>
               </div>
-
               <div className="entry-content">{entry.content}</div>
 
               {entry.tags.length > 0 && (
@@ -814,7 +807,6 @@ export default function FamilyLegacyPage() {
             <h3>🌳 Family Heritage Tree</h3>
             <p>Organized by generations and relationships</p>
           </div>
-
           <div className="generations-view">
             {Object.entries(legacyData?.familyTree.generations || {}).map(
               ([generation, generationEntries]) => (
@@ -929,7 +921,6 @@ function LegacyCreationForm({
         <h3>Add to Family Legacy</h3>
         <p>Share a piece of our family heritage</p>
       </div>
-
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="legacy-title" className="form-label">
@@ -945,7 +936,6 @@ function LegacyCreationForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="legacy-content" className="form-label">
             Content *
@@ -958,7 +948,6 @@ function LegacyCreationForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="category-1">
             Category
@@ -977,7 +966,6 @@ function LegacyCreationForm({
             <option value="achievements">Achievements</option>
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="generation-2">
             Generation
@@ -995,7 +983,6 @@ function LegacyCreationForm({
             <option value="ancestors">Ancestors</option>
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="your-name-3">
             Your Name *
@@ -1010,7 +997,6 @@ function LegacyCreationForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="email-4">
             Email *
@@ -1025,7 +1011,6 @@ function LegacyCreationForm({
             required
           />
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="your-relationship-5">
             Your Relationship
@@ -1046,7 +1031,6 @@ function LegacyCreationForm({
             <option value="other">Other</option>
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label" htmlFor="tags-comma-separated-6">
             Tags (comma-separated)
@@ -1060,7 +1044,6 @@ function LegacyCreationForm({
             placeholder="family, heritage, tradition, love..."
           />
         </div>
-
         <div className="form-group">
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <input
@@ -1071,7 +1054,6 @@ function LegacyCreationForm({
             Keep this entry private (family only)
           </label>
         </div>
-
         <div className="form-actions">
           <button type="submit" className="form-btn primary">
             Add to Legacy

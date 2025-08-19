@@ -1,10 +1,10 @@
+'use client';
+
 /**
  * 🖼️ Wedding Photo Gallery (Phase 2C)
  * 
  * Enhanced with performance optimization and social features
  */
-
-'use client';
 
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -91,14 +91,14 @@ const PhotoItem: React.FC<{
             opacity: isLoaded ? 1 : 0
           }}
           priority={photo.priority || index < 3}
-        />
+      />
       )}
 
       {error && (
         <div className="photo-error">
-          <span>📷</span>
-          <p>Photo unavailable</p>
-        </div>
+      <span>📷</span>
+      <p>Photo unavailable</p>
+      </div>
       )}
 
       {/* Photo overlay with info */}
@@ -108,17 +108,16 @@ const PhotoItem: React.FC<{
         whileHover={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
       >
-        <div className="photo-info">
+      <div className="photo-info">
           {photo.title && <h3>{photo.title}</h3>}
           {photo.location && <p>📍 {photo.location}</p>}
         </div>
 
         {/* Placeholder for reactions */}
         <div className="photo-reactions">
-          <button className="reaction-button">❤️</button>
-        </div>
+      <button className="reaction-button">❤️</button>
+      </div>
       </motion.div>
-
       <style jsx>{`
         .photo-item {
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -191,7 +190,7 @@ const PhotoItem: React.FC<{
           backdrop-filter: blur(10px);
         }
       `}</style>
-    </motion.div>
+      </motion.div>
   );
 };
 
@@ -222,13 +221,13 @@ export const SimplePhotoGallery: React.FC<PhotoGalleryProps> = ({
     <div className={`photo-gallery ${className}`}>
       {/* Gallery header */}
       <div className="gallery-header">
-        <h2>Wedding Photo Gallery</h2>
-        <p>{filteredPhotos.length} photos</p>
+      <h2>Wedding Photo Gallery</h2>
+      <p>{filteredPhotos.length} photos</p>
       </div>
 
       {/* Category filters */}
       <div className="gallery-controls">
-        <div className="category-filters">
+      <div className="category-filters">
           {categories.map(category => (
             <button
               key={category}
@@ -243,14 +242,14 @@ export const SimplePhotoGallery: React.FC<PhotoGalleryProps> = ({
 
       {/* Photo grid */}
       <div className="photo-grid">
-        <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="popLayout">
           {filteredPhotos.map((photo, index) => (
             <PhotoItem
               key={photo.id}
               photo={photo}
               index={index}
               onPhotoClick={handlePhotoClick}
-            />
+      />
           ))}
         </AnimatePresence>
       </div>
@@ -265,17 +264,16 @@ export const SimplePhotoGallery: React.FC<PhotoGalleryProps> = ({
             exit={{ opacity: 0 }}
             onClick={closeModal}
           >
-            <motion.div
+      <motion.div
               className="modal-content"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="close-button" onClick={closeModal}>×</button>
-              
-              <div className="modal-image-container">
-                <Image
+      <button className="close-button" onClick={closeModal}>×</button>
+      <div className="modal-image-container">
+      <Image
                   src={selectedPhoto.src}
                   alt={selectedPhoto.alt}
                   fill
@@ -283,33 +281,31 @@ export const SimplePhotoGallery: React.FC<PhotoGalleryProps> = ({
                   quality={95}
                   className="modal-image"
                   style={{ objectFit: 'contain' }}
-                />
-              </div>
-
-              <div className="modal-sidebar">
-                <div className="photo-details">
-                  <h3>{selectedPhoto.title || 'Wedding Photo'}</h3>
+      />
+      </div>
+      <div className="modal-sidebar">
+      <div className="photo-details">
+      <h3>{selectedPhoto.title || 'Wedding Photo'}</h3>
                   {selectedPhoto.location && <p>📍 {selectedPhoto.location}</p>}
                   {selectedPhoto.photographer && <p>📸 {selectedPhoto.photographer}</p>}
                   <p>🗓️ {selectedPhoto.timestamp.toLocaleDateString()}</p>
                   
                   {selectedPhoto.people && selectedPhoto.people.length > 0 && (
                     <div className="photo-people">
-                      <p><strong>People:</strong></p>
-                      <div className="people-tags">
+      <p><strong>People:</strong></p>
+      <div className="people-tags">
                         {selectedPhoto.people.map(person => (
                           <span key={person} className="person-tag">{person}</span>
                         ))}
                       </div>
-                    </div>
+      </div>
                   )}
                 </div>
-              </div>
-            </motion.div>
-          </motion.div>
+      </div>
+      </motion.div>
+      </motion.div>
         )}
       </AnimatePresence>
-
       <style jsx>{`
         .photo-gallery {
           max-width: 1400px;
@@ -472,7 +468,7 @@ export const SimplePhotoGallery: React.FC<PhotoGalleryProps> = ({
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

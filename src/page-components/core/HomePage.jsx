@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 const HomePage = () => {
@@ -10,7 +11,6 @@ const HomePage = () => {
           <p className="lead">Celebrating Love, Laughter & Happily Ever After</p>
         </div>
       </header>
-
       <main>
         <section className="video-section text-center">
           <h2 className="section-title">Our Wedding Day Highlights</h2>
@@ -34,7 +34,6 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-
         <section className="our-story-section">
           <div className="container">
             <div className="row align-items-center">
@@ -60,20 +59,19 @@ const HomePage = () => {
                 </p>
               </div>
               <div className="col-lg-6 text-center">
-                <picture>
-                  <source srcSet="/images/engagement/PoradaProposal-11.webp" type="image/webp" />
-                  <img
-                    src="/images/engagement/PoradaProposal-11.webp"
-                    alt="Austin and Jordyn during their romantic engagement session"
-                    className="img-fluid rounded-circle shadow-lg"
-                    loading="eager"
-                  />
-                </picture>
+                <Image
+                  src="/images/engagement/PoradaProposal-11.webp"
+                  alt="Austin and Jordyn during their romantic engagement session"
+                  width={1200}
+                  height={800}
+                  className=" w-full h-auto object-cover"
+                  loading="lazy"
+                  unoptimized
+                />
               </div>
             </div>
           </div>
         </section>
-
         <section className="explore-section text-center">
           <div className="container">
             <h2 className="section-title">Explore Our Wedding Journey</h2>

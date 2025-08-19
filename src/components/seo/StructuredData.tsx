@@ -1,5 +1,7 @@
 'use client';
 
+
+
 import { usePathname } from 'next/navigation';
 import { SEOManager } from '../../utils/seo/SEOManager';
 
@@ -20,7 +22,7 @@ export default function StructuredData({
   customData = {},
   includeBreadcrumbs = true,
   includeOrganization = true,
-}: StructuredDataProps) {
+}: Readonly<StructuredDataProps>) {
   const pathname = usePathname();
 
   // Generate page-specific structured data
@@ -168,15 +170,17 @@ export default function StructuredData({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: pageStructuredData }}
-        />
+      />
       )}
 
       {breadcrumbData && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbData }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbData }}
+      />
       )}
 
       {organizationData && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationData }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationData }}
+      />
       )}
     </>
   );

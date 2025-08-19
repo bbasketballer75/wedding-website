@@ -1,6 +1,6 @@
-import React from 'react';
+import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import PropTypes from 'prop-types';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import React from 'react';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class ErrorBoundary extends React.Component {
     };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 
@@ -71,7 +71,6 @@ class ErrorBoundary extends React.Component {
                 is safe!
               </p>
             </div>
-
             <div className="space-y-4">
               {this.state.retryCount < 3 ? (
                 <button

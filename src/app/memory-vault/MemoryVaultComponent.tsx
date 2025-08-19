@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './MemoryVault.module.css';
 interface MediaFile {
@@ -229,31 +230,7 @@ export default function MemoryVaultPage() {
     }
   };
 
-  const _handleCreateAlbum = async (albumData: {
-    name: string;
-    description: string;
-    isPublic: boolean;
-  }) => {
-    try {
-      const response = await fetch('/api/memory-vault/albums', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(albumData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create album');
-      }
-
-      await loadVaultData();
-      alert('Album created successfully!');
-    } catch (err) {
-      alert('Failed to create album. Please try again.');
-      console.error('Album creation error:', err);
-    }
-  };
+  //
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -422,9 +399,13 @@ export default function MemoryVaultPage() {
               >
                 <div className="media-preview">
                   {media.type === 'photo' && media.url && (
-                    <img
+                    <Image
                       src={media.thumbnailUrl || media.url}
                       alt={media.caption || media.originalName}
+                      width={300}
+                      height={200}
+                      className="w-full h-auto object-cover"
+                      unoptimized
                     />
                   )}
                   {media.type === 'video' && '🎥'}
@@ -488,15 +469,18 @@ export default function MemoryVaultPage() {
             >
               <div className="album-cover">
                 {album.coverImageUrl ? (
-                  <img
+                  <Image
                     src={album.coverImageUrl}
                     alt={album.name}
+                    width={400}
+                    height={300}
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
                       borderRadius: '8px',
                     }}
+                    unoptimized
                   />
                 ) : (
                   '📁'
@@ -549,9 +533,13 @@ export default function MemoryVaultPage() {
               >
                 <div className="media-preview">
                   {media.type === 'photo' && media.url && (
-                    <img
+                    <Image
                       src={media.thumbnailUrl || media.url}
                       alt={media.caption || media.originalName}
+                      width={300}
+                      height={200}
+                      className="w-full h-auto object-cover"
+                      unoptimized
                     />
                   )}
                   {media.type === 'video' && '🎥'}
@@ -738,7 +726,7 @@ function MediaModal({
   readonly onClose: () => void;
 }) {
   return (
-    <div className="media-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <dialog className="media-modal" aria-labelledby="modal-title" open>
       <button
         className="modal-backdrop"
         onClick={onClose}
@@ -749,22 +737,25 @@ function MediaModal({
         }}
         aria-label="Close modal by clicking backdrop"
       />
-      <div className="modal-content" role="document">
+      <div className="modal-content">
         <div className="modal-header">
           <div id="modal-title" className="modal-title">
             {media.originalName}
           </div>
-          <button className="close-btn" onClick={onClose} aria-label="Close modal">
+          <button className="close-btn" type="button" onClick={onClose} aria-label="Close modal">
             ×
           </button>
         </div>
 
         <div className="modal-body">
           {media.type === 'photo' && (
-            <img
+            <Image
               src={media.url}
               alt={media.caption || media.originalName}
-              style={{ width: '100%', borderRadius: '8px', marginBottom: '1rem' }}
+              width={1200}
+              height={800}
+              style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '1rem' }}
+              unoptimized
             />
           )}
 
@@ -846,6 +837,6 @@ function MediaModal({
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

@@ -34,7 +34,8 @@ describe('Mobile Guest Experience', () => {
 
   it('should display mobile-optimized navigation after entering site', async () => {
     await act(async () => {
-      render(<Navbar />);
+      render(<Navbar
+      />);
     });
 
     // Wait for navbar to load with Austin & Jordyn text
@@ -52,7 +53,8 @@ describe('Mobile Guest Experience', () => {
 
   it('should show readable text on small screens', async () => {
     await act(async () => {
-      render(<HomePage />);
+      render(<HomePage
+      />);
     });
 
     // Wait for HomePage to load with Austin & Jordyn text

@@ -6,7 +6,8 @@ describe('AdminPage', () => {
   it('renders password prompt if no adminKey', async () => {
     sessionStorage.removeItem('adminKey');
     await act(async () => {
-      render(<AdminPage />);
+      render(<AdminPage
+      />);
     });
     expect(screen.getByPlaceholderText('Enter admin key')).toBeInTheDocument();
   });
@@ -14,7 +15,8 @@ describe('AdminPage', () => {
   it('renders dashboard if adminKey is present', async () => {
     sessionStorage.setItem('adminKey', 'test-key');
     await act(async () => {
-      render(<AdminPage />);
+      render(<AdminPage
+      />);
     });
     expect(screen.getByText(/Admin Dashboard/i)).toBeInTheDocument();
   });

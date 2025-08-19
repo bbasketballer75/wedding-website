@@ -65,11 +65,13 @@ function findAllFiles(dir, extensions = ['.js', '.jsx', '.ts', '.tsx']) {
             files.push(fullPath);
           }
         } catch (err) {
-          // Skip files we can't access
+          // Skip files we can't access (permissions, broken symlinks, etc.)
+          console.warn(`Warning: Skipping file ${fullPath}: ${err.message}`);
         }
       }
     } catch (err) {
-      // Skip directories we can't access
+      // Skip directories we can't access (permissions, broken symlinks, etc.)
+      console.warn(`Warning: Skipping directory ${dirPath}: ${err.message}`);
     }
   }
 

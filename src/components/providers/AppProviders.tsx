@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * 🎯 Centralized App Providers
  *
@@ -8,59 +10,53 @@
  * - Progressive loading strategies
  */
 
-'use client';
-
+import { motion } from 'framer-motion';
 import React, { Suspense, lazy } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { motion } from 'framer-motion';
 
 // Lazy load providers for optimal performance
-const AdvancedPerformanceManager = lazy(() =>
-  import('../performance/AdvancedPerformanceManager')
-);
+const AdvancedPerformanceManager = lazy(() => import('../performance/AdvancedPerformanceManager'));
 
 const CollaborationProvider = lazy(() =>
-  import('../social/RealTimeCollaboration').then(module => ({
-    default: module.CollaborationProvider
+  import('../social/RealTimeCollaboration').then((module) => ({
+    default: module.CollaborationProvider,
   }))
 );
 
 // Error fallback component
 const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> = ({
   error,
-  resetErrorBoundary
+  resetErrorBoundary,
 }) => (
   <div className="error-fallback">
-    <motion.div
+      <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="error-content"
     >
       <h2>Oops! Something went wrong</h2>
       <p>We apologize for the inconvenience. Please try refreshing the page.</p>
-      <button
-        onClick={resetErrorBoundary}
-        className="retry-button"
-      >
+      <button onClick={resetErrorBoundary} className="retry-button">
         Try Again
       </button>
       {process.env.NODE_ENV === 'development' && (
         <details className="error-details">
-          <summary>Error Details (Development)</summary>
-          <pre>{error.message}</pre>
-        </details>
+      <summary>Error Details (Development)</summary>
+      <pre>{error.message}</pre>
+      </details>
       )}
     </motion.div>
-
-    <style jsx>{`
-      .error-fallback {
-        min-height: 400px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        background: linear-gradient(135deg, #ff6b6b, #feca57);
-      }
+      <style
+      dangerouslySetInnerHTML={{
+        __html: `
+        .error-fallback {
+          min-height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          background: linear-gradient(135deg, #ff6b6b, #feca57);
+        }
 
       .error-content {
         background: rgba(255, 255, 255, 0.95);
@@ -101,42 +97,47 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
         font-size: 12px;
         overflow-x: auto;
       }
-    `}</style>
-  </div>
+      `,
+      }}
+      />
+      </div>
 );
 
 // Loading component for provider suspense
 const ProviderLoadingFallback: React.FC = () => (
   <div className="provider-loading">
-    <motion.div
+      <motion.div
       animate={{ rotate: 360 }}
-      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       className="loading-spinner"
     >
       ✨
     </motion.div>
-    <p>Initializing magical features...</p>
+      <p>Initializing magical features...</p>
+      <style
+      dangerouslySetInnerHTML={{
+        __html: `
+        .provider-loading {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 200px;
+          gap: 16px;
+        }
 
-    <style jsx>{`
-      .provider-loading {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 200px;
-        gap: 16px;
-      }
+        .loading-spinner {
+          font-size: 24px;
+        }
 
-      .loading-spinner {
-        font-size: 24px;
-      }
-
-      p {
-        color: #666;
-        font-style: italic;
-      }
-    `}</style>
-  </div>
+        p {
+          color: #666;
+          font-style: italic;
+        }
+      `,
+      }}
+      />
+      </div>
 );
 
 interface AppProvidersProps {
@@ -155,7 +156,7 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
         if (typeof window !== 'undefined' && window.gtag) {
           window.gtag('event', 'exception', {
             description: error.message,
-            fatal: false
+            fatal: false,
           });
         }
       }}
@@ -166,16 +167,16 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
         }
       }}
     >
-      <Suspense fallback={<ProviderLoadingFallback />}>
-        <AdvancedPerformanceManager>
-          <Suspense fallback={<ProviderLoadingFallback />}>
-            <CollaborationProvider>
-              {children}
-            </CollaborationProvider>
-          </Suspense>
-        </AdvancedPerformanceManager>
+      <Suspense fallback={<ProviderLoadingFallback
+      />}>
+      <AdvancedPerformanceManager>
+      <Suspense fallback={<ProviderLoadingFallback
+      />}>
+      <CollaborationProvider>{children}</CollaborationProvider>
       </Suspense>
-    </ErrorBoundary>
+      </AdvancedPerformanceManager>
+      </Suspense>
+      </ErrorBoundary>
   );
 };
 

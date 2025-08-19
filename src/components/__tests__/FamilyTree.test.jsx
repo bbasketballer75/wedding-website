@@ -3,7 +3,8 @@ import FamilyTree from '../features/FamilyTree.jsx';
 
 describe('FamilyTree', () => {
   it('renders all family members', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
     expect(screen.getByText(/The Porada & Smith Elders/i)).toBeInTheDocument();
     expect(screen.getByText(/John & Jane Porada/i)).toBeInTheDocument();
     expect(screen.getByText(/Austin Porada/i)).toBeInTheDocument();
@@ -17,13 +18,15 @@ import '@testing-library/jest-dom';
 
 describe('FamilyTree', () => {
   it('renders the family tree with the main elders', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
     expect(screen.getByText('The Porada & Smith Elders')).toBeInTheDocument();
     expect(screen.getByText('Grandparents')).toBeInTheDocument();
   });
 
   it('displays family tree structure correctly', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
     // Check for main title (not a heading tag, just styled div)
     const mainTitle = screen.getByText('The Porada & Smith Elders');
     expect(mainTitle).toBeInTheDocument();
@@ -32,7 +35,8 @@ describe('FamilyTree', () => {
   });
 
   it('has proper accessibility structure', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
     // Main title is a styled div, not a heading
     const mainTitle = screen.getByText('The Porada & Smith Elders');
     expect(mainTitle).toBeInTheDocument();
@@ -42,7 +46,8 @@ describe('FamilyTree', () => {
   });
 
   it('renders all family members if data is available', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
 
     // Look for common family member indicators
     const familyTreeElement = document.querySelector('.family-tree');
@@ -53,7 +58,8 @@ describe('FamilyTree', () => {
   });
 
   it('applies correct CSS classes', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
 
     const familyTreeContainer = document.querySelector('.family-tree');
     expect(familyTreeContainer).toBeInTheDocument();
@@ -63,7 +69,8 @@ describe('FamilyTree', () => {
   });
 
   it('is responsive and accessible', () => {
-    render(<FamilyTree />);
+    render(<FamilyTree
+      />);
 
     // The component should render without errors
     const familyTreeContainer = document.querySelector('.family-tree');

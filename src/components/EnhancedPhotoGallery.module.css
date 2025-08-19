@@ -1,0 +1,292 @@
+/* Enhanced Photo Gallery Styles */
+
+.photoGallery {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.galleryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.galleryTitle {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+.galleryStats {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.photoCard {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f5f5f5;
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+.photoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.photoCard:focus {
+  outline: 2px solid #8fbc8f;
+  outline-offset: 2px;
+}
+
+.photoContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.photoImage {
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.photoImageLoaded {
+  opacity: 1;
+}
+
+.photoSkeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeletonShimmer {
+  width: 100%;
+  height: 100%;
+}
+
+.photoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.photoCard:hover .photoOverlay {
+  transform: translateY(0);
+}
+
+.photoTitle {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.photoLightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.lightboxContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.lightboxImageContainer {
+  position: relative;
+  max-width: 80vw;
+  max-height: 80vh;
+  aspect-ratio: 4/3;
+}
+
+.lightboxImage {
+  object-fit: contain;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.lightboxClose:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightboxNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.lightboxNav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.lightboxNavPrev {
+  left: -70px;
+}
+
+.lightboxNavNext {
+  right: -70px;
+}
+
+.lightboxNav:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightboxInfo {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+}
+
+.lightboxInfo h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.lightboxInfo p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+.photoGalleryEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.emptyState {
+  text-align: center;
+  color: #666;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.emptyState h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.photoCardError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border: 2px dashed #ddd;
+}
+
+.photoError {
+  text-align: center;
+  color: #999;
+}
+
+.photoError span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.photoError p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .photoGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .galleryHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .galleryTitle {
+    font-size: 1.5rem;
+  }
+
+  .lightboxNav {
+    display: none;
+  }
+
+  .lightboxClose {
+    top: 10px;
+    right: 10px;
+  }
+}

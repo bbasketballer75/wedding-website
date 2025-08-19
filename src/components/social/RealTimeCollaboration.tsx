@@ -1,3 +1,14 @@
+'use client';
+
+
+// Browser API type definitions for TypeScript
+declare global {
+  interface Window {
+    webkitSpeechRecognition: unknown;
+    SpeechRecognition: unknown;
+  }
+}
+
 /**
  * 🤝 Real-time Collaborative Features
  * 
@@ -9,8 +20,6 @@
  * - Live video viewing parties
  * - Instant messaging between guests
  */
-
-'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -109,7 +118,7 @@ class RealTimeManager {
     }
   }
 
-  public send(type: string, data: any) {
+  public send(type: string, data: unknown) {
     if ((this as any).channel) {
       (this as any).channel.postMessage({ type, data, userId: this.userId });
     }
@@ -132,7 +141,7 @@ class RealTimeManager {
     }
   }
 
-  private emit(event: string, data: any) {
+  private emit(event: string, data: unknown) {
     const handlers = this.eventHandlers.get(event);
     if (handlers) {
       handlers.forEach(handler => handler(data));
@@ -370,7 +379,6 @@ export const LiveReactions: React.FC<{ targetId: string; className?: string }> =
       >
         ❤️ {recentReactions.length > 0 && recentReactions.length}
       </motion.button>
-
       <AnimatePresence>
         {showEmojiPicker && (
           <motion.div
@@ -439,7 +447,7 @@ export const LiveReactions: React.FC<{ targetId: string; className?: string }> =
           </motion.span>
         ))}
       </div>
-    </div>
+      </div>
   );
 };
 
@@ -455,10 +463,10 @@ export const OnlineUsers: React.FC<{ className?: string }> = ({ className = '' }
   return (
     <div className={`online-users ${className}`}>
       <div className="online-indicator">
-        <div className={`status-dot ${isConnected ? 'connected' : 'disconnected'}`} />
-        <span>{onlineUsers.length} online</span>
+      <div className={`status-dot ${isConnected ? 'connected' : 'disconnected'}`}
+      />
+      <span>{onlineUsers.length} online</span>
       </div>
-
       <div className="user-avatars">
         {onlineUsers.slice(0, 5).map((user) => (
           <motion.div
@@ -497,11 +505,10 @@ export const OnlineUsers: React.FC<{ className?: string }> = ({ className = '' }
                 backgroundColor: user.status === 'online' ? '#4CAF50' : '#FFC107',
                 border: '2px solid white'
               }}
-            />
-          </motion.div>
+      />
+      </motion.div>
         ))}
       </div>
-
       <style jsx>{`
         .online-users {
           display: flex;
@@ -541,7 +548,7 @@ export const OnlineUsers: React.FC<{ className?: string }> = ({ className = '' }
           100% { opacity: 1; }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 
@@ -573,22 +580,20 @@ export const LiveComments: React.FC<{ targetId: string }> = ({ targetId }) => {
   return (
     <div className="live-comments">
       <h4>Live Comments ({comments.length})</h4>
-      
       <form onSubmit={handleSubmit} className="comment-form">
-        <input
+      <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment..."
           className="comment-input"
-        />
-        <button type="submit" disabled={!newComment.trim()}>
+      />
+      <button type="submit" disabled={!newComment.trim()}>
           Send
         </button>
       </form>
-
       <div className="comments-list">
-        <AnimatePresence>
+      <AnimatePresence>
           {comments.map((comment) => (
             <motion.div
               key={comment.id}
@@ -597,16 +602,15 @@ export const LiveComments: React.FC<{ targetId: string }> = ({ targetId }) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className="comment-author">Guest</div>
-              <div className="comment-content">{comment.content}</div>
-              <div className="comment-time">
+      <div className="comment-author">Guest</div>
+      <div className="comment-content">{comment.content}</div>
+      <div className="comment-time">
                 {new Date(comment.timestamp).toLocaleTimeString()}
               </div>
-            </motion.div>
+      </motion.div>
           ))}
         </AnimatePresence>
       </div>
-
       <style jsx>{`
         .live-comments {
           max-width: 400px;
@@ -660,7 +664,7 @@ export const LiveComments: React.FC<{ targetId: string }> = ({ targetId }) => {
           color: #999;
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

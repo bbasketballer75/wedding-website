@@ -4,12 +4,12 @@ const LoadingScreen = ({ message = 'Loading...' }) => {
   return (
     <div className="loading-screen" aria-live="polite">
       <div className="loading-content">
-        <div className="loading-spinner">
-          <div className="spinner-ring"></div>
-          <div className="spinner-ring"></div>
-          <div className="spinner-ring"></div>
-        </div>
-        <p className="loading-message">{message}</p>
+      <div className="loading-spinner">
+      <div className="spinner-ring"></div>
+      <div className="spinner-ring"></div>
+      <div className="spinner-ring"></div>
+      </div>
+      <p className="loading-message">{message}</p>
       </div>
       <style>{`
         .loading-screen {
@@ -72,7 +72,7 @@ const LoadingScreen = ({ message = 'Loading...' }) => {
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

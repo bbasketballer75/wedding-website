@@ -16,6 +16,7 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
 // Vitest/Testing Library setup
 
 import '@testing-library/jest-dom';
+import React from 'react';
 
 // Global teardown: clear all timers and ensure window is defined
 afterEach(() => {
@@ -80,6 +81,22 @@ if (typeof global.ResizeObserver === 'undefined') {
 
 // Mock web-vitals library for performance testing
 if (typeof vi !== 'undefined') {
+  // Mock next/image for jsdom environment
+  // This avoids layout-related errors during tests
+  vi.mock('next/image', () => {
+    return {
+      __esModule: true,
+      default: (props) => {
+        const { src, alt, ...rest } = props;
+        return React.createElement('img', {
+          src: typeof src === 'string' ? src : '',
+          alt: alt || '',
+          ...rest,
+        });
+      },
+    };
+  });
+
   vi.mock('web-vitals', () => ({
     getCLS: vi.fn((callback) => {
       // Simulate CLS metric
@@ -141,5 +158,28 @@ if (typeof vi !== 'undefined') {
         });
       }, 100);
     }),
+  }));
+
+  // Mock lenis to prevent ResizeObserver usage during tests
+  vi.mock('lenis', () => ({
+    __esModule: true,
+    default: class MockLenis {
+      constructor() {
+        // initialize mock state if needed
+        this._events = {};
+      }
+      on(event, handler) {
+        this._events[event] = handler;
+      }
+      raf(time) {
+        // simulate a frame advance
+        if (this._events && this._events['raf']) {
+          this._events['raf'](time);
+        }
+      }
+      destroy() {
+        this._events = {};
+      }
+    },
   }));
 }

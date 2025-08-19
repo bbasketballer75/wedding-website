@@ -1,5 +1,6 @@
 'use client';
 
+
 /**
  * ✨ STATE-OF-THE-ART ENHANCED VIDEO PLAYER ✨
  *
@@ -192,14 +193,10 @@ const StateOfTheArtEnhancedVideoPlayer = ({
     if (!containerRef.current) return;
 
     try {
-      if (!isFullscreen) {
-        if (containerRef.current.requestFullscreen) {
-          await containerRef.current.requestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          await document.exitFullscreen();
-        }
+      if (!isFullscreen && containerRef.current.requestFullscreen) {
+        await containerRef.current.requestFullscreen();
+      } else if (isFullscreen && document.exitFullscreen) {
+        await document.exitFullscreen();
       }
       playClick();
     } catch (error) {
@@ -277,10 +274,10 @@ const StateOfTheArtEnhancedVideoPlayer = ({
   if (error) {
     return (
       <StateOfTheArtCard variant="elevated" size="large" className={styles.errorContainer}>
-        <div className={styles.errorContent}>
-          <h3>Unable to Load Video</h3>
-          <p>{error}</p>
-          <StateOfTheArtButton
+      <div className={styles.errorContent}>
+      <h3>Unable to Load Video</h3>
+      <p>{error}</p>
+      <StateOfTheArtButton
             variant="primary"
             size="medium"
             onClick={() => {
@@ -293,7 +290,7 @@ const StateOfTheArtEnhancedVideoPlayer = ({
           >
             Try Again
           </StateOfTheArtButton>
-        </div>
+      </div>
       </StateOfTheArtCard>
     );
   }
@@ -302,7 +299,6 @@ const StateOfTheArtEnhancedVideoPlayer = ({
     <div
       ref={containerRef}
       className={`${styles.videoPlayer} ${className} ${isFullscreen ? styles.fullscreen : ''}`}
-      tabIndex={0}
       role="application"
       aria-label={`${title} - Enhanced video player`}
       {...props}
@@ -316,9 +312,9 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className={styles.loadingSpinner}></div>
-            <p>Loading your wedding film...</p>
-          </motion.div>
+      <div className={styles.loadingSpinner}></div>
+      <p>Loading your wedding film...</p>
+      </motion.div>
         )}
       </AnimatePresence>
 
@@ -350,7 +346,7 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             onClick={togglePlay}
             onMouseEnter={playHover}
           >
-            <StateOfTheArtButton
+      <StateOfTheArtButton
               variant="primary"
               size="xl"
               className={styles.bigPlayButton}
@@ -358,7 +354,7 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             >
               ▶️
             </StateOfTheArtButton>
-          </motion.div>
+      </motion.div>
         )}
       </AnimatePresence>
 
@@ -372,38 +368,38 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <StateOfTheArtCard variant="glass" size="medium" className={styles.controlsCard}>
+      <StateOfTheArtCard variant="glass" size="medium" className={styles.controlsCard}>
               {/* Progress bar */}
               <div className={styles.progressContainer}>
-                <button
+      <button
                   className={styles.progressBar}
                   onClick={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const pos = (e.clientX - rect.left) / rect.width;
                     handleSeek(pos * duration);
                   }}
-                  role="button"
+                  aria-label={`Seek to ${Math.round((currentTime / duration) * 100)}% of video`}
                 >
-                  <div
+      <div
                     className={styles.progressFill}
                     style={{ width: `${(currentTime / duration) * 100}%` }}
-                  />
-                  <div
+      />
+      <div
                     className={styles.progressHandle}
                     style={{ left: `${(currentTime / duration) * 100}%` }}
-                  />
-                </button>
-                <div className={styles.timeDisplay}>
-                  <span>{formatTime(currentTime)}</span>
-                  <span>/</span>
-                  <span>{formatTime(duration)}</span>
-                </div>
-              </div>
+      />
+      </button>
+      <div className={styles.timeDisplay}>
+      <span>{formatTime(currentTime)}</span>
+      <span>/</span>
+      <span>{formatTime(duration)}</span>
+      </div>
+      </div>
 
               {/* Control buttons */}
               <div className={styles.controlsRow}>
-                <div className={styles.leftControls}>
-                  <StateOfTheArtButton
+      <div className={styles.leftControls}>
+      <StateOfTheArtButton
                     variant="ghost"
                     size="medium"
                     onClick={togglePlay}
@@ -411,19 +407,21 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                   >
                     {isPlaying ? '⏸️' : '▶️'}
                   </StateOfTheArtButton>
-
-                  <div className={styles.volumeControl}>
-                    <StateOfTheArtButton
+      <div className={styles.volumeControl}>
+      <StateOfTheArtButton
                       variant="ghost"
                       size="medium"
                       onClick={toggleMute}
                       onMouseEnter={() => setShowVolumeSlider(true)}
                       aria-label={isMuted ? 'Unmute' : 'Mute'}
                     >
-                      {isMuted ? '🔇' : volume > 0.5 ? '🔊' : '🔉'}
+                      {(() => {
+                        if (isMuted) return '🔇';
+                        if (volume > 0.5) return '🔊';
+                        return '🔉';
+                      })()}
                     </StateOfTheArtButton>
-
-                    <AnimatePresence>
+      <AnimatePresence>
                       {showVolumeSlider && (
                         <motion.div
                           className={styles.volumeSlider}
@@ -432,7 +430,7 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                           exit={{ opacity: 0, scaleX: 0 }}
                           onMouseLeave={() => setShowVolumeSlider(false)}
                         >
-                          <input
+      <input
                             type="range"
                             min="0"
                             max="1"
@@ -440,22 +438,20 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                             value={volume}
                             onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
                             className={styles.volumeRange}
-                          />
-                        </motion.div>
+      />
+      </motion.div>
                       )}
                     </AnimatePresence>
-                  </div>
-                </div>
-
-                <div className={styles.centerControls}>
+      </div>
+      </div>
+      <div className={styles.centerControls}>
                   {currentChapter && (
                     <div className={styles.chapterInfo}>
-                      <span className={styles.chapterTitle}>{currentChapter.title}</span>
-                    </div>
+      <span className={styles.chapterTitle}>{currentChapter.title}</span>
+      </div>
                   )}
                 </div>
-
-                <div className={styles.rightControls}>
+      <div className={styles.rightControls}>
                   {showChapters && chapters.length > 0 && (
                     <StateOfTheArtButton
                       variant="ghost"
@@ -475,10 +471,10 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                   >
                     {isFullscreen ? '🗗' : '⛶'}
                   </StateOfTheArtButton>
-                </div>
-              </div>
-            </StateOfTheArtCard>
-          </motion.div>
+      </div>
+      </div>
+      </StateOfTheArtCard>
+      </motion.div>
         )}
       </AnimatePresence>
 
@@ -492,10 +488,10 @@ const StateOfTheArtEnhancedVideoPlayer = ({
             exit={{ opacity: 0, x: 300 }}
             transition={{ duration: 0.4, ease: 'power3.out' }}
           >
-            <StateOfTheArtCard variant="wedding" size="large" className={styles.chapterCard}>
-              <div className={styles.chapterHeader}>
-                <h3>Wedding Film Chapters</h3>
-                <StateOfTheArtButton
+      <StateOfTheArtCard variant="wedding" size="large" className={styles.chapterCard}>
+      <div className={styles.chapterHeader}>
+      <h3>Wedding Film Chapters</h3>
+      <StateOfTheArtButton
                   variant="ghost"
                   size="small"
                   onClick={() => setShowChapterMenu(false)}
@@ -503,32 +499,32 @@ const StateOfTheArtEnhancedVideoPlayer = ({
                 >
                   ✕
                 </StateOfTheArtButton>
-              </div>
-              <div className={styles.chapterList}>
+      </div>
+      <div className={styles.chapterList}>
                 {chapters.map((chapter, index) => (
                   <motion.div
-                    key={index}
+                    key={`${chapter.title}-${chapter.startTime || index}`}
                     className={`${styles.chapterItem} ${
                       currentChapter?.title === chapter.title ? styles.active : ''
                     }`}
                     whileHover={{ scale: 1.02 }}
                     onClick={() => jumpToChapter(chapter)}
                   >
-                    <div className={styles.chapterNumber}>{index + 1}</div>
-                    <div className={styles.chapterDetails}>
-                      <h4>{chapter.title}</h4>
-                      <p>{formatTime(chapter.startTime || 0)}</p>
+      <div className={styles.chapterNumber}>{index + 1}</div>
+      <div className={styles.chapterDetails}>
+      <h4>{chapter.title}</h4>
+      <p>{formatTime(chapter.startTime || 0)}</p>
                       {chapter.description && <small>{chapter.description}</small>}
                     </div>
-                    <div className={styles.chapterEmoji}>{chapter.emoji || '🎬'}</div>
-                  </motion.div>
+      <div className={styles.chapterEmoji}>{chapter.emoji || '🎬'}</div>
+      </motion.div>
                 ))}
               </div>
-            </StateOfTheArtCard>
-          </motion.div>
+      </StateOfTheArtCard>
+      </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
   );
 };
 

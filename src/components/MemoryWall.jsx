@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 import './MemoryWall.css';
 import GuestPhotoUpload from './forms/GuestPhotoUpload';
@@ -146,7 +147,6 @@ const MemoryWall = () => {
         <p>Help us preserve the magic by uploading your favorite photos from our special day!</p>
         <GuestPhotoUpload />
       </div>
-
       <form className="memorywall-form" onSubmit={handleSubmit}>
         <label htmlFor="memory-name" className="sr-only">
           Your Name (optional)
@@ -187,19 +187,17 @@ const MemoryWall = () => {
           aria-label="Upload an image"
         />
         {preview && (
-          <picture>
-            <source srcSet={preview.replace(/\.(jpg|jpeg|png)$/i, '.webp')} type="image/webp" />
-            <source srcSet={preview} type="image/jpeg" />
-            <img
+          <div className="relative w-full h-0 pb-[66%]">
+            <Image
               src={preview}
               alt="Preview of uploaded memory"
-              className="memorywall-preview"
+              fill
+              sizes="(max-width: 768px) 100vw, 600px"
+              style={{ objectFit: 'cover' }}
               loading="lazy"
-              width="400"
-              height="300"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              unoptimized
             />
-          </picture>
+          </div>
         )}
         <button type="submit" disabled={submitting || !form.message}>
           {submitting ? 'Weaving into our tapestry...' : 'Add to Our Story'}
@@ -208,30 +206,19 @@ const MemoryWall = () => {
       <div className="memorywall-grid">
         {memories.map((mem) => (
           <div className="memorywall-card" key={mem.id}>
-            <picture>
-              {mem.image ? (
-                <>
-                  <source
-                    srcSet={mem.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')}
-                    type="image/webp"
-                  />
-                  <source srcSet={mem.image} type="image/jpeg" />
-                  <img
-                    src={mem.image}
-                    alt={
-                      mem.message
-                        ? `Shared memory: ${mem.message.substring(0, 50)}...`
-                        : 'Shared wedding memory'
-                    }
-                    className="memorywall-img"
-                    loading="lazy"
-                    width="400"
-                    height="300"
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
-                </>
-              ) : null}
-            </picture>
+            {mem.image ? (
+              <div className="relative w-full h-0 pb-[66%]">
+                <Image
+                  src={mem.image}
+                  alt={mem.name ? `${mem.name}'s memory` : 'Wedding memory'}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                  unoptimized
+                />
+              </div>
+            ) : null}
             <div className="memorywall-msg">{mem.message}</div>
             <div className="memorywall-reactions">
               {emojis.map((emoji) => {
@@ -254,7 +241,8 @@ const MemoryWall = () => {
               })}
             </div>
             <div className="memorywall-meta">
-              <span>{mem.name}</span> <span>{mem.date}</span>
+              <span>{mem.name}</span>
+              <span>{mem.date}</span>
             </div>
           </div>
         ))}

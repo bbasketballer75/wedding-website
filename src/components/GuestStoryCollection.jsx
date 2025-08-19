@@ -37,7 +37,7 @@ const GuestStoryCollection = () => {
       const storyData = {
         ...newStory,
         submittedAt: new Date().toISOString(),
-        id: `story_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        id: `story_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
       };
 
       // API call to save story
@@ -215,119 +215,110 @@ const GuestStoryCollection = () => {
           font-style: italic;
         }
       `}</style>
-
       <div className="story-header">
-        <h1>Share Your Story</h1>
-        <p>
+      <h1>Share Your Story</h1>
+      <p>
           Austin & Jordyn would love to hear your favorite memories, stories, and wishes for their
           future together. Your words will become part of their digital memory book forever. 💕
         </p>
       </div>
-
       <form className="story-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="guestName">Your Name *</label>
-          <input
+      <div className="form-group">
+      <label htmlFor="guestName">Your Name *</label>
+      <input
             type="text"
             id="guestName"
             required
             value={newStory.guestName}
             onChange={(e) => setNewStory((prev) => ({ ...prev, guestName: e.target.value }))}
             placeholder="Enter your full name"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="relationship">How do you know Austin & Jordyn? *</label>
-          <select
+      />
+      </div>
+      <div className="form-group">
+      <label htmlFor="relationship">How do you know Austin & Jordyn? *</label>
+      <select
             id="relationship"
             required
             value={newStory.relationship}
             onChange={(e) => setNewStory((prev) => ({ ...prev, relationship: e.target.value }))}
           >
-            <option value="">Select your relationship</option>
+      <option value="">Select your relationship</option>
             {relationshipTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
               </option>
             ))}
           </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="storyTitle">Story Title *</label>
-          <input
+      </div>
+      <div className="form-group">
+      <label htmlFor="storyTitle">Story Title *</label>
+      <input
             type="text"
             id="storyTitle"
             required
             value={newStory.storyTitle}
             onChange={(e) => setNewStory((prev) => ({ ...prev, storyTitle: e.target.value }))}
             placeholder="Give your story a memorable title"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="favoriteMemory">Favorite Memory with Austin & Jordyn</label>
-          <textarea
+      />
+      </div>
+      <div className="form-group">
+      <label htmlFor="favoriteMemory">Favorite Memory with Austin & Jordyn</label>
+      <textarea
             id="favoriteMemory"
             value={newStory.favoriteMemory}
             onChange={(e) => setNewStory((prev) => ({ ...prev, favoriteMemory: e.target.value }))}
             placeholder="Share a special memory you have with the couple..."
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="storyContent">Your Story *</label>
-          <textarea
+      />
+      </div>
+      <div className="form-group">
+      <label htmlFor="storyContent">Your Story *</label>
+      <textarea
             id="storyContent"
             required
             value={newStory.storyContent}
             onChange={(e) => setNewStory((prev) => ({ ...prev, storyContent: e.target.value }))}
             placeholder="Tell your story... How did you meet? What makes them special? Any funny moments?"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="wishForCouple">Wishes for Their Future</label>
-          <textarea
+      />
+      </div>
+      <div className="form-group">
+      <label htmlFor="wishForCouple">Wishes for Their Future</label>
+      <textarea
             id="wishForCouple"
             value={newStory.wishForCouple}
             onChange={(e) => setNewStory((prev) => ({ ...prev, wishForCouple: e.target.value }))}
             placeholder="Share your hopes and wishes for Austin & Jordyn's future together..."
-          />
-        </div>
-
-        <button type="submit" className="submit-btn" disabled={isSubmitting}>
+      />
+      </div>
+      <button type="submit" className="submit-btn" disabled={isSubmitting}>
           {isSubmitting ? '💕 Sharing Your Story...' : '💝 Share My Story'}
         </button>
       </form>
-
       <div className="stories-display">
-        <h2>Stories from Friends & Family</h2>
+      <h2>Stories from Friends & Family</h2>
         {stories.map((story) => (
           <div key={story.id} className="story-card">
-            <div className="story-meta">
+      <div className="story-meta">
               {story.guestName} • {story.relationship} •{' '}
               {new Date(story.submittedAt).toLocaleDateString()}
             </div>
-            <h3 className="story-title">{story.storyTitle}</h3>
-            <div className="story-content">{story.storyContent}</div>
+      <h3 className="story-title">{story.storyTitle}</h3>
+      <div className="story-content">{story.storyContent}</div>
 
             {story.favoriteMemory && (
               <div className="story-highlight">
-                <strong>Favorite Memory:</strong> {story.favoriteMemory}
+      <strong>Favorite Memory:</strong> {story.favoriteMemory}
               </div>
             )}
 
             {story.wishForCouple && (
               <div className="story-highlight">
-                <strong>Wishes for the Future:</strong> {story.wishForCouple}
+      <strong>Wishes for the Future:</strong> {story.wishForCouple}
               </div>
             )}
           </div>
         ))}
       </div>
-    </div>
+      </div>
   );
 };
 

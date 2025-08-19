@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '../../components/ui/LoadingScreen';
 import { getAlbumMedia, uploadMedia } from '../../services/api';
@@ -56,6 +57,7 @@ const AlbumPage = () => {
           }
         />
       )}
+
       {!isLoading && !isUploading && error && (
         <div className="error-state">
           <div className="error-message" role="alert">
@@ -66,6 +68,7 @@ const AlbumPage = () => {
           </button>
         </div>
       )}
+
       {!isLoading && !isUploading && !error && (
         <>
           <h2 className="section-title">Gallery of Eternal Moments</h2>
@@ -75,6 +78,7 @@ const AlbumPage = () => {
             behind-the-scenes enchantment. We would be honored for you to contribute your own
             captured memories and help us see our celebration through your loving eyes.
           </p>
+
           <div className="upload-section">
             <label htmlFor="album-upload-input" className="visually-hidden">
               Contribute a treasured moment from our celebration
@@ -89,6 +93,7 @@ const AlbumPage = () => {
               Gift Your Memory ✨
             </button>
           </div>
+
           <div className="photo-grid">
             {photos.length === 0 ? (
               <div className="empty-state">
@@ -96,27 +101,33 @@ const AlbumPage = () => {
                 collection with a precious moment from our celebration.
               </div>
             ) : (
-              photos.map((photo) => (
-                <div key={photo._id} className="photo-card">
-                  {photo.webpPath && photo.jpegPath ? (
-                    <picture>
-                      <source srcSet={`/${photo.webpPath}`} type="image/webp" />
-                      <source srcSet={`/${photo.jpegPath}`} type="image/jpeg" />
-                      <img src={`/${photo.jpegPath}`} alt="Wedding memory" loading="lazy" />
-                    </picture>
-                  ) : (
-                    <img src={`/uploads/${photo.filename}`} alt="Wedding memory" loading="lazy" />
-                  )}
-                  <a
-                    href={photo.jpegPath ? `/${photo.jpegPath}` : `/uploads/${photo.filename}`}
-                    download
-                    className="btn secondary download-btn"
-                    aria-label="Download photo"
-                  >
-                    Download
-                  </a>
-                </div>
-              ))
+              photos.map((photo) => {
+                let src = '/images/placeholder-love.jpg';
+                if (photo.webpPath) src = `/${photo.webpPath}`;
+                else if (photo.jpegPath) src = `/${photo.jpegPath}`;
+                else if (photo.filename) src = `/uploads/${photo.filename}`;
+                return (
+                  <div key={photo._id} className="photo-card">
+                    <Image
+                      src={src}
+                      alt="Wedding memory"
+                      width={800}
+                      height={600}
+                      className=" w-full h-auto object-cover"
+                      loading="lazy"
+                      unoptimized
+                    />
+                    <a
+                      href={photo.jpegPath ? `/${photo.jpegPath}` : `/uploads/${photo.filename}`}
+                      download
+                      className="btn secondary download-btn"
+                      aria-label="Download photo"
+                    >
+                      Download
+                    </a>
+                  </div>
+                );
+              })
             )}
           </div>
         </>

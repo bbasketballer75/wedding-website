@@ -1,5 +1,6 @@
 'use client';
 
+
 /**
  * 🎨 STATE-OF-THE-ART LAYOUT ✨
  *
@@ -30,7 +31,8 @@ export const StateOfTheArtLayout = ({
   if (!mounted) {
     return (
       <div className="layout-loading">
-        <div className="loading-spinner" />
+      <div className="loading-spinner"
+      />
       </div>
     );
   }
@@ -38,99 +40,104 @@ export const StateOfTheArtLayout = ({
   return (
     <div className={`state-of-the-art-layout ${variant} ${className}`}>
       {/* Navigation */}
-      {showNavigation && <StateOfTheArtNavigation variant="glass" fixed={true} />}
+      {showNavigation && <StateOfTheArtNavigation variant="glass" fixed={true}
+      />}
 
       {/* Main Content */}
       <main className={`main-content ${showNavigation ? 'with-nav' : ''}`}>
-        <div className="content-wrapper">{children}</div>
+      <div className="content-wrapper">{children}</div>
       </main>
 
       {/* Footer */}
       {showFooter && (
         <footer className="state-of-the-art-footer">
-          <StateOfTheArtCard
+      <StateOfTheArtCard
             variant="wedding"
             size="large"
             hoverable={false}
             className="footer-card"
           >
-            <div className="footer-content">
+      <div className="footer-content">
               {/* Wedding Couple */}
               <div className="footer-section wedding-info">
-                <div className="couple-names">
-                  <HeartIcon className="heart-icon" />
-                  <h3>Austin & Jordyn Porada</h3>
-                </div>
-                <p className="wedding-date">Married on our beautiful wedding day</p>
-                <p className="love-note">Thank you for being part of our love story</p>
-              </div>
+      <div className="couple-names">
+      <HeartIcon className="heart-icon"
+      />
+      <h3>Austin & Jordyn Porada</h3>
+      </div>
+      <p className="wedding-date">Married on our beautiful wedding day</p>
+      <p className="love-note">Thank you for being part of our love story</p>
+      </div>
 
               {/* Quick Links */}
               <div className="footer-section">
-                <h4>Explore Our Story</h4>
-                <div className="footer-links">
-                  <StateOfTheArtButton
+      <h4>Explore Our Story</h4>
+      <div className="footer-links">
+      <StateOfTheArtButton
                     variant="ghost"
                     size="small"
                     onClick={() => (window.location.href = '/our-story')}
                   >
                     Our Journey
                   </StateOfTheArtButton>
-                  <StateOfTheArtButton
+      <StateOfTheArtButton
                     variant="ghost"
                     size="small"
                     onClick={() => (window.location.href = '/gallery')}
                   >
                     Photo Gallery
                   </StateOfTheArtButton>
-                  <StateOfTheArtButton
+      <StateOfTheArtButton
                     variant="ghost"
                     size="small"
                     onClick={() => (window.location.href = '/guestbook')}
                   >
                     Guestbook
                   </StateOfTheArtButton>
-                  <StateOfTheArtButton
+      <StateOfTheArtButton
                     variant="ghost"
                     size="small"
                     onClick={() => (window.location.href = '/love-map')}
                   >
                     Love Map
                   </StateOfTheArtButton>
-                </div>
-              </div>
+      </div>
+      </div>
 
               {/* Contact */}
               <div className="footer-section">
-                <h4>Get in Touch</h4>
-                <div className="contact-info">
-                  <div className="contact-item">
-                    <EnvelopeIcon className="contact-icon" />
-                    <span>hello@theporadas.com</span>
-                  </div>
-                  <div className="contact-item">
-                    <GlobeAltIcon className="contact-icon" />
-                    <span>www.theporadas.com</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <h4>Get in Touch</h4>
+      <div className="contact-info">
+      <div className="contact-item">
+      <EnvelopeIcon className="contact-icon"
+      />
+      <span>hello@theporadas.com</span>
+      </div>
+      <div className="contact-item">
+      <GlobeAltIcon className="contact-icon"
+      />
+      <span>www.theporadas.com</span>
+      </div>
+      </div>
+      </div>
+      </div>
 
             {/* Footer Bottom */}
             <div className="footer-bottom">
-              <div className="footer-divider" />
-              <div className="footer-bottom-content">
-                <p className="copyright">
+      <div className="footer-divider"
+      />
+      <div className="footer-bottom-content">
+      <p className="copyright">
                   © {new Date().getFullYear()} Austin & Jordyn Porada. Made with ❤️ for our family
                   and friends.
                 </p>
-                <div className="footer-tech">
-                  <span className="tech-note">Built with state-of-the-art design system</span>
-                </div>
-              </div>
-            </div>
-          </StateOfTheArtCard>
-        </footer>
+      <div className="footer-tech">
+      <span className="tech-note">Built with state-of-the-art design system</span>
+      </div>
+      </div>
+      </div>
+      </StateOfTheArtCard>
+      </footer>
       )}
 
       <style>{`
@@ -342,7 +349,7 @@ export const StateOfTheArtLayout = ({
           }
         }
       `}</style>
-    </div>
+      </div>
   );
 };
 

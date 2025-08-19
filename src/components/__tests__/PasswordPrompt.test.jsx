@@ -1,5 +1,3 @@
-import React from 'react';
-
 describe('PasswordPrompt', () => {
   it('renders password input and submit button', () => {
     render(<PasswordPrompt open={true} onSubmit={() => {}} onClose={() => {}} />);

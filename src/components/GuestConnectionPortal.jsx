@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 /**
  * 🤝 Guest Connection Portal Component
@@ -13,44 +13,49 @@ const GuestConnectionPortal = () => {
     upcomingEvents: 0,
   });
   const [activeTab, setActiveTab] = useState('directory');
+  const [connections, setConnections] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [showConnectionForm, setShowConnectionForm] = useState(false);
 
   // Mock guest data - would come from wedding database
-  const mockGuests = [
-    {
-      id: 'guest_1',
-      name: 'Sarah Johnson',
-      relationship: 'College Friend',
-      location: 'Chicago, IL',
-      interests: ['Photography', 'Travel', 'Cooking'],
-      contactPreferences: ['email', 'social'],
-      status: 'active',
-      joinDate: '2025-07-01',
-      mutualConnections: 3,
-    },
-    {
-      id: 'guest_2',
-      name: 'Mike Chen',
-      relationship: 'Work Colleague',
-      location: 'San Francisco, CA',
-      interests: ['Tech', 'Hiking', 'Board Games'],
-      contactPreferences: ['email'],
-      status: 'active',
-      joinDate: '2025-07-15',
-      mutualConnections: 2,
-    },
-    {
-      id: 'guest_3',
-      name: 'Emily Davis',
-      relationship: 'High School Friend',
-      location: 'Austin, TX',
-      interests: ['Music', 'Art', 'Yoga'],
-      contactPreferences: ['social', 'phone'],
-      status: 'active',
-      joinDate: '2025-06-20',
-      mutualConnections: 5,
-    },
-  ];
+  const mockGuests = useMemo(
+    () => [
+      {
+        id: 'guest_1',
+        name: 'Sarah Johnson',
+        relationship: 'College Friend',
+        location: 'Chicago, IL',
+        interests: ['Photography', 'Travel', 'Cooking'],
+        contactPreferences: ['email', 'social'],
+        status: 'active',
+        joinDate: '2025-07-01',
+        mutualConnections: 3,
+      },
+      {
+        id: 'guest_2',
+        name: 'Mike Chen',
+        relationship: 'Work Colleague',
+        location: 'San Francisco, CA',
+        interests: ['Tech', 'Hiking', 'Board Games'],
+        contactPreferences: ['email'],
+        status: 'active',
+        joinDate: '2025-07-15',
+        mutualConnections: 2,
+      },
+      {
+        id: 'guest_3',
+        name: 'Emily Davis',
+        relationship: 'High School Friend',
+        location: 'Austin, TX',
+        interests: ['Music', 'Art', 'Yoga'],
+        contactPreferences: ['social', 'phone'],
+        status: 'active',
+        joinDate: '2025-06-20',
+        mutualConnections: 5,
+      },
+    ],
+    []
+  );
 
   const interestGroups = [
     {
@@ -96,262 +101,251 @@ const GuestConnectionPortal = () => {
       activeGroups: 8,
       upcomingEvents: 3,
     });
-  }, []);
+  }, [mockGuests]);
 
-  const handleConnectionRequest = (guestId) => {
-    // In real app, would send connection request
+  const handleConnectionRequest = (_guestId) => {
+    // Implementation for connection request
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setConnections((prev) => [...prev, { id: Date.now(), status: 'pending' }]);
+    }, 1000);
   };
 
   const renderDashboard = () => (
     <div className="dashboard-section">
       <h2>🌐 Connection Dashboard</h2>
-
       <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon">🤝</div>
-          <div className="stat-content">
-            <div className="stat-number">{networkStats.totalConnections}</div>
-            <div className="stat-label">Total Connections</div>
-          </div>
-        </div>
-
-        <div className="stat-card new">
-          <div className="stat-icon">✨</div>
-          <div className="stat-content">
-            <div className="stat-number">{networkStats.newConnections}</div>
-            <div className="stat-label">New This Month</div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">👥</div>
-          <div className="stat-content">
-            <div className="stat-number">{networkStats.activeGroups}</div>
-            <div className="stat-label">Active Groups</div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">📅</div>
-          <div className="stat-content">
-            <div className="stat-number">{networkStats.upcomingEvents}</div>
-            <div className="stat-label">Upcoming Events</div>
-          </div>
-        </div>
+      <div className="stat-card">
+      <div className="stat-icon">🤝</div>
+      <div className="stat-content">
+      <div className="stat-number">{networkStats.totalConnections}</div>
+      <div className="stat-label">Total Connections</div>
       </div>
-
+      </div>
+      <div className="stat-card new">
+      <div className="stat-icon">✨</div>
+      <div className="stat-content">
+      <div className="stat-number">{networkStats.newConnections}</div>
+      <div className="stat-label">New This Month</div>
+      </div>
+      </div>
+      <div className="stat-card">
+      <div className="stat-icon">👥</div>
+      <div className="stat-content">
+      <div className="stat-number">{networkStats.activeGroups}</div>
+      <div className="stat-label">Active Groups</div>
+      </div>
+      </div>
+      <div className="stat-card">
+      <div className="stat-icon">📅</div>
+      <div className="stat-content">
+      <div className="stat-number">{networkStats.upcomingEvents}</div>
+      <div className="stat-label">Upcoming Events</div>
+      </div>
+      </div>
+      </div>
       <div className="recent-activity">
-        <h3>🔄 Recent Activity</h3>
-        <div className="activity-list">
-          <div className="activity-item">
-            <div className="activity-icon">🤝</div>
-            <div className="activity-content">
-              <strong>Sarah Johnson</strong> connected with <strong>Mike Chen</strong>
-              <div className="activity-time">2 hours ago</div>
-            </div>
-          </div>
-          <div className="activity-item">
-            <div className="activity-icon">📸</div>
-            <div className="activity-content">
-              <strong>Photography Group</strong> shared new wedding photos
-              <div className="activity-time">4 hours ago</div>
-            </div>
-          </div>
-          <div className="activity-item">
-            <div className="activity-icon">✈️</div>
-            <div className="activity-content">
-              <strong>Travel Buddies</strong> planned a group trip to Italy
-              <div className="activity-time">1 day ago</div>
-            </div>
-          </div>
-        </div>
+      <h3>🔄 Recent Activity</h3>
+      <div className="activity-list">
+      <div className="activity-item">
+      <div className="activity-icon">🤝</div>
+      <div className="activity-content">
+      <strong>Sarah Johnson</strong> connected with <strong>Mike Chen</strong>
+      <div className="activity-time">2 hours ago</div>
       </div>
-    </div>
+      </div>
+      <div className="activity-item">
+      <div className="activity-icon">📸</div>
+      <div className="activity-content">
+      <strong>Photography Group</strong> shared new wedding photos
+              <div className="activity-time">4 hours ago</div>
+      </div>
+      </div>
+      <div className="activity-item">
+      <div className="activity-icon">✈️</div>
+      <div className="activity-content">
+      <strong>Travel Buddies</strong> planned a group trip to Italy
+              <div className="activity-time">1 day ago</div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
   );
 
   const renderDirectory = () => (
     <div className="directory-section">
       <div className="section-header">
-        <h2>📋 Guest Directory</h2>
-        <div className="directory-controls">
-          <label htmlFor="guest-search" className="sr-only">
+      <h2>📋 Guest Directory</h2>
+      <div className="directory-controls">
+      <label htmlFor="guest-search" className="sr-only">
             Search guests by name
           </label>
-          <input
+      <input
             type="text"
             id="guest-search"
             placeholder="🔍 Search guests..."
             className="search-input"
             aria-label="Search guests by name"
-          />
-          <label htmlFor="guest-filter" className="sr-only">
+      />
+      <label htmlFor="guest-filter" className="sr-only">
             Filter guests by category
           </label>
-          <select
+      <select
             id="guest-filter"
             className="filter-select"
             aria-label="Filter guests by category"
           >
-            <option value="all">All Guests</option>
-            <option value="family">Family</option>
-            <option value="friends">Friends</option>
-            <option value="colleagues">Colleagues</option>
-          </select>
-        </div>
+      <option value="all">All Guests</option>
+      <option value="family">Family</option>
+      <option value="friends">Friends</option>
+      <option value="colleagues">Colleagues</option>
+      </select>
       </div>
-
+      </div>
       <div className="guest-grid">
         {guestDirectory.map((guest) => (
           <div key={guest.id} className="guest-card">
-            <div className="guest-header">
-              <div className="guest-avatar">
+      <div className="guest-header">
+      <div className="guest-avatar">
                 {guest.name
                   .split(' ')
                   .map((n) => n[0])
                   .join('')}
               </div>
-              <div className="guest-info">
-                <h3>{guest.name}</h3>
-                <div className="guest-relationship">{guest.relationship}</div>
-                <div className="guest-location">📍 {guest.location}</div>
-              </div>
-            </div>
-
-            <div className="guest-interests">
-              <strong>Interests:</strong>
-              <div className="interests-tags">
+      <div className="guest-info">
+      <h3>{guest.name}</h3>
+      <div className="guest-relationship">{guest.relationship}</div>
+      <div className="guest-location">📍 {guest.location}</div>
+      </div>
+      </div>
+      <div className="guest-interests">
+      <strong>Interests:</strong>
+      <div className="interests-tags">
                 {guest.interests.map((interest) => (
                   <span key={interest} className="interest-tag">
                     {interest}
                   </span>
                 ))}
               </div>
-            </div>
-
-            <div className="guest-stats">
-              <div className="stat">
-                <span className="stat-value">{guest.mutualConnections}</span>
-                <span className="stat-label">Mutual Connections</span>
-              </div>
-              <div className="stat">
-                <span className="stat-value">{guest.status}</span>
-                <span className="stat-label">Status</span>
-              </div>
-            </div>
-
-            <div className="guest-actions">
-              <button className="connect-btn" onClick={() => handleConnectionRequest(guest.id)}>
+      </div>
+      <div className="guest-stats">
+      <div className="stat">
+      <span className="stat-value">{guest.mutualConnections}</span>
+      <span className="stat-label">Mutual Connections</span>
+      </div>
+      <div className="stat">
+      <span className="stat-value">{guest.status}</span>
+      <span className="stat-label">Status</span>
+      </div>
+      </div>
+      <div className="guest-actions">
+      <button className="connect-btn" onClick={() => handleConnectionRequest(guest.id)}>
                 🤝 Connect
               </button>
-              <button className="message-btn">💬 Message</button>
-            </div>
-          </div>
+      <button className="message-btn">💬 Message</button>
+      </div>
+      </div>
         ))}
       </div>
-    </div>
+      </div>
   );
 
   const renderGroups = () => (
     <div className="groups-section">
       <div className="section-header">
-        <h2>👥 Interest Groups</h2>
-        <button className="create-group-btn" onClick={() => setShowConnectionForm(true)}>
+      <h2>👥 Interest Groups</h2>
+      <button className="create-group-btn" onClick={() => setShowConnectionForm(true)}>
           ➕ Create Group
         </button>
       </div>
-
       <div className="groups-grid">
         {interestGroups.map((group) => (
           <div key={group.id} className="group-card">
-            <div className="group-header">
-              <h3>{group.name}</h3>
-              <div className="group-privacy">{group.isPublic ? '🌐 Public' : '🔒 Private'}</div>
-            </div>
-
-            <p className="group-description">{group.description}</p>
-
-            <div className="group-stats">
-              <div className="group-members">
-                <strong>{group.members}</strong> members
+      <div className="group-header">
+      <h3>{group.name}</h3>
+      <div className="group-privacy">{group.isPublic ? '🌐 Public' : '🔒 Private'}</div>
+      </div>
+      <p className="group-description">{group.description}</p>
+      <div className="group-stats">
+      <div className="group-members">
+      <strong>{group.members}</strong> members
               </div>
-              <div className="group-activity">Last active: {group.recentActivity}</div>
-            </div>
-
-            <div className="group-actions">
-              <button className="join-btn">
+      <div className="group-activity">Last active: {group.recentActivity}</div>
+      </div>
+      <div className="group-actions">
+      <button className="join-btn">
                 {group.isPublic ? 'Join Group' : 'Request to Join'}
               </button>
-              <button className="view-btn">View Details</button>
-            </div>
-          </div>
+      <button className="view-btn">View Details</button>
+      </div>
+      </div>
         ))}
       </div>
-    </div>
+      </div>
   );
 
   const renderEvents = () => (
     <div className="events-section">
       <div className="section-header">
-        <h2>📅 Upcoming Events</h2>
-        <button className="create-event-btn">➕ Plan Event</button>
+      <h2>📅 Upcoming Events</h2>
+      <button className="create-event-btn">➕ Plan Event</button>
       </div>
-
       <div className="events-list">
-        <div className="event-card upcoming">
-          <div className="event-date">
-            <div className="event-month">AUG</div>
-            <div className="event-day">15</div>
-          </div>
-          <div className="event-content">
-            <h3>🍽️ Foodie Friends Dinner</h3>
-            <div className="event-details">
-              <div className="event-location">📍 Chicago, IL</div>
-              <div className="event-attendees">👥 8 attending</div>
-            </div>
-            <div className="event-organizer">Organized by Sarah Johnson</div>
-          </div>
-          <div className="event-actions">
-            <button className="rsvp-btn">RSVP</button>
-          </div>
-        </div>
-
-        <div className="event-card">
-          <div className="event-date">
-            <div className="event-month">SEP</div>
-            <div className="event-day">22</div>
-          </div>
-          <div className="event-content">
-            <h3>📸 Photography Workshop</h3>
-            <div className="event-details">
-              <div className="event-location">📍 San Francisco, CA</div>
-              <div className="event-attendees">👥 12 interested</div>
-            </div>
-            <div className="event-organizer">Organized by Mike Chen</div>
-          </div>
-          <div className="event-actions">
-            <button className="rsvp-btn">RSVP</button>
-          </div>
-        </div>
-
-        <div className="event-card">
-          <div className="event-date">
-            <div className="event-month">OCT</div>
-            <div className="event-day">10</div>
-          </div>
-          <div className="event-content">
-            <h3>✈️ Italy Trip Planning</h3>
-            <div className="event-details">
-              <div className="event-location">📍 Virtual Meeting</div>
-              <div className="event-attendees">👥 6 attending</div>
-            </div>
-            <div className="event-organizer">Organized by Travel Buddies Group</div>
-          </div>
-          <div className="event-actions">
-            <button className="rsvp-btn">RSVP</button>
-          </div>
-        </div>
+      <div className="event-card upcoming">
+      <div className="event-date">
+      <div className="event-month">AUG</div>
+      <div className="event-day">15</div>
       </div>
-    </div>
+      <div className="event-content">
+      <h3>🍽️ Foodie Friends Dinner</h3>
+      <div className="event-details">
+      <div className="event-location">📍 Chicago, IL</div>
+      <div className="event-attendees">👥 8 attending</div>
+      </div>
+      <div className="event-organizer">Organized by Sarah Johnson</div>
+      </div>
+      <div className="event-actions">
+      <button className="rsvp-btn">RSVP</button>
+      </div>
+      </div>
+      <div className="event-card">
+      <div className="event-date">
+      <div className="event-month">SEP</div>
+      <div className="event-day">22</div>
+      </div>
+      <div className="event-content">
+      <h3>📸 Photography Workshop</h3>
+      <div className="event-details">
+      <div className="event-location">📍 San Francisco, CA</div>
+      <div className="event-attendees">👥 12 interested</div>
+      </div>
+      <div className="event-organizer">Organized by Mike Chen</div>
+      </div>
+      <div className="event-actions">
+      <button className="rsvp-btn">RSVP</button>
+      </div>
+      </div>
+      <div className="event-card">
+      <div className="event-date">
+      <div className="event-month">OCT</div>
+      <div className="event-day">10</div>
+      </div>
+      <div className="event-content">
+      <h3>✈️ Italy Trip Planning</h3>
+      <div className="event-details">
+      <div className="event-location">📍 Virtual Meeting</div>
+      <div className="event-attendees">👥 6 attending</div>
+      </div>
+      <div className="event-organizer">Organized by Travel Buddies Group</div>
+      </div>
+      <div className="event-actions">
+      <button className="rsvp-btn">RSVP</button>
+      </div>
+      </div>
+      </div>
+      </div>
   );
 
   const tabs = [
@@ -933,14 +927,12 @@ const GuestConnectionPortal = () => {
           }
         }
       `}</style>
-
       <div className="portal-header">
-        <h1>🤝 Guest Connection Portal</h1>
-        <p className="portal-subtitle">
+      <h1>🤝 Guest Connection Portal</h1>
+      <p className="portal-subtitle">
           Stay connected with your wedding guests and build lasting friendships
         </p>
       </div>
-
       <div className="tab-navigation">
         {tabs.map((tab) => (
           <button
@@ -952,9 +944,20 @@ const GuestConnectionPortal = () => {
           </button>
         ))}
       </div>
-
-      <div className="content-area">{tabs.find((tab) => tab.id === activeTab)?.component()}</div>
-    </div>
+      <div className="content-area">
+        {loading && <div className="loading-overlay">Loading connections...</div>}
+        {tabs.find((tab) => tab.id === activeTab)?.component()}
+        {showConnectionForm && (
+          <div className="connection-form-modal">
+      <div className="modal-content">
+      <h3>Create New Connection Group</h3>
+      <p>Connections: {connections.length}</p>
+      <button onClick={() => setShowConnectionForm(false)}>Close</button>
+      </div>
+      </div>
+        )}
+      </div>
+      </div>
   );
 };
 

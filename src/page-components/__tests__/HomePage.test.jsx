@@ -5,13 +5,15 @@ import HomePage from '../core/HomePage.jsx';
 
 describe('HomePage', () => {
   it('renders welcome message and main CTA', () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
     expect(screen.getByRole('heading', { name: /Austin & Jordyn/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Browse Memories/i })).toBeInTheDocument();
   });
 
   it('displays welcome message and navigation elements', () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
 
     // Should have some welcoming content
     const homeContainer = document.querySelector('.home-page');
@@ -19,7 +21,8 @@ describe('HomePage', () => {
   });
 
   it('has proper accessibility structure', () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
 
     // Main heading should be present and accessible
     const mainHeading = screen.getByRole('heading', { level: 1 });
@@ -32,12 +35,14 @@ describe('HomePage', () => {
 
   it('renders without errors', () => {
     expect(() => {
-      render(<HomePage />);
+      render(<HomePage
+      />);
     }).not.toThrow();
   });
 
   it('applies correct CSS classes', () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
 
     const homeContainer = document.querySelector('.home-page');
     expect(homeContainer).toBeInTheDocument();
@@ -45,7 +50,8 @@ describe('HomePage', () => {
   });
 
   it('is responsive and mobile-friendly', () => {
-    render(<HomePage />);
+    render(<HomePage
+      />);
 
     const homeContainer = document.querySelector('.home-page');
     expect(homeContainer).toBeInTheDocument();

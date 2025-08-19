@@ -1,5 +1,6 @@
 'use client';
 
+
 /**
  * 🎨 STATE-OF-THE-ART BUTTON COMPONENT ✨
  *
@@ -154,18 +155,18 @@ export const StateOfTheArtButton = forwardRef(
         style={buttonStyles}
         {...props}
       >
-        <div className="button-content">
+      <div className="button-content">
           {loading && (
             <div className="button-spinner">
-              <div className="spinner-ring" />
-            </div>
+      <div className="spinner-ring"
+      />
+      </div>
           )}
           <span className={`button-text ${loading ? 'loading' : ''}`}>{children}</span>
-        </div>
-
-        <div ref={rippleRef} className="button-ripple" />
-
-        <style>{`
+      </div>
+      <div ref={rippleRef} className="button-ripple"
+      />
+      <style>{`
           .state-of-the-art-button {
             position: relative;
             overflow: hidden;

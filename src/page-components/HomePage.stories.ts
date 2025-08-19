@@ -16,7 +16,7 @@ const meta = {
   },
   // Mock any required props or context
   decorators: [
-    (Story: React.ComponentType) =>
+    (_Story: React.ComponentType) =>
       React.createElement(
         'div',
         {

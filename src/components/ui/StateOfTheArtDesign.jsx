@@ -6,12 +6,12 @@
  * Professional-grade components using GSAP, Headless UI, and modern design principles
  */
 
-import PropTypes from 'prop-types';
 import { Dialog } from '@headlessui/react';
 import { PauseIcon, PlayIcon, SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/solid';
 import { AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 
 // Register GSAP plugins
@@ -59,28 +59,26 @@ export const StateOfTheArtVideoControls = ({
 
     // Hover animations
     const buttons = controlsRef.current.querySelectorAll('.control-button');
-    buttons.forEach((button) => {
-      button.addEventListener('mouseenter', () => {
-        gsap.to(button, {
-          scale: 1.1,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      });
+    const onEnter = (button) => () => {
+      gsap.to(button, { scale: 1.1, duration: 0.3, ease: 'power2.out' });
+    };
+    const onLeave = (button) => () => {
+      gsap.to(button, { scale: 1, duration: 0.3, ease: 'power2.out' });
+    };
 
-      button.addEventListener('mouseleave', () => {
-        gsap.to(button, {
-          scale: 1,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      });
+    const handlers = [];
+    buttons.forEach((button) => {
+      const enter = onEnter(button);
+      const leave = onLeave(button);
+      handlers.push({ button, enter, leave });
+      button.addEventListener('mouseenter', enter);
+      button.addEventListener('mouseleave', leave);
     });
 
     return () => {
-      buttons.forEach((button) => {
-        button.removeEventListener('mouseenter', () => {});
-        button.removeEventListener('mouseleave', () => {});
+      handlers.forEach(({ button, enter, leave }) => {
+        button.removeEventListener('mouseenter', enter);
+        button.removeEventListener('mouseleave', leave);
       });
     };
   }, []);
@@ -102,20 +100,37 @@ export const StateOfTheArtVideoControls = ({
       {/* Progress Bar */}
       <div className="progress-container">
         <button
+          type="button"
           className="progress-track"
-           role="button" tabIndex={0} onClick={(e) = role="button"> {
+          onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-            onSeek(percent * duration);
-          } onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e => {
-            const rect = e.currentTarget.getBoundingClientRect;
-            const percent = e.clientX - rect.left / rect.width;
-            onSeekpercent * duration;
-          (e); } }}}
+            const target = Math.max(0, Math.min(duration, percent * duration));
+            onSeek(target);
+          }}
+          onKeyDown={(e) => {
+            const SMALL_STEP = 5; // seconds
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              const target = Math.min(duration, currentTime + SMALL_STEP);
+              onSeek(target);
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              const target = Math.max(0, currentTime - SMALL_STEP);
+              onSeek(target);
+            } else if (e.key === 'Home') {
+              e.preventDefault();
+              onSeek(0);
+            } else if (e.key === 'End') {
+              e.preventDefault();
+              onSeek(duration);
+            }
+          }}
+          aria-label="Seek video"
         >
           <div ref={progressRef} className="progress-fill" />
-            <div className="progress-glow" />
-            </div>
+          <div className="progress-glow" />
+        </button>
       </div>
 
       {/* Control Buttons */}
@@ -132,7 +147,6 @@ export const StateOfTheArtVideoControls = ({
             <PlayIcon className="control-icon play-icon" />
           )}
         </button>
-
         <div className="volume-control">
           <button
             className="control-button"
@@ -146,7 +160,6 @@ export const StateOfTheArtVideoControls = ({
               <SpeakerWaveIcon className="control-icon" />
             )}
           </button>
-
           <div className="volume-slider-container">
             <input
               ref={volumeRef}
@@ -158,16 +171,14 @@ export const StateOfTheArtVideoControls = ({
               onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
               className="volume-slider"
             />
-            </div>
+          </div>
         </div>
-
         <div className="time-display">
           <span className="time-current">{formatTime(currentTime)}</span>
           <span className="time-separator">/</span>
           <span className="time-total">{formatTime(duration)}</span>
         </div>
       </div>
-
       <style>{`
         .state-of-the-art-controls {
           background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
@@ -344,7 +355,7 @@ StateOfTheArtVideoControls.propTypes = {
   onToggleMute: PropTypes.func.isRequired,
   currentTime: PropTypes.number,
   duration: PropTypes.number,
-  onSeek: PropTypes.func.isRequired
+  onSeek: PropTypes.func.isRequired,
 };
 
 export const StateOfTheArtModal = ({ isOpen, onClose, title, children }) => {
@@ -383,20 +394,17 @@ export const StateOfTheArtModal = ({ isOpen, onClose, title, children }) => {
       {isOpen && (
         <Dialog as="div" className="modal-container" onClose={onClose}>
           <div ref={overlayRef} className="modal-overlay" aria-hidden="true" />
-            <div className="modal-wrapper">
+          <div className="modal-wrapper">
             <div className="modal-content-wrapper">
               <Dialog.Panel ref={modalRef} className="modal-panel">
                 <Dialog.Title className="modal-title">{title}</Dialog.Title>
-
                 <div className="modal-content">{children}</div>
-
                 <button className="modal-close" onClick={onClose}>
                   ×
                 </button>
               </Dialog.Panel>
             </div>
           </div>
-
           <style>{`
             .modal-container {
               position: fixed;
@@ -497,7 +505,7 @@ StateOfTheArtModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export const StateOfTheArtParallax = ({ children, speed = 0.5, className = '' }) => {
@@ -554,7 +562,6 @@ export const StateOfTheArtParallax = ({ children, speed = 0.5, className = '' })
       <div ref={contentRef} className="parallax-content">
         {children}
       </div>
-
       <style>{`
         .parallax-section {
           position: relative;
@@ -567,6 +574,12 @@ export const StateOfTheArtParallax = ({ children, speed = 0.5, className = '' })
       `}</style>
     </div>
   );
+};
+
+StateOfTheArtParallax.propTypes = {
+  children: PropTypes.node.isRequired,
+  speed: PropTypes.number,
+  className: PropTypes.string,
 };
 
 /**
@@ -600,8 +613,10 @@ export const StateOfTheArtLoader = ({
       yoyo: true,
     });
 
+    const loaderEl = loaderRef.current;
     return () => {
-      gsap.killTweensOf([loaderRef.current, dots]);
+      if (loaderEl) gsap.killTweensOf(loaderEl);
+      if (dots) gsap.killTweensOf(dots);
     };
   }, [isLoading]);
 
@@ -613,18 +628,15 @@ export const StateOfTheArtLoader = ({
         <div className="loader-animation">
           <div className="loader-ring">
             <div className="loader-ring-inner" />
-            </div>
+          </div>
         </div>
-
         <p className="loader-message">{message}</p>
-
         <div ref={dotsRef} className="loader-dots">
           <span className="dot" />
-            <span className="dot" />
-            <span className="dot" />
-            </div>
+          <span className="dot" />
+          <span className="dot" />
+        </div>
       </div>
-
       <style>{`
         .loader-overlay {
           position: fixed;
@@ -705,6 +717,11 @@ export const StateOfTheArtLoader = ({
       `}</style>
     </div>
   );
+};
+
+StateOfTheArtLoader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  message: PropTypes.string,
 };
 
 // Utility function

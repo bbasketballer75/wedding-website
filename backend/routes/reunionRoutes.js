@@ -1,16 +1,5 @@
 import express from 'express';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import { db } from '../config/firebase.js';
+import getDbPromise from '../config/firestore.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const router = express.Router();
@@ -26,13 +15,13 @@ router.get(
   asyncHandler(async (req, res) => {
     const now = new Date();
 
-    const eventsQuery = query(
-      collection(db, 'reunionEvents'),
-      where('eventDate', '>=', now),
-      orderBy('eventDate', 'asc')
-    );
+    const db = await getDbPromise();
+    const eventsQuery = db
+      .collection('reunionEvents')
+      .where('eventDate', '>=', now)
+      .orderBy('eventDate', 'asc');
 
-    const snapshot = await getDocs(eventsQuery);
+    const snapshot = await eventsQuery.get();
     const events = [];
 
     snapshot.forEach((doc) => {
@@ -65,13 +54,13 @@ router.get(
   asyncHandler(async (req, res) => {
     const now = new Date();
 
-    const pastEventsQuery = query(
-      collection(db, 'reunionEvents'),
-      where('eventDate', '<', now),
-      orderBy('eventDate', 'desc')
-    );
+    const db = await getDbPromise();
+    const pastEventsQuery = db
+      .collection('reunionEvents')
+      .where('eventDate', '<', now)
+      .orderBy('eventDate', 'desc');
 
-    const snapshot = await getDocs(pastEventsQuery);
+    const snapshot = await pastEventsQuery.get();
     const pastEvents = [];
 
     snapshot.forEach((doc) => {
@@ -98,8 +87,9 @@ router.get(
   asyncHandler(async (req, res) => {
     const { eventId } = req.params;
 
-    const eventRef = doc(db, 'reunionEvents', eventId);
-    const eventSnap = await getDoc(eventRef);
+    const db = await getDbPromise();
+    const eventRef = db.collection('reunionEvents').doc(eventId);
+    const eventSnap = await eventRef.get();
 
     if (!eventSnap.exists()) {
       return res.status(404).json({
@@ -205,7 +195,8 @@ router.post(
       },
     };
 
-    const docRef = await addDoc(collection(db, 'reunionEvents'), eventData);
+    const db = await getDbPromise();
+    const docRef = await db.collection('reunionEvents').add(eventData);
 
     res.status(201).json({
       success: true,
@@ -251,8 +242,9 @@ router.post(
       });
     }
 
-    const eventRef = doc(db, 'reunionEvents', eventId);
-    const eventSnap = await getDoc(eventRef);
+    const db = await getDbPromise();
+    const eventRef = db.collection('reunionEvents').doc(eventId);
+    const eventSnap = await eventRef.get();
 
     if (!eventSnap.exists()) {
       return res.status(404).json({
@@ -310,7 +302,7 @@ router.post(
 
     const updatedRSVPs = [...existingRSVPs, rsvpData];
 
-    await updateDoc(eventRef, {
+    await eventRef.update({
       rsvps: updatedRSVPs,
       lastRSVPUpdate: new Date(),
     });
@@ -398,8 +390,9 @@ router.patch(
       }
     }
 
-    const eventRef = doc(db, 'reunionEvents', eventId);
-    await updateDoc(eventRef, {
+    const db = await getDbPromise();
+    const eventRef = db.collection('reunionEvents').doc(eventId);
+    await eventRef.update({
       ...updates,
       lastModifiedAt: new Date(),
     });

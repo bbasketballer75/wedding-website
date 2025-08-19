@@ -27,9 +27,10 @@
     "dev:force": "pwsh -ExecutionPolicy Bypass -File scripts/dev-startup.ps1 -Force",
     "dev:validate": "node scripts/validate-dev-env.mjs",
     "dev:full": "npm run dev:emulator & npm run dev:backend & npm run mcp:sequential & npm run dev",
-    "dev:emulator": "firebase emulators:start --only firestore",
-    "dev:backend": "cd backend && cross-env NODE_ENV=development FIRESTORE_EMULATOR_HOST=localhost:8082 PORT=3002 npm start",
+    "dev:emulator": "pwsh -ExecutionPolicy Bypass -File scripts/dev-emulator.ps1",
+    "dev:backend": "pwsh -ExecutionPolicy Bypass -File scripts/dev-backend.ps1",
     "build": "next build",
+    "build:fast": "cross-env FAST_PREPUSH=1 next build",
     "build:analyze": "cross-env ANALYZE=true npm run build",
     "build:vercel": "next build && echo 'Build completed for Vercel'",
     "convert:webp": "node scripts/convert-to-webp.js",
@@ -37,9 +38,20 @@
     "validate:optimizations": "node scripts/validate-optimizations.mjs",
     "mcp:sequential": "node scripts/sequential-thinking-manager.mjs",
     "mcp:status": "node scripts/check-mcp-servers.mjs",
+    "mcp:supercharged": "node scripts/mcp/supercharged-mcp-manager.mjs",
+    "mcp:all": "cross-env BEAST_MODE_ALL_TOOLS=1 node scripts/mcp/supercharged-mcp-manager.mjs",
+    "mcp:quiet": "node scripts/mcp/supercharged-mcp-manager.mjs --quiet --no-health --no-metrics",
+    "mcp:quiet:headed": "node scripts/mcp/supercharged-mcp-manager.mjs --quiet --no-health --no-metrics --headed",
+    "mcp:headed": "node scripts/mcp/supercharged-mcp-manager.mjs --headed",
+    "mcp:headed:chrome": "node scripts/mcp/supercharged-mcp-manager.mjs --headed --pw-arg --browser=chrome",
+    "mcp:ci": "node scripts/mcp/supercharged-mcp-manager.mjs --quiet --no-health --no-metrics --run-for 20",
+    "mcp:ci:90": "node scripts/mcp/supercharged-mcp-manager.mjs --quiet --no-health --no-metrics --run-for 90",
     "mcp:photos": "npx tsx mcp-servers/wedding-photos-server.ts",
     "mcp:content": "npx tsx mcp-servers/wedding-content-server.ts",
     "mcp:test": "echo 'Testing MCP servers...' && npm run mcp:photos --version && npm run mcp:content --version",
+    "serena:start": "pwsh -ExecutionPolicy Bypass -File scripts/serena-start.ps1 -Mode stdio -Context ide-assistant",
+    "serena:start:sse": "pwsh -ExecutionPolicy Bypass -File scripts/serena-start.ps1 -Mode sse -Port 9121 -Context ide-assistant",
+    "serena:index": "pwsh -ExecutionPolicy Bypass -File scripts/serena-index.ps1",
     "start": "next start",
     "start:prod": "npm run build && next start",
     "lint": "eslint . --config eslint.config.mjs",
@@ -55,7 +67,12 @@
     "integrate:features": "node scripts/integration-manager.mjs",
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "vitest run",
+    "test:frontend:changed": "vitest run --changed --passWithNoTests",
+    "test:smoke:frontend": "vitest run src/components/__tests__/PasswordPrompt.test.jsx src/components/__tests__/Navbar.accessibility.test.jsx --passWithNoTests",
     "test:backend": "cd backend && npm test",
+    "test:backend:changed": "cd backend && cross-env NODE_OPTIONS=\"--experimental-vm-modules\" npx jest --onlyChanged --passWithNoTests",
+    "test:smoke:backend": "cd backend && cross-env NODE_OPTIONS=\"--experimental-vm-modules\" npx jest utils/__tests__/asyncHandler.test.js utils/__tests__/errorHandler.test.js utils/__tests__/geo.test.js --passWithNoTests",
+    "test:smoke": "npm run test:smoke:frontend && npm run test:smoke:backend",
     "test:watch": "vitest",
     "test:unit": "vitest run --project unit",
     "test:coverage": "vitest run --coverage",
@@ -77,6 +94,7 @@
     "optimize": "node scripts/optimize-project.mjs",
     "clean:cache": "rm -rf .next node_modules/.cache",
     "analyze:deps": "npx depcheck",
+    "audit:img": "node scripts/audit-img-tags.mjs",
     "prepare": "husky"
   },
   "dependencies": {
@@ -178,6 +196,6 @@
       "eslint --fix",
       "prettier --write"
     ],
-  "*.{md,css,scss,html,yml,yaml}": "prettier --write"
+    "*.{md,css,scss,html,yml,yaml}": "prettier --write"
   }
 }

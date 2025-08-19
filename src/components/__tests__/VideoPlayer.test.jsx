@@ -151,13 +151,15 @@ describe('StateOfTheArtEnhancedVideoPlayer', () => {
   });
 
   it('renders with loading state initially', () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
     expect(screen.getByText('Loading your wedding film...')).toBeInTheDocument();
   });
 
   it('renders video element with correct props', () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
     const video = screen.getByRole('application');
     expect(video).toBeInTheDocument();
@@ -165,7 +167,8 @@ describe('StateOfTheArtEnhancedVideoPlayer', () => {
   });
 
   it('displays error state when video fails to load', async () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
     const video = document.querySelector('video');
 
@@ -180,7 +183,8 @@ describe('StateOfTheArtEnhancedVideoPlayer', () => {
   });
 
   it('shows retry button in error state', async () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
     const video = document.querySelector('video');
     fireEvent.loadStart(video);
@@ -193,7 +197,8 @@ describe('StateOfTheArtEnhancedVideoPlayer', () => {
   });
 
   it('handles retry after error', async () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps}
+      />);
 
     const video = document.querySelector('video');
     fireEvent.loadStart(video);
@@ -230,19 +235,22 @@ describe('StateOfTheArtEnhancedVideoPlayer', () => {
   it('handles missing src gracefully', () => {
     // Should not crash when src is undefined
     expect(() => {
-      render(<StateOfTheArtEnhancedVideoPlayer title="Test Video" />);
+      render(<StateOfTheArtEnhancedVideoPlayer title="Test Video"
+      />);
     }).not.toThrow();
   });
 
   it('handles missing title gracefully', () => {
-    render(<StateOfTheArtEnhancedVideoPlayer src="test.mp4" />);
+    render(<StateOfTheArtEnhancedVideoPlayer src="test.mp4"
+      />);
 
     const video = screen.getByRole('application');
     expect(video).toHaveAttribute('aria-label', 'Austin & Jordyn\'s Wedding Film - Enhanced video player');
   });
 
   it('applies correct CSS classes for different states', () => {
-    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} className="custom-class" />);
+    render(<StateOfTheArtEnhancedVideoPlayer {...defaultProps} className="custom-class"
+      />);
 
     const container = screen.getByRole('application');
     expect(container).toHaveClass('video-player');

@@ -61,31 +61,32 @@ const GuestbookPage = () => {
 
   return (
     <div className="guestbook-page">
-      {isLoading && <LoadingScreen message="Gathering all the beautiful words and blessings..." />}
+      {isLoading && <LoadingScreen message="Gathering all the beautiful words and blessings..."
+      />}
       {!isLoading && (
         <>
-          <h2 id="guestbook-title" className="section-title">
+      <h2 id="guestbook-title" className="section-title">
             Our Sacred Memory Book
           </h2>
-          <p className="guestbook-subheading">
+      <p className="guestbook-subheading">
             Your precious words become golden threads in the tapestry of our love story. Share a
             cherished memory from our wedding celebration, offer wisdom from your heart, recount a
             moment that made you smile, or simply leave us a blessing. Each message becomes an
             eternal keepsake in our journey of love.
           </p>
-          <form
+      <form
             className="guestbook-form"
             onSubmit={handleSubmit}
             aria-labelledby="guestbook-title"
             noValidate
           >
-            <fieldset>
-              <legend className="sr-only">Add a guestbook entry</legend>
-              <div className="input-group">
-                <label className="label" htmlFor="guestbook-name">
+      <fieldset>
+      <legend className="sr-only">Add a guestbook entry</legend>
+      <div className="input-group">
+      <label className="label" htmlFor="guestbook-name">
                   Name (optional)
                 </label>
-                <input
+      <input
                   className="input"
                   id="guestbook-name"
                   type="text"
@@ -95,16 +96,16 @@ const GuestbookPage = () => {
                   placeholder="Your name"
                   autoComplete="name"
                   aria-describedby="name-help"
-                />
-                <div id="name-help" className="sr-only">
+      />
+      <div id="name-help" className="sr-only">
                   Optional field for your name, up to 100 characters
                 </div>
-              </div>
-              <div className="input-group">
-                <label className="label" htmlFor="guestbook-message">
+      </div>
+      <div className="input-group">
+      <label className="label" htmlFor="guestbook-message">
                   Message *
                 </label>
-                <textarea
+      <textarea
                   className="textarea"
                   id="guestbook-message"
                   value={message}
@@ -116,13 +117,13 @@ const GuestbookPage = () => {
                   aria-describedby="message-help"
                   aria-invalid={formError ? 'true' : 'false'}
                   rows={4}
-                />
-                <div id="message-help" className="input-description">
+      />
+      <div id="message-help" className="input-description">
                   Let your soul speak - we treasure every word, every blessing, every beautiful
                   thought you share.
                 </div>
-              </div>
-            </fieldset>
+      </div>
+      </fieldset>
             {formError && (
               <div className="form-error" role="alert" aria-live="assertive">
                 {formError}
@@ -147,13 +148,13 @@ const GuestbookPage = () => {
               </div>
             )}
           </form>
-          <section
+      <section
             className="messages"
             aria-labelledby="entries-title"
             role="log"
             aria-live="polite"
           >
-            <h3 id="entries-title" className="sr-only">
+      <h3 id="entries-title" className="sr-only">
               Guestbook Entries
             </h3>
             {entries.length === 0 ? (
@@ -163,7 +164,7 @@ const GuestbookPage = () => {
               </div>
             ) : (
               <>
-                <div className="sr-only" aria-live="polite">
+      <div className="sr-only" aria-live="polite">
                   {entries.length} guestbook {entries.length === 1 ? 'entry' : 'entries'} available
                 </div>
                 {entries.map((entry, index) => (
@@ -172,24 +173,24 @@ const GuestbookPage = () => {
                     key={entry._id || entry.timestamp || index}
                     aria-labelledby={`entry-${index}-author`}
                   >
-                    <div
+      <div
                       id={`entry-${index}-author`}
                       className="message-name"
                       aria-label="Message from"
                     >
                       {entry.name || 'Anonymous Guest'}
                     </div>
-                    <div className="message-text" aria-label="Message content">
+      <div className="message-text" aria-label="Message content">
                       {entry.message}
                     </div>
-                    <time
+      <time
                       className="message-date sr-only"
                       dateTime={entry.timestamp}
                       aria-label="Posted on"
                     >
                       {new Date(entry.timestamp).toLocaleDateString()}
                     </time>
-                  </article>
+      </article>
                 ))}
               </>
             )}
@@ -200,7 +201,7 @@ const GuestbookPage = () => {
             className="photo-upload-section"
             style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '2px solid #e2e8f0' }}
           >
-            <h3
+      <h3
               style={{
                 textAlign: 'center',
                 marginBottom: '1rem',
@@ -210,13 +211,14 @@ const GuestbookPage = () => {
             >
               Share Your Wedding Memories
             </h3>
-            <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#718096' }}>
+      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#718096' }}>
               Help us preserve the magic of May 10th, 2025 by uploading your favorite photos from
               our special day!
             </p>
-            <GuestPhotoUpload />
-          </section>
-        </>
+      <GuestPhotoUpload
+      />
+      </section>
+      </>
       )}
     </div>
   );

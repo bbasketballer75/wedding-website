@@ -18,7 +18,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('renders the initial form correctly', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Check main heading and description
     expect(screen.getByText('Share Your Wedding Photos')).toBeInTheDocument();
@@ -35,7 +36,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('has proper accessibility attributes', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Check required field has proper attributes
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -58,7 +60,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('updates form data when inputs change', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const nameInput = screen.getByLabelText(/Your Name/);
     const emailInput = screen.getByLabelText(/Email \(optional\)/);
@@ -74,7 +77,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('handles file selection and creates preview', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const fileInput = screen.getByLabelText(/Select Photos/);
     const file1 = new File(['test1'], 'photo1.jpg', { type: 'image/jpeg' });
@@ -92,7 +96,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('allows removing files from selection', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const fileInput = screen.getByLabelText(/Select Photos/);
     const file1 = new File(['test1'], 'photo1.jpg', { type: 'image/jpeg' });
@@ -111,7 +116,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('disables submit button when name is missing', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const fileInput = screen.getByLabelText(/Select Photos/);
     const file = new File(['test'], 'photo.jpg', { type: 'image/jpeg' });
@@ -124,7 +130,8 @@ describe('GuestPhotoUpload', () => {
   });
 
   it('disables submit button when no files are selected', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const nameInput = screen.getByLabelText(/Your Name/);
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
@@ -135,7 +142,8 @@ describe('GuestPhotoUpload', () => {
     expect(submitButton).toBeDisabled();
   });
   it('disables submit button when required fields are missing', () => {
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     const submitButton = screen.getByRole('button', { name: /Share Photos/ });
     expect(submitButton).toBeDisabled();
@@ -158,7 +166,8 @@ describe('GuestPhotoUpload', () => {
       json: async () => ({ success: true }),
     });
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out form
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -194,7 +203,8 @@ describe('GuestPhotoUpload', () => {
       json: async () => ({ success: false, error: 'Server error' }),
     });
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out minimal form
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -216,7 +226,8 @@ describe('GuestPhotoUpload', () => {
   it('handles network error', async () => {
     global.fetch.mockRejectedValueOnce(new Error('Network error'));
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out minimal form
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -240,7 +251,8 @@ describe('GuestPhotoUpload', () => {
       json: async () => ({ success: true }),
     });
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out form
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -283,7 +295,8 @@ describe('GuestPhotoUpload', () => {
       json: async () => ({ success: true }),
     });
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out form
     const nameInput = screen.getByLabelText(/Your Name/);
@@ -323,7 +336,8 @@ describe('GuestPhotoUpload', () => {
       json: async () => ({ success: true }),
     });
 
-    render(<GuestPhotoUpload />);
+    render(<GuestPhotoUpload
+      />);
 
     // Fill out form without email
     const nameInput = screen.getByLabelText(/Your Name/);

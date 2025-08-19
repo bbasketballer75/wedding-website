@@ -411,7 +411,6 @@ export default function AnniversaryPage() {
           }
         }
       `}</style>
-
       <div className="anniversary-header">
         <h1>🎊 Our Anniversary Journey</h1>
         <p>Celebrating the beautiful milestones of Austin & Jordyn</p>
@@ -444,21 +443,18 @@ export default function AnniversaryPage() {
             <h2>Next Milestone: {nextMilestone.name}</h2>
             <p>Coming up on {new Date(nextMilestone.date).toLocaleDateString()}</p>
           </div>
-
           <div className="countdown-display">
             <div className="countdown-number">
               <div>{nextMilestone.daysUntil}</div>
               <div className="countdown-label">Days</div>
             </div>
           </div>
-
           <div className="progress-bar">
             <div
               className="progress-fill"
               style={{ width: `${nextMilestone.percentage || 0}%` }}
             ></div>
           </div>
-
           <p style={{ textAlign: 'center', color: '#666', marginTop: '1rem' }}>
             {nextMilestone.percentage
               ? `${Math.round(nextMilestone.percentage)}% complete`
@@ -480,7 +476,6 @@ export default function AnniversaryPage() {
             <h2>Upcoming Milestones</h2>
             <p>Special moments to look forward to</p>
           </div>
-
           <div className="milestones-grid">
             {milestones.slice(0, 6).map((milestone, index) => (
               <div

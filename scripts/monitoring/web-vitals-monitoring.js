@@ -5,15 +5,15 @@
 
 // Advanced Web Vitals monitoring with detailed logging
 function initAdvancedWebVitals() {
-  console.log('🚀 Advanced Web Vitals Monitoring Started');
-  console.log('==========================================');
+  console.error('🚀 Advanced Web Vitals Monitoring Started');
+  console.error('==========================================');
 
   // Performance Observer for detailed metrics
   if ('PerformanceObserver' in window) {
     // Largest Contentful Paint
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        console.log('🖼️  LCP:', {
+        console.error('🖼️  LCP:', {
           value: Math.round(entry.startTime),
           element: entry.element?.tagName || 'Unknown',
           size: entry.size,
@@ -25,7 +25,7 @@ function initAdvancedWebVitals() {
     // First Input Delay
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        console.log('⚡ FID:', {
+        console.error('⚡ FID:', {
           value: Math.round(entry.processingStart - entry.startTime),
           eventType: entry.name,
           timestamp: new Date().toISOString(),
@@ -39,7 +39,7 @@ function initAdvancedWebVitals() {
       for (const entry of list.getEntries()) {
         if (!entry.hadRecentInput) {
           clsValue += entry.value;
-          console.log('📏 CLS:', {
+          console.error('📏 CLS:', {
             value: Math.round(clsValue * 1000) / 1000,
             sources: entry.sources?.length || 0,
             timestamp: new Date().toISOString(),
@@ -53,7 +53,7 @@ function initAdvancedWebVitals() {
   window.addEventListener('load', () => {
     setTimeout(() => {
       const nav = performance.getEntriesByType('navigation')[0];
-      console.log('🌐 Navigation Timing:', {
+      console.error('🌐 Navigation Timing:', {
         domContentLoaded: Math.round(nav.domContentLoadedEventEnd - nav.domContentLoadedEventStart),
         loadComplete: Math.round(nav.loadEventEnd - nav.loadEventStart),
         firstByte: Math.round(nav.responseStart - nav.requestStart),
@@ -71,7 +71,7 @@ function initAdvancedWebVitals() {
       .slice(0, 10);
 
     if (largeResources.length > 0) {
-      console.log(
+      console.error(
         '📦 Large Resources (>100KB):',
         largeResources.map((r) => ({
           name: r.name.split('/').pop(),
@@ -90,7 +90,7 @@ function monitorMemoryUsage() {
   if ('memory' in performance) {
     setInterval(() => {
       const memory = performance.memory;
-      console.log('🧠 Memory Usage:', {
+      console.error('🧠 Memory Usage:', {
         used: Math.round(memory.usedJSHeapSize / 1024 / 1024) + 'MB',
         total: Math.round(memory.totalJSHeapSize / 1024 / 1024) + 'MB',
         limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024) + 'MB',
@@ -108,9 +108,9 @@ if (document.readyState === 'loading') {
 
 monitorMemoryUsage();
 
-console.log('📊 Copy this script to browser console on your production site');
-console.log('📈 Monitor Core Web Vitals in real-time');
-console.log('🎯 Target values:');
-console.log('   - LCP: < 2.5s (Good)');
-console.log('   - FID: < 100ms (Good)');
-console.log('   - CLS: < 0.1 (Good)');
+console.error('📊 Copy this script to browser console on your production site');
+console.error('📈 Monitor Core Web Vitals in real-time');
+console.error('🎯 Target values:');
+console.error('   - LCP: < 2.5s (Good)');
+console.error('   - FID: < 100ms (Good)');
+console.error('   - CLS: < 0.1 (Good)');

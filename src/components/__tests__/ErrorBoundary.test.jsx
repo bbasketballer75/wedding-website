@@ -25,7 +25,7 @@ describe('ErrorBoundary', () => {
   it('renders children when there is no error', () => {
     render(
       <ErrorBoundary>
-        <div>Test content</div>
+      <div>Test content</div>
       </ErrorBoundary>
     );
 
@@ -35,7 +35,8 @@ describe('ErrorBoundary', () => {
   it('renders error UI when child component throws', () => {
     render(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -46,7 +47,8 @@ describe('ErrorBoundary', () => {
   it('shows retry button when error occurs', () => {
     render(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -58,7 +60,8 @@ describe('ErrorBoundary', () => {
   it('has proper accessibility features in error state', () => {
     render(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -81,7 +84,8 @@ describe('ErrorBoundary', () => {
 
     render(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -98,7 +102,8 @@ describe('ErrorBoundary', () => {
 
     render(
       <ErrorBoundary>
-        <NetworkError />
+      <NetworkError
+      />
       </ErrorBoundary>
     );
 
@@ -109,7 +114,8 @@ describe('ErrorBoundary', () => {
   it('maintains error state between re-renders of same failing component', () => {
     const { rerender } = render(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -118,7 +124,8 @@ describe('ErrorBoundary', () => {
     // Re-render with same failing component
     rerender(
       <ErrorBoundary>
-        <ThrowError />
+      <ThrowError
+      />
       </ErrorBoundary>
     );
 
@@ -137,7 +144,8 @@ describe('ErrorBoundary', () => {
 
     render(
       <ErrorBoundary>
-        <EventHandlerError />
+      <EventHandlerError
+      />
       </ErrorBoundary>
     );
 
