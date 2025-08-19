@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "mcp-filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\Austin\\Downloads\\wedding-website"
+      ],
+      "enabled": true
+    },
+    "mcp-memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "enabled": true
+    },
+    "mcp-fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "enabled": true
+    },
+    "mcp-time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"],
+      "enabled": true
+    },
+    "mcp-git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "C:\\Users\\Austin\\Downloads\\wedding-website"
+      ],
+      "enabled": true
+    },
+    "mcp-sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "enabled": true
+    }
+  }
+}
