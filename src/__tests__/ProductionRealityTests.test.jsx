@@ -217,27 +217,35 @@ describe('Production Reality Tests', () => {
 
   describe('Web Vitals Import Resolution', () => {
     it('should handle missing web-vitals module gracefully', async () => {
-      // Mock dynamic import failure
-      const originalImport = global.import;
-      global.import = vi
-        .fn()
-        .mockRejectedValue(new Error("Failed to resolve module specifier 'web-vitals'"));
+      // Test that WebVitalsReporter uses Performance Observer API
+      // instead of the web-vitals npm package
 
-      let fallbackUsed = false;
-      try {
-        await import('web-vitals');
-      } catch (error) {
-        // Use fallback method
-        fallbackUsed = true;
-      }
+      // Mock Performance Observer to ensure fallback works
+      const mockPerformanceObserver = vi.fn();
+      mockPerformanceObserver.prototype.observe = vi.fn();
+      mockPerformanceObserver.prototype.disconnect = vi.fn();
 
-      expect(fallbackUsed).toBe(true);
+      const originalPerformanceObserver = global.PerformanceObserver;
+      global.PerformanceObserver = mockPerformanceObserver;
 
-      // Restore original import
-      global.import = originalImport;
+      const { WebVitalsReporter } = await import('@/components/performance/WebVitalsReporter');
+      const { AnalyticsProvider } = await import('@/providers/AnalyticsProvider');
+
+      // Should render without error using native APIs
+      const { render } = await import('@testing-library/react');
+
+      expect(() => {
+        render(
+          <AnalyticsProvider>
+            <WebVitalsReporter />
+          </AnalyticsProvider>
+        );
+      }).not.toThrow();
+
+      // Restore original PerformanceObserver
+      global.PerformanceObserver = originalPerformanceObserver;
     });
   });
-
   describe('Production Environment Validation', () => {
     it('should verify the site behaves correctly in production mode', () => {
       expect(process.env.NODE_ENV).toBe('production');
