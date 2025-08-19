@@ -17,18 +17,14 @@ function analyzeBundleSize() {
     const chunks = fs
       .readdirSync(staticDir)
       .filter((file) => file.endsWith('.js'))
-     // Extracted to reduce nesting
-
-     const mapFunction = ((file) => 
+      .map((file) => {
         const filePath = path.join(staticDir, file);
         const stats = fs.statSync(filePath);
         return {
           name: file,
           size: stats.size,
           sizeKB: Math.round(stats.size / 1024),
-        ;
-
-      .map(mapFunction);
+        };
       })
       .sort((a, b) => b.size - a.size);
 
