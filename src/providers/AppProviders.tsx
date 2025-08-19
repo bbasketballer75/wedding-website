@@ -13,20 +13,20 @@
  * - AI features
  */
 
-import React from 'react';
-import { AudioProvider } from '@/providers/AudioProvider';
-import { AudioProvider as AmbientAudioProvider } from '@/components/AmbientSoundSystem';
-import { ToastProvider } from '@/providers/ToastProvider';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
-import { WebVitalsReporter } from '@/components/performance/WebVitalsReporter';
-import { AnalyticsProvider } from '@/providers/AnalyticsProvider';
-import {
-  PWAProvider,
-  PWAInstallBanner,
-  OfflineStatusIndicator,
-  NotificationManager,
-} from '@/components/pwa/PWAManager';
 import { AIWeddingProvider } from '@/components/ai/AIWeddingFeatures';
+import { AudioProvider as AmbientAudioProvider } from '@/components/AmbientSoundSystem';
+import { WebVitalsReporter } from '@/components/performance/WebVitalsReporter';
+import {
+  NotificationManager,
+  OfflineStatusIndicator,
+  PWAInstallBanner,
+  PWAProvider,
+} from '@/components/pwa/PWAManager';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { AnalyticsProvider } from '@/providers/AnalyticsProvider';
+import { AudioProvider } from '@/providers/AudioProvider';
+import { ToastProvider } from '@/providers/ToastProvider';
+import React from 'react';
 
 interface AppProvidersProps {
   children: React.ReactNode;

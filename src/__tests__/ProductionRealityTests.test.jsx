@@ -5,8 +5,8 @@
  * These tests are designed to catch the issues that users experience on the live site
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AudioProvider } from '../components/AmbientSoundSystem';
 
 // Mock the production-like environment
