@@ -1,7 +1,14 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { getAlbumMedia } from '../../services/api';
+import {
+  MagneticButton,
+  ParallaxMotion,
+  fadeInUp,
+  romanticReveal,
+} from '../animations/SophisticatedAnimations';
 
 const PhotoGallery = ({ refreshKey }) => {
   const [media, setMedia] = useState([]);
@@ -72,80 +79,163 @@ const PhotoGallery = ({ refreshKey }) => {
 
   if (isLoading) {
     return (
-      <div className="loading-container" aria-live="polite">
-        <div className="loading-spinner" aria-hidden="true"></div>
-        <p>Awakening our gallery...</p>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center" aria-live="polite">
+        <motion.div
+          className="w-16 h-16 border-2 border-sage-200 border-t-blush-400 rounded-full animate-spin mb-6"
+          {...fadeInUp}
+          aria-hidden="true"
+        />
+        <motion.p
+          className="text-xl font-display text-eucalyptus-700 font-light"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          Awakening our cherished memories...
+        </motion.p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="error-container" role="alert" aria-live="assertive">
-        <p className="error-message">{error}</p>
-        <button onClick={handleRetry} className="retry-button" aria-label="Retry loading album">
-          Try Again
-        </button>
+      <div
+        className="min-h-[40vh] flex flex-col items-center justify-center px-8"
+        role="alert"
+        aria-live="assertive"
+      >
+        <motion.div className="text-center max-w-md" {...romanticReveal}>
+          <div className="text-6xl mb-6">📸</div>
+          <p className="text-xl text-sage-600 font-light mb-8 leading-relaxed">{error}</p>
+          <MagneticButton
+            onClick={handleRetry}
+            className="bg-blush-500 hover:bg-blush-600 text-white px-8 py-3 rounded-full
+                     font-medium transition-all duration-300 hover:shadow-xl hover:shadow-blush-200/30"
+            aria-label="Retry loading album"
+          >
+            Try Again
+          </MagneticButton>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <main className="photo-gallery" aria-label="Wedding photo gallery">
+    <main
+      className="py-16 px-4 md:px-8 bg-gradient-to-br from-sage-50 to-blush-50 min-h-screen"
+      aria-label="Wedding photo gallery"
+    >
       {media.length === 0 ? (
-        <div className="empty-state">
-          <p>The album is currently empty. Be the first to contribute!</p>
-        </div>
+        <motion.div className="text-center max-w-2xl mx-auto py-20" {...romanticReveal}>
+          <div className="text-8xl mb-8">📷</div>
+          <h2 className="text-4xl md:text-5xl font-display font-light text-eucalyptus-800 mb-6">
+            Awaiting Beautiful Moments
+          </h2>
+          <p className="text-xl text-sage-600 font-light leading-relaxed">
+            The album is currently empty, ready to be filled with your precious memories. Be the
+            first to contribute to our story!
+          </p>
+        </motion.div>
       ) : (
         <>
-          <h2 className="sr-only">{media.length} wedding photos and videos</h2>
-          <div className="gallery-grid">
-            {media.map((item, index) => (
-              <div key={item._id} className="gallery-item">
-                {item.mimetype.startsWith('image/') && (
-                  <div className="relative w-full h-0 pb-[66%]">
-                    <Image
-                      src={`/${item.filepath}`}
-                      alt={
-                        item.uploadedBy
-                          ? `Uploaded by ${item.uploadedBy}`
-                          : `Wedding photo ${index + 1}`
-                      }
-                      fill
-                      sizes="(max-width: 768px) 50vw, 33vw"
-                      loading="lazy"
-                      style={{ objectFit: 'cover' }}
-                      onError={handleImageError}
-                      unoptimized
-                    />
-                  </div>
-                )}
-                {item.mimetype.startsWith('video/') && (
-                  <video
-                    src={`/${item.filepath}`}
-                    controls
-                    muted
-                    loop
-                    playsInline
-                    onError={handleVideoError}
-                    className="gallery-video"
-                    aria-label={`Wedding video ${index + 1}, uploaded ${new Date(item.timestamp).toLocaleDateString()}`}
-                  >
-                    <p>Your browser does not support the video tag.</p>
-                  </video>
-                )}
-                <div className="item-info">
-                  <small className="upload-date" aria-label="Upload date">
-                    {new Date(item.timestamp).toLocaleDateString()}
-                  </small>
-                  {item.uploadedBy && item.uploadedBy !== 'Anonymous Guest' && (
-                    <small className="uploaded-by" aria-label="Uploaded by">
-                      by {item.uploadedBy}
-                    </small>
-                  )}
-                </div>
-              </div>
-            ))}
+          <motion.div className="text-center mb-16" {...romanticReveal}>
+            <h2 className="text-5xl md:text-7xl font-display font-light text-eucalyptus-800 mb-6">
+              Our Gallery
+            </h2>
+            <p className="text-xl md:text-2xl text-sage-600 font-light max-w-3xl mx-auto leading-relaxed">
+              {media.length} precious moments captured forever, shared with love by our family and
+              friends
+            </p>
+          </motion.div>
+
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {media.map((item, index) => (
+                <motion.div
+                  key={item._id}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <MagneticButton className="block w-full">
+                    <div
+                      className="relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm
+                                  border border-sage-100 group-hover:border-blush-200
+                                  transition-all duration-500 group-hover:shadow-2xl
+                                  group-hover:shadow-sage-200/20"
+                    >
+                      {item.mimetype.startsWith('image/') && (
+                        <ParallaxMotion speed={0.1}>
+                          <div className="relative w-full h-80 overflow-hidden rounded-t-2xl">
+                            <Image
+                              src={`/${item.filepath}`}
+                              alt={
+                                item.uploadedBy
+                                  ? `Cherished moment shared by ${item.uploadedBy}`
+                                  : `Wedding memory ${index + 1}`
+                              }
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              loading="lazy"
+                              className="object-cover transform group-hover:scale-110 transition-transform duration-700"
+                              onError={handleImageError}
+                              unoptimized
+                            />
+
+                            {/* Luxury overlay on hover */}
+                            <div
+                              className="absolute inset-0 bg-gradient-to-t from-eucalyptus-900/20 via-transparent to-transparent
+                                          opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                            />
+                          </div>
+                        </ParallaxMotion>
+                      )}
+
+                      {item.mimetype.startsWith('video/') && (
+                        <div className="relative w-full h-80 overflow-hidden rounded-t-2xl">
+                          <video
+                            src={`/${item.filepath}`}
+                            controls
+                            muted
+                            loop
+                            playsInline
+                            onError={handleVideoError}
+                            className="w-full h-full object-cover"
+                            aria-label={`Wedding video ${index + 1}, uploaded ${new Date(item.timestamp).toLocaleDateString()}`}
+                          >
+                            <p>Your browser does not support the video tag.</p>
+                          </video>
+                        </div>
+                      )}
+
+                      {/* Elegant caption */}
+                      <div className="p-6">
+                        <div className="flex items-center justify-between text-sm">
+                          <time
+                            className="text-sage-500 font-medium tracking-wide"
+                            dateTime={item.timestamp}
+                            aria-label="Upload date"
+                          >
+                            {new Date(item.timestamp).toLocaleDateString('en-US', {
+                              month: 'long',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </time>
+                          {item.uploadedBy && item.uploadedBy !== 'Anonymous Guest' && (
+                            <span className="text-blush-500 font-medium" aria-label="Shared by">
+                              by {item.uploadedBy}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </MagneticButton>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </>
       )}
