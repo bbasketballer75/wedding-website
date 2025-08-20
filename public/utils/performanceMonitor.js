@@ -120,8 +120,9 @@ class PerformanceMonitor {
         const duration = endTime - startTime;
 
         // Track API response times
-        if (url.includes('/api/')) {
-          this.metrics.apiResponseTimes[url] = duration;
+        const urlString = typeof url === 'string' ? url : url.url || '';
+        if (urlString.includes('/api/')) {
+          this.metrics.apiResponseTimes[urlString] = duration;
 
           if (duration > this.thresholds.apiResponseTime) {
             this.sendAlert('slow_api_response', {

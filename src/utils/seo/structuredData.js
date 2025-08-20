@@ -2,6 +2,17 @@
  * Enhanced structured data for wedding website SEO
  */
 
+// Dynamic base URL function that works in both client and server environments
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    'https://wedding-website-main-otacvg389-bbasketballer75s-projects.vercel.app'
+  );
+};
+
 export const weddingStructuredData = {
   // Wedding Event Schema
   wedding: {
@@ -30,19 +41,16 @@ export const weddingStructuredData = {
       {
         '@type': 'Person',
         name: 'Austin Porada',
-        url: 'https://www.theporadas.com',
+        url: getBaseURL(),
       },
       {
         '@type': 'Person',
         name: 'Jordyn Porada',
-        url: 'https://www.theporadas.com',
+        url: getBaseURL(),
       },
     ],
-    image: [
-      'https://www.theporadas.com/images/landing-bg.webp',
-      'https://www.theporadas.com/images/couple-photo.webp',
-    ],
-    url: 'https://www.theporadas.com',
+    image: [`${getBaseURL()}/images/landing-bg.webp`, `${getBaseURL()}/images/couple-photo.webp`],
+    url: getBaseURL(),
   },
 
   // Website Schema
@@ -50,61 +58,24 @@ export const weddingStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Austin & Jordyn Porada Wedding Website',
-    url: 'https://www.theporadas.com',
-    description: 'Wedding website featuring photo gallery, guestbook, and celebration memories',
-    author: [
-      {
-        '@type': 'Person',
-        name: 'Austin Porada',
-      },
-      {
-        '@type': 'Person',
-        name: 'Jordyn Porada',
-      },
-    ],
+    url: getBaseURL(),
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://www.theporadas.com/search?q={search_term_string}',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${getBaseURL()}/search?q={search_term_string}`,
+      },
       'query-input': 'required name=search_term_string',
     },
   },
 
-  // Photo Gallery Schema
-  photoGallery: {
+  // Photo Album Schema
+  photoAlbum: {
     '@context': 'https://schema.org',
     '@type': 'ImageGallery',
-    name: 'Austin & Jordyn Wedding Photo Gallery',
-    description: "Beautiful wedding photos from Austin & Jordyn's special day",
-    url: 'https://www.theporadas.com/#album',
-    author: {
-      '@type': 'Person',
-      name: 'Austin & Jordyn Porada',
-    },
-  },
-
-  // Person Schemas
-  austin: {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Austin Porada',
-    spouse: 'Jordyn Porada',
-    url: 'https://www.theporadas.com',
-    sameAs: [
-      'https://instagram.com/austin.porada', // Update with real social links
-      'https://facebook.com/austin.porada',
-    ],
-  },
-
-  jordyn: {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Jordyn Porada',
-    spouse: 'Austin Porada',
-    url: 'https://www.theporadas.com',
-    sameAs: [
-      'https://instagram.com/jordyn.porada', // Update with real social links
-      'https://facebook.com/jordyn.porada',
-    ],
+    name: 'Wedding Photo Album',
+    description: "Beautiful photos from Austin & Jordyn's wedding celebration",
+    url: `${getBaseURL()}/#album`,
   },
 
   // Breadcrumb Schema
@@ -116,19 +87,19 @@ export const weddingStructuredData = {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://www.theporadas.com',
+        item: getBaseURL(),
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Photo Album',
-        item: 'https://www.theporadas.com/#album',
+        item: `${getBaseURL()}/#album`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Guestbook',
-        item: 'https://www.theporadas.com/#guestbook',
+        item: `${getBaseURL()}/#guestbook`,
       },
     ],
   },
@@ -137,32 +108,24 @@ export const weddingStructuredData = {
   organization: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'The Poradas',
-    url: 'https://www.theporadas.com',
-    logo: 'https://www.theporadas.com/images/logo.png',
-    sameAs: ['https://instagram.com/theporadas', 'https://facebook.com/theporadas'],
+    name: 'Austin & Jordyn Porada Wedding',
+    url: getBaseURL(),
+    logo: `${getBaseURL()}/images/logo.png`,
     contactPoint: {
       '@type': 'ContactPoint',
-      contactType: 'General Inquiry',
-      email: 'hello@theporadas.com',
+      email: 'hello@weddingsite.com',
+      contactType: 'Wedding Information',
     },
   },
 };
 
-// Helper function to generate JSON-LD script tag
-export function generateStructuredDataScript(data) {
-  return {
-    __html: JSON.stringify(data, null, 2),
-  };
-}
+// Helper function to generate structured data for specific pages
+export const generateStructuredData = (type, customData = {}) => {
+  const baseData = weddingStructuredData[type];
+  if (!baseData) return null;
 
-// Get all structured data for homepage
-export function getHomepageStructuredData() {
-  return [
-    weddingStructuredData.wedding,
-    weddingStructuredData.website,
-    weddingStructuredData.photoGallery,
-    weddingStructuredData.breadcrumb,
-    weddingStructuredData.organization,
-  ];
-}
+  return {
+    ...baseData,
+    ...customData,
+  };
+};

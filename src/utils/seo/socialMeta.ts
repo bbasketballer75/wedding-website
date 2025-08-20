@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+
 interface SocialShareProps {
   title?: string;
   description?: string;
@@ -13,7 +16,8 @@ export function generateSocialMeta({
   description = 'Celebrate with Austin & Jordyn - Wedding photos, guestbook, and memories from our special day',
   image = '/images/social/og-wedding-main.jpg',
   type = 'website',
-  url = 'https://www.theporadas.com',
+  url = process.env.NEXT_PUBLIC_BASE_URL ||
+    (typeof window !== 'undefined' ? window.location.origin : ''),
 }: SocialShareProps = {}): Metadata {
   return {
     title,
@@ -70,7 +74,7 @@ export const socialMeta = {
       description:
         'Join us in celebrating our love story! View our wedding photos, leave messages in our guestbook, and relive the magic of our special day.',
       image: '/images/social/og-home.jpg',
-      url: 'https://www.theporadas.com',
+      url: BASE_URL,
     }),
 
   guestbook: () =>
@@ -79,7 +83,7 @@ export const socialMeta = {
       description:
         'Leave a message for the happy couple! Share your congratulations and well wishes in our digital wedding guestbook.',
       image: '/images/social/og-guestbook.jpg',
-      url: 'https://www.theporadas.com/guestbook',
+      url: `${BASE_URL}/guestbook`,
     }),
 
   album: (albumName: string) =>
@@ -87,7 +91,7 @@ export const socialMeta = {
       title: `${albumName} - Austin & Jordyn Wedding Photos`,
       description: `View beautiful photos from ${albumName} at Austin & Jordyn's wedding celebration.`,
       image: '/images/social/og-album.jpg',
-      url: `https://www.theporadas.com/albums/${albumName.toLowerCase().replace(/\s+/g, '-')}`,
+      url: `${BASE_URL}/albums/${albumName.toLowerCase().replace(/\s+/g, '-')}`,
     }),
 
   weddingParty: () =>
@@ -95,7 +99,7 @@ export const socialMeta = {
       title: 'Meet Our Wedding Party - Austin & Jordyn',
       description: 'Meet the amazing friends and family who stood with us on our special day.',
       image: '/images/social/og-wedding-party.jpg',
-      url: 'https://www.theporadas.com/wedding-party',
+      url: `${BASE_URL}/wedding-party`,
     }),
 
   familyTree: () =>
@@ -103,7 +107,7 @@ export const socialMeta = {
       title: 'Our Family Tree - Austin & Jordyn',
       description: 'Explore the family histories and stories that brought us together.',
       image: '/images/social/og-family.jpg',
-      url: 'https://www.theporadas.com/family-tree',
+      url: `${BASE_URL}/family-tree`,
     }),
 
   map: () =>
@@ -112,7 +116,7 @@ export const socialMeta = {
       description:
         'Discover the special places where our love story unfolded and our wedding celebration took place.',
       image: '/images/social/og-map.jpg',
-      url: 'https://www.theporadas.com/map',
+      url: `${BASE_URL}/map`,
     }),
 };
 

@@ -1,15 +1,27 @@
 // Advanced SEO and social media optimization
+
+// Dynamic base URL function
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    'https://wedding-website-main-otacvg389-bbasketballer75s-projects.vercel.app'
+  );
+};
+
 export const socialMediaMeta = {
   // Open Graph for Facebook/LinkedIn
   openGraph: {
     title: "Austin & Jordyn's Wedding | The Poradas",
     description:
       'Join us in celebrating our wedding day! Share memories, browse photos, and be part of our love story.',
-    url: 'https://www.theporadas.com',
+    url: getBaseURL(),
     siteName: 'The Poradas Wedding Website',
     images: [
       {
-        url: 'https://www.theporadas.com/images/engagement/PoradaProposal-11.webp',
+        url: `${getBaseURL()}/images/engagement/PoradaProposal-11.webp`,
         width: 1200,
         height: 630,
         alt: 'Austin and Jordyn during their romantic engagement session',
@@ -26,7 +38,7 @@ export const socialMediaMeta = {
     description:
       'Join us in celebrating our wedding day! Share memories, browse photos, and be part of our love story.',
     creator: '@theporadas',
-    images: ['https://www.theporadas.com/images/engagement/PoradaProposal-11.webp'],
+    images: [`${getBaseURL()}/images/engagement/PoradaProposal-11.webp`],
   },
 
   // Rich snippets for events
@@ -35,7 +47,7 @@ export const socialMediaMeta = {
     '@type': 'Event',
     name: 'Austin & Jordyn Porada Wedding',
     description: 'The wedding celebration of Austin and Jordyn Porada',
-    image: ['https://www.theporadas.com/images/engagement/PoradaProposal-11.webp'],
+    image: [`${getBaseURL()}/images/engagement/PoradaProposal-11.webp`],
     startDate: '2024-08-01T16:00:00-05:00', // Update with actual date
     endDate: '2024-08-01T23:00:00-05:00', // Update with actual date
     eventStatus: 'https://schema.org/EventScheduled',

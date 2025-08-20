@@ -1,4 +1,15 @@
 // Structured data for Austin & Jordyn's wedding website
+
+// Get dynamic base URL
+function getBaseURL(): string {
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://wedding-website-alpha-six.vercel.app')
+  );
+}
+
 export const weddingStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'Event',
@@ -36,28 +47,30 @@ export const weddingStructuredData = {
   },
 };
 
-export const websiteStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Austin & Jordyn Wedding Website',
-  description: "Wedding photos, guestbook, and memories from Austin & Jordyn's special day",
-  url: 'https://theporadas.com',
-  author: [
-    {
-      '@type': 'Person',
-      name: 'Austin Porada',
+export function getWebsiteStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Austin & Jordyn Wedding Website',
+    description: "Wedding photos, guestbook, and memories from Austin & Jordyn's special day",
+    url: getBaseURL(),
+    author: [
+      {
+        '@type': 'Person',
+        name: 'Austin Porada',
+      },
+      {
+        '@type': 'Person',
+        name: 'Jordyn Porada',
+      },
+    ],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${getBaseURL()}/#guestbook`,
+      'query-input': 'required name=search_term_string',
     },
-    {
-      '@type': 'Person',
-      name: 'Jordyn Porada',
-    },
-  ],
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://theporadas.com/#guestbook',
-    'query-input': 'required name=search_term_string',
-  },
-};
+  };
+}
 
 export const photoGalleryStructuredData = {
   '@context': 'https://schema.org',

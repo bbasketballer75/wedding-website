@@ -1,9 +1,18 @@
 'use client';
 
-
-
 import { usePathname } from 'next/navigation';
 import { SEOManager } from '../../utils/seo/SEOManager';
+
+// Dynamic base URL function
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    'https://wedding-website-main-otacvg389-bbasketballer75s-projects.vercel.app'
+  );
+};
 
 /**
  * 🏗️ Structured Data Component
@@ -44,7 +53,7 @@ export default function StructuredData({
             venueName: 'Beautiful Wedding Venue',
             city: 'Wedding City',
             state: 'State',
-            image: 'https://www.theporadas.com/images/hero/wedding-cover.jpg',
+            image: `${getBaseURL()}/images/hero/wedding-cover.jpg`,
             ...customData,
           },
         });
@@ -59,8 +68,8 @@ export default function StructuredData({
             author: 'Austin & Jordyn Porada',
             datePublished: '2025-01-01',
             dateModified: new Date().toISOString(),
-            url: 'https://www.theporadas.com/story',
-            image: 'https://www.theporadas.com/images/story/love-story.jpg',
+            url: `${getBaseURL()}/story`,
+            image: `${getBaseURL()}/images/story/love-story.jpg`,
             ...customData,
           },
         });
@@ -71,10 +80,10 @@ export default function StructuredData({
           data: {
             name: 'Wedding Photo Gallery',
             description: 'Beautiful engagement and wedding photos capturing our special moments',
-            url: 'https://www.theporadas.com/gallery',
+            url: `${getBaseURL()}/gallery`,
             photos: [
               {
-                url: 'https://www.theporadas.com/images/gallery/engagement-1.jpg',
+                url: `${getBaseURL()}/images/gallery/engagement-1.jpg`,
                 caption: 'Engagement photos',
                 description: 'Beautiful engagement session photos',
               },
@@ -90,7 +99,7 @@ export default function StructuredData({
           data: {
             name: 'Austin & Jordyn Wedding Party',
             description: 'Meet the amazing people standing with us on our special day',
-            url: 'https://www.theporadas.com/wedding-party',
+            url: `${getBaseURL()}/wedding-party`,
             members: [
               {
                 '@type': 'Person',
@@ -143,8 +152,8 @@ export default function StructuredData({
       type: 'Organization',
       data: {
         name: 'The Poradas Wedding',
-        url: 'https://www.theporadas.com',
-        logo: 'https://www.theporadas.com/images/logo.png',
+        url: getBaseURL(),
+        logo: `${getBaseURL()}/images/logo.png`,
         sameAs: ['https://instagram.com/theporadas', 'https://facebook.com/theporadas'],
         founder: [
           {
@@ -170,17 +179,15 @@ export default function StructuredData({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: pageStructuredData }}
-      />
+        />
       )}
 
       {breadcrumbData && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbData }}
-      />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbData }} />
       )}
 
       {organizationData && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationData }}
-      />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationData }} />
       )}
     </>
   );

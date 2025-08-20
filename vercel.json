@@ -11,19 +11,6 @@
       "runtime": "@vercel/node@3.0.0"
     }
   },
-  "redirects": [
-    {
-      "source": "/:path*",
-      "destination": "https://www.theporadas.com/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "theporadas.com"
-        }
-      ],
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -55,7 +42,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://www.theporadas.com"
+          "value": "*"
         },
         {
           "key": "Access-Control-Allow-Methods",
@@ -69,7 +56,6 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "NEXT_PUBLIC_VERCEL_URL": "theporadas.com"
+    "NODE_ENV": "production"
   }
 }

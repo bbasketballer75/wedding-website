@@ -3,7 +3,11 @@ import type { MetadataRoute } from 'next';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://theporadas.com';
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://wedding-website-alpha-six.vercel.app');
 
   return [
     {

@@ -84,7 +84,7 @@ class AnniversaryManager {
           <p>We're just <strong>${milestone.daysUntil} days</strong> away from ${milestone.name}!</p>
           <p>Visit our memory site to see new photos and leave anniversary wishes:</p>
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://www.theporadas.com" style="background: #8B7A8A; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px;">Visit Our Memory Site</a>
+            <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://wedding-website-alpha-six.vercel.app'}" style="background: #8B7A8A; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px;">Visit Our Memory Site</a>
           </div>
         </div>
       `,

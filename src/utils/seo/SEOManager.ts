@@ -28,7 +28,11 @@ interface StructuredDataProps {
 }
 
 export class SEOManager {
-  private static readonly BASE_URL = 'https://www.theporadas.com';
+  private static readonly BASE_URL =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://wedding-website-main-otacvg389-bbasketballer75s-projects.vercel.app');
   private static readonly SITE_NAME = 'Austin & Jordyn Porada Wedding';
   private static readonly DEFAULT_IMAGE = '/images/hero/wedding-cover.jpg';
 
@@ -149,16 +153,16 @@ export class SEOManager {
             {
               '@type': 'Person',
               name: 'Austin Porada',
-              url: 'https://www.theporadas.com',
+              url: SEOManager.BASE_URL,
             },
             {
               '@type': 'Person',
               name: 'Jordyn Porada',
-              url: 'https://www.theporadas.com',
+              url: SEOManager.BASE_URL,
             },
           ],
           image: data.image || SEOManager.DEFAULT_IMAGE,
-          url: 'https://www.theporadas.com',
+          url: SEOManager.BASE_URL,
         });
 
       case 'Person':
@@ -169,7 +173,7 @@ export class SEOManager {
           familyName: data.familyName,
           spouse: data.spouse,
           image: data.image,
-          url: data.url || 'https://www.theporadas.com',
+          url: data.url || SEOManager.BASE_URL,
           sameAs: data.socialProfiles || [],
         });
 
