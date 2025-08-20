@@ -1,0 +1,134 @@
+{
+  // 🚀 BEAST MODE VSCODE CONFIGURATION - REACT/NEXT.JS
+  // Auto-generated from Austin's Global Development Environment
+  
+  // 🤖 AI ASSISTANT SETTINGS
+  "chat.tools.autoApprove": true,
+  "chat.agent.maxRequests": 100,
+  "github.copilot.chat.alternateGptPrompt.enabled": true,
+  "github.copilot.chat.serializeSessionContext": true,
+
+  "github.copilot.enable": {
+    "*": true,
+    "javascript": true,
+    "typescript": true,
+    "jsx": true,
+    "tsx": true,
+    "json": true,
+    "css": true,
+    "scss": true,
+    "html": true,
+    "markdown": true
+  },
+
+  // 🎨 REACT/NEXT.JS SPECIFIC FORMATTERS
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // ⚡ PRODUCTIVITY FEATURES
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // 🚫 ESLINT CONFIGURATION (Next.js optimized)
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // 🔥 EDITOR ENHANCEMENTS
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.preview": true,
+
+  // 🧠 TYPESCRIPT INTELLIGENCE
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.variableTypes.enabled": true,
+
+  // 🌐 REACT/JSX DEVELOPMENT
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "html.autoClosingTags": true,
+
+  // 🎯 NEXT.JS PROJECT OPTIMIZATIONS
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.next": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/coverage/**": true,
+    "**/build/**": true
+  },
+
+  // 🎨 UI PREFERENCES
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "vs-seti",
+  "explorer.confirmDelete": false,
+
+  // 🔧 TERMINAL
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.confirmOnExit": "never",
+
+  // 🔁 Automation & Security
+  "task.allowAutomaticTasks": "on",
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "window.confirmBeforeClose": "never",
+
+  // 📱 TAILWIND CSS SUPPORT
+  "tailwindCSS.includeLanguages": {
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
+}

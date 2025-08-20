@@ -1,0 +1,84 @@
+{
+  // 🚀 BEAST MODE VSCODE CONFIGURATION - GENERAL
+  // Auto-generated from Austin's Global Development Environment
+
+  // 🤖 AI ASSISTANT SETTINGS
+  "chat.tools.autoApprove": true,
+  "chat.agent.maxRequests": 100,
+  "github.copilot.chat.alternateGptPrompt.enabled": true,
+  "github.copilot.chat.serializeSessionContext": true,
+
+  "github.copilot.enable": {
+    "*": true,
+    "javascript": true,
+    "typescript": true,
+    "python": true,
+    "json": true,
+    "css": true,
+    "html": true,
+    "markdown": true
+  },
+
+  // 🎨 UNIVERSAL FORMATTERS
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // ⚡ PRODUCTIVITY FEATURES
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // 🔥 EDITOR ENHANCEMENTS
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.preview": true,
+
+  // 💾 FILE MANAGEMENT
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+
+  // 🎯 GENERAL PROJECT OPTIMIZATIONS
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/__pycache__": true,
+    "**/venv": true,
+    "**/env": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/coverage/**": true,
+    "**/build/**": true,
+    "**/__pycache__/**": true,
+    "**/venv/**": true
+  },
+
+  // 🎨 UI PREFERENCES
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "vs-seti",
+  "explorer.confirmDelete": false,
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+
+  // 🔧 TERMINAL
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.confirmOnExit": "never",
+
+  // 🔁 Automation & Security
+  "task.allowAutomaticTasks": "on",
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "window.confirmBeforeClose": "never"
+}

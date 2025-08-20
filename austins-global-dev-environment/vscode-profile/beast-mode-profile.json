@@ -1,0 +1,230 @@
+{
+  "name": "Austin's Beast Mode Development",
+  "shortName": "Beast Mode",
+  "icon": "$(rocket)",
+  "settings": {
+    "chat.tools.autoApprove": true,
+    "chat.agent.maxRequests": 100,
+    "github.copilot.chat.alternateGptPrompt.enabled": true,
+    "github.copilot.chat.serializeSessionContext": true,
+    "github.copilot.enable": {
+      "*": true,
+      "javascript": true,
+      "typescript": true,
+      "jsx": true,
+      "tsx": true,
+      "json": true,
+      "css": true,
+      "scss": true,
+      "html": true,
+      "markdown": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[jsx]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[tsx]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+      }
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 500,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "eslint.useFlatConfig": true,
+    "eslint.options": {
+      "overrideConfigFile": "eslint.config.mjs"
+    },
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.linkedEditing": true,
+    "editor.stickyScroll.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.suggest.preview": true,
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "typescript.suggest.autoImports": true,
+    "typescript.suggest.completeFunctionCalls": true,
+    "typescript.inlayHints.parameterNames.enabled": "all",
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact",
+      "typescript": "typescriptreact"
+    },
+    "html.autoClosingTags": true,
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.git": true,
+      "**/.next": true,
+      "**/coverage": true,
+      "**/dist": true
+    },
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/.next/**": true,
+      "**/coverage/**": true
+    },
+    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.iconTheme": "vs-seti",
+    "explorer.confirmDelete": false,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "terminal.integrated.confirmOnExit": "never",
+    "task.allowAutomaticTasks": "on",
+    "security.workspace.trust.enabled": true,
+    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.untrustedFiles": "open",
+    "extensions.autoUpdate": true,
+    "extensions.autoCheckUpdates": true,
+    "window.confirmBeforeClose": "never",
+    "chat.experimental.mcp.enabled": true,
+    "chat.experimental.mcp.servers": {
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+        "env": {
+          "MCP_FILESYSTEM_ALLOWED_DIRS": "."
+        }
+      },
+      "git": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "."]
+      },
+      "memory": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"]
+      },
+      "fetch": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-fetch"]
+      },
+      "time": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-time"]
+      },
+      "sequential-thinking": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      }
+    }
+  },
+  "extensions": [
+    "github.copilot",
+    "github.copilot-chat",
+    "github.copilot-labs",
+    "github.vscode-github-actions",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-json",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "zignd.html-css-class-completion",
+    "pkief.material-icon-theme",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+    "ms-vscode.hexeditor",
+    "ms-vscode.powershell",
+    "ms-vscode.remote-repositories",
+    "ms-playwright.playwright",
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+    "ms-vscode.vscode-edge-devtools",
+    "firefox-devtools.vscode-firefox-debug",
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver",
+    "ms-vscode.azure-account",
+    "googlecloudtools.cloudcode",
+    "vercel.vscode-vercel",
+    "ms-vscode.vscode-jest",
+    "kavod-io.vscode-jest-test-adapter",
+    "orta.vscode-jest",
+    "ms-vscode.vscode-coverage-gutters",
+    "sonarsource.sonarlint-vscode",
+    "ms-vscode.vscode-lighthouse",
+    "wayou.vscode-todo-highlight",
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "bierner.markdown-mermaid",
+    "ms-vscode.vscode-npm-scripts",
+    "christian-kohler.npm-intellisense",
+    "eg2.vscode-npm-script",
+    "ms-vscode.references-view"
+  ]
+}

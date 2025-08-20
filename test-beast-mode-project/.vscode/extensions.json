@@ -1,0 +1,61 @@
+{
+  "recommendations": [
+    // 🤖 AI & COPILOT EXTENSIONS
+    "github.copilot",
+    "github.copilot-chat",
+    "github.copilot-labs",
+    "github.vscode-github-actions",
+
+    // ⚛️ REACT/NEXT.JS ESSENTIALS
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "zignd.html-css-class-completion",
+
+    // 🎨 UI/UX ENHANCEMENTS
+    "pkief.material-icon-theme",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+
+    // 🔧 DEVELOPMENT TOOLS
+    "ms-vscode.powershell",
+    "ms-vscode.remote-repositories",
+    "ms-playwright.playwright",
+    "ms-vscode.test-adapter-converter",
+
+    // 📊 PRODUCTIVITY & ANALYSIS
+    "ms-vscode.vscode-edge-devtools",
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver",
+
+    // 🌐 DEPLOYMENT & CLOUD
+    "vercel.vscode-vercel",
+    "ms-vscode.azure-account",
+
+    // 🧪 TESTING & QUALITY
+    "ms-vscode.vscode-jest",
+    "orta.vscode-jest",
+    "ms-vscode.vscode-coverage-gutters",
+
+    // 🔍 CODE ANALYSIS
+    "sonarsource.sonarlint-vscode",
+    "wayou.vscode-todo-highlight",
+
+    // 📝 DOCUMENTATION
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+
+    // 🎯 SPECIALIZED TOOLS
+    "ms-vscode.vscode-npm-scripts",
+    "christian-kohler.npm-intellisense",
+    "eg2.vscode-npm-script",
+
+    // 🚀 NEXT.JS SPECIFIC
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-json"
+  ]
+}

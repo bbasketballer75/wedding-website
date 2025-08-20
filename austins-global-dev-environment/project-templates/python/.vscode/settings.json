@@ -1,0 +1,91 @@
+{
+  // 🚀 BEAST MODE VSCODE CONFIGURATION - PYTHON
+  // Auto-generated from Austin's Global Development Environment
+
+  // 🤖 AI ASSISTANT SETTINGS
+  "chat.tools.autoApprove": true,
+  "chat.agent.maxRequests": 100,
+  "github.copilot.chat.alternateGptPrompt.enabled": true,
+  "github.copilot.chat.serializeSessionContext": true,
+
+  "github.copilot.enable": {
+    "*": true,
+    "python": true,
+    "json": true,
+    "yaml": true,
+    "markdown": true
+  },
+
+  // 🐍 PYTHON SPECIFIC SETTINGS
+  "python.defaultInterpreterPath": "./venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+
+  // 🎨 FORMATTERS
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // ⚡ PRODUCTIVITY FEATURES
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // 🔥 EDITOR ENHANCEMENTS
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.preview": true,
+
+  // 🎯 PYTHON PROJECT OPTIMIZATIONS
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/__pycache__": true,
+    "**/venv": true,
+    "**/env": true,
+    "**/.pytest_cache": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/*.egg-info": true
+  },
+  "files.watcherExclude": {
+    "**/__pycache__/**": true,
+    "**/venv/**": true,
+    "**/env/**": true,
+    "**/.pytest_cache/**": true
+  },
+
+  // 🎨 UI PREFERENCES
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "vs-seti",
+  "explorer.confirmDelete": false,
+
+  // 🔧 TERMINAL
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.confirmOnExit": "never",
+
+  // 🔁 Automation & Security
+  "task.allowAutomaticTasks": "on",
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "window.confirmBeforeClose": "never"
+}
