@@ -40,7 +40,7 @@ class MemoryEmailService {
     return {
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER || 'memories@theporadas.com',
+        user: process.env.EMAIL_USER || 'memories@weddingsite.com',
         pass: process.env.EMAIL_APP_PASSWORD, // Gmail App Password
       },
     };
@@ -179,7 +179,7 @@ class MemoryEmailService {
             <li>See what other guests have shared</li>
           </ul>
 
-          <p>Visit our memory site anytime: <a href="${process.env.BASE_URL}" class="link">www.theporadas.com</a></p>
+          <p>Visit our memory site anytime: <a href="${process.env.BASE_URL}" class="link">${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'}</a></p>
 
           <p>With all our love and gratitude,</p>
         </div>
@@ -242,7 +242,7 @@ class MemoryEmailService {
 
           <p>We're building a beautiful collection of memories from everyone who celebrated with us, and your contribution makes it even more special.</p>
 
-          <p>Feel free to upload more photos anytime at: <a href="${process.env.BASE_URL}/upload" style="color: #8B4513;">www.theporadas.com/upload</a></p>
+          <p>Feel free to upload more photos anytime at: <a href="${process.env.BASE_URL}/upload" style="color: #8B4513;">${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'}/upload</a></p>
 
           <p>With heartfelt appreciation,</p>
         </div>
@@ -315,7 +315,7 @@ class MemoryEmailService {
 
           <p>Thank you for continuing to be part of our journey together.</p>
 
-          <p>Visit: <a href="${process.env.BASE_URL}" style="color: #8B4513;">www.theporadas.com</a></p>
+          <p>Visit: <a href="${process.env.BASE_URL}" style="color: #8B4513;">${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'}</a></p>
 
           <p>With love and gratitude,</p>
         </div>
@@ -338,7 +338,7 @@ Thank you so much for your beautiful message in our wedding guestbook! Your word
 
 Your message: "${guestEntry.message}"
 
-We're so grateful to have you as part of our journey together. Please visit our memory site anytime at www.theporadas.com to view more photos and share additional memories.
+We're so grateful to have you as part of our journey together. Please visit our memory site anytime at ${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'} to view more photos and share additional memories.
 
 With all our love,
 Austin & Jordyn Porada
@@ -351,7 +351,7 @@ Dear ${photoUpload.uploaderName},
 
 Thank you for sharing your photos from our wedding day! We're thrilled to see our special moments through your eyes.
 
-Your photos will be reviewed and added to our memory collection soon. Feel free to upload more anytime at www.theporadas.com/upload.
+Your photos will be reviewed and added to our memory collection soon. Feel free to upload more anytime at ${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'}/upload.
 
 With heartfelt appreciation,
 Austin & Jordyn Porada
@@ -364,7 +364,7 @@ Dear Friends and Family,
 
 Today marks ${anniversaryData.yearsAgo} wonderful year${anniversaryData.yearsAgo !== 1 ? 's' : ''} since our wedding day! We wanted to share this special milestone with everyone who made our day so memorable.
 
-Visit our memory site at www.theporadas.com to relive the beautiful moments and share any new memories.
+Visit our memory site at ${process.env.BASE_URL?.replace('https://', '') || 'wedding-website-alpha-six.vercel.app'} to relive the beautiful moments and share any new memories.
 
 Thank you for continuing to be part of our journey together.
 

@@ -43,8 +43,9 @@ export const CORS_ORIGINS = [
   `http://${HOSTS.LOCAL}:3001`, // Common dev server port
   `http://${HOSTS.LOCAL}:3005`, // Alternative dev server port
   `http://${HOSTS.LOCAL}:${PORTS.STORYBOOK}`, // For Storybook integration
-  'https://www.theporadas.com',
-  'https://theporadas.com',
+  process.env.NEXT_PUBLIC_BASE_URL || 'https://wedding-website-alpha-six.vercel.app',
+  process.env.NEXT_PUBLIC_BASE_URL?.replace('https://www.', 'https://') ||
+    'https://wedding-website-alpha-six.vercel.app',
   'http://localhost:3001',
 ];
 
